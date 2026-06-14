@@ -47,6 +47,8 @@ For the **logical-consistency** stage you also need Java on your PATH (JDK/JRE
 - `HermiT.jar`
 - `robot.jar` (ROBOT)
 
+The required `.jar` files (`HermiT.jar` and `robot.jar`) are available under the GitHub **Releases** section in release **v1.0.0**.
+
 Confirm Java works with `java -version`. The jars are picked up automatically
 if they sit in the working directory (or next to `rigor_app.py`); otherwise
 enter their paths in the UI. Detection vs. repair:
