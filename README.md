@@ -107,17 +107,23 @@ zones: a seed core ontology to grow, supporting documents for retrieval, and
 external ontologies to align with. Leaving any of these empty simply disables
 the corresponding behavior (see *Behavior with missing optional inputs*).
 
-![Optional context upload zones](screenshots/2.png)
+<p align="center">
+  <img src="./figs/2.png" height="400">
+</p>
 
 **3. Schema input.** The main drop zone accepts a CSV (types are inferred) or a
 SQL schema JSON.
 
-![Schema upload zone](screenshots/3.png)
+<p align="center">
+  <img src="./figs/3.png" height="400">
+</p>
 
 **4. Settings filled in.** An OpenRouter key is entered (masked) and a model is
 selected. The key is held in memory for the session only.
 
-![Settings with key and model](screenshots/4.png)
+<p align="center">
+  <img src="./figs/4.png" height="400">
+</p>
 
 **5. Context loaded and schema summarized.** Three documents
 (`sample_docs_music_*.md`) and two external ontologies
@@ -126,24 +132,32 @@ selected. The key is held in memory for the session only.
 JSON with three tables — `artist` (PK `artist_id`), `album` (PK `album_id`,
 1 FK), `track` (PK `track_id`, 1 FK) — and **No obvious issues detected**.
 
-![Loaded context and schema summary](screenshots/5.png)
+<p align="center">
+  <img src="./figs/5.png" height="400">
+</p>
 
 **6. Run started.** Clicking *Run pipeline* streams progress live; the elapsed
 timer is visible in the corner.
 
-![Run started, progress streaming](screenshots/6.png)
+<p align="center">
+  <img src="./figs/6.png" height="400">
+</p>
 
 **7. Early progress.** The jars are auto-detected, the schema loads (3 tables),
 the local embedding model (`all-MiniLM-L6-v2`) initializes, and the two FAISS
 indexes are built — 5 document chunks and 12 external-ontology chunks.
 
-![Early progress log](screenshots/7.png)
+<p align="center">
+  <img src="./figs/7.png" height="400">
+</p>
 
 **8. Finishing up.** The OOPS! repair loop runs its iterations, the OOPS-based
 cleanup and final validation complete, and the run reports **Done**. The final
 ontology (`sample_schema_final_ontology.owl`) is offered for download.
 
-![Final progress and download](screenshots/8.png)
+<p align="center">
+  <img src="./figs/8.png" height="400">
+</p>
 
 **9. Turtle preview.** The generated ontology with prefixes, an `owl:Ontology`
 node carrying `prov:generatedAtTime`, the external `music#MusicAlbum` class, the
@@ -151,7 +165,9 @@ aligned `releaseDate` / `releasedBy` properties, and a `track_hasAlbum` object
 property with a label, comment, and `prov:wasDerivedFrom` provenance back to the
 originating foreign key.
 
-![Turtle preview](screenshots/9.png)
+<p align="center">
+  <img src="./figs/9.png" height="400">
+</p>
 
 **10. Visualization.** The WebVOWL-style graph. `Album` links by `subClassOf`
 to the external `MusicAlbum` node (shown in the distinct external color), three
@@ -159,7 +175,9 @@ property alignments appear as edge labels, and the legend plus the summary line
 (classes, properties, restrictions, disjointness, external alignments, edges)
 describe the rest. You can also download the graph as standalone HTML.
 
-![Ontology visualization](screenshots/10.png)
+<p align="center">
+  <img src="./figs/10.png" height="400">
+</p>
 
 ## Requirements & limitations
 
