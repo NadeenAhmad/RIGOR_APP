@@ -99,7 +99,7 @@ correction retries (k), the cleanup toggles (logical consistency, OOPS! repair,
 also-repair-important), and optional jar paths.
 
 <p align="center">
-  <img src="./figs/1.png" height="180">
+  <img src="./figs/1.png" height="400">
 </p>
 
 **2. Optional context (advanced).** Three independent, all-optional upload
