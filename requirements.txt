@@ -1,0 +1,29 @@
+# RIGOR app dependencies.
+#
+# REQUIRES Python <= 3.12 (PyTorch has no wheels for 3.13+; Intel macOS is
+# capped at torch 2.2.2). Use the same Python you developed RIGOR with.
+
+gradio>=4.0
+rdflib>=7.0
+requests>=2.31
+openai>=1.0
+chardet>=5.0
+faiss-cpu>=1.9
+
+# --- NumPy: torch 2.2.2 (Intel macOS) requires NumPy < 2; elsewhere 2.x is fine.
+numpy>=1.25,<2 ; platform_machine == "x86_64" and sys_platform == "darwin"
+numpy>=1.24 ; platform_machine != "x86_64" or sys_platform != "darwin"
+
+# --- ML stack.
+# Intel macOS is stuck at torch 2.2.2, so transformers / sentence-transformers
+# must be from the matching era (newer ones require torch >= 2.4 and break here).
+torch==2.2.2 ; platform_machine == "x86_64" and sys_platform == "darwin"
+transformers==4.44.2 ; platform_machine == "x86_64" and sys_platform == "darwin"
+sentence-transformers==3.0.1 ; platform_machine == "x86_64" and sys_platform == "darwin"
+# Apple Silicon / Linux: any recent build resolves fine.
+torch>=2.2 ; platform_machine != "x86_64" or sys_platform != "darwin"
+sentence-transformers>=2.2 ; platform_machine != "x86_64" or sys_platform != "darwin"
+
+# optional document loaders (only if you feed RIGOR a docs folder)
+python-docx>=1.1
+PyPDF2>=3.0
