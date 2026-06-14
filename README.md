@@ -98,7 +98,9 @@ images resolve.
 correction retries (k), the cleanup toggles (logical consistency, OOPS! repair,
 also-repair-important), and optional jar paths.
 
-![Landing page and settings](screenshots/1.png)
+<p align="center">
+  <img src="./figs/1.png" height="90">
+</p>
 
 **2. Optional context (advanced).** Three independent, all-optional upload
 zones: a seed core ontology to grow, supporting documents for retrieval, and
