@@ -1,0 +1,53 @@
+@prefix mo:   <http://example.org/ext/music#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ext/music> a owl:Ontology ;
+    rdfs:label "Toy Music Ontology"@en ;
+    rdfs:comment "A small example music vocabulary for alignment demos."@en .
+
+# ---- Classes ----
+
+mo:MusicArtist a owl:Class ;
+    rdfs:label "Music Artist"@en ;
+    rdfs:comment "A performing act, solo or group, that creates recorded music."@en .
+
+mo:MusicAlbum a owl:Class ;
+    rdfs:label "Music Album"@en ;
+    rdfs:comment "A published collection of recordings released by a music artist."@en .
+
+mo:MusicRecording a owl:Class ;
+    rdfs:label "Music Recording"@en ;
+    rdfs:comment "A single recorded piece of music; a track that appears on an album."@en .
+
+# ---- Object properties ----
+
+mo:releasedBy a owl:ObjectProperty ;
+    rdfs:label "released by"@en ;
+    rdfs:comment "Relates a music album to the artist that released it."@en ;
+    rdfs:domain mo:MusicAlbum ;
+    rdfs:range  mo:MusicArtist .
+
+mo:appearsOn a owl:ObjectProperty ;
+    rdfs:label "appears on"@en ;
+    rdfs:comment "Relates a music recording to the album it appears on."@en ;
+    rdfs:domain mo:MusicRecording ;
+    rdfs:range  mo:MusicAlbum .
+
+# ---- Datatype properties ----
+
+mo:title a owl:DatatypeProperty ;
+    rdfs:label "title"@en ;
+    rdfs:comment "The title of an album or recording."@en ;
+    rdfs:range xsd:string .
+
+mo:releaseDate a owl:DatatypeProperty ;
+    rdfs:label "release date"@en ;
+    rdfs:comment "The calendar date on which an album was released."@en ;
+    rdfs:range xsd:date .
+
+mo:durationMilliseconds a owl:DatatypeProperty ;
+    rdfs:label "duration in milliseconds"@en ;
+    rdfs:comment "Playback duration of a recording, measured in milliseconds."@en ;
+    rdfs:range xsd:integer .

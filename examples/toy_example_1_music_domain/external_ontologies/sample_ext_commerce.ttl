@@ -1,0 +1,31 @@
+@prefix com:  <http://example.org/ext/commerce#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ext/commerce> a owl:Ontology ;
+    rdfs:label "Toy Commerce Ontology"@en ;
+    rdfs:comment "A small example commerce vocabulary for pricing concepts."@en .
+
+# ---- Classes ----
+
+com:PricedItem a owl:Class ;
+    rdfs:label "Priced Item"@en ;
+    rdfs:comment "Anything offered for sale that carries a retail price."@en .
+
+com:MonetaryAmount a owl:Class ;
+    rdfs:label "Monetary Amount"@en ;
+    rdfs:comment "A value of money expressed in a currency."@en .
+
+# ---- Datatype properties ----
+
+com:unitPrice a owl:DatatypeProperty ;
+    rdfs:label "unit price"@en ;
+    rdfs:comment "The retail price charged for a single priced item, as a decimal currency value."@en ;
+    rdfs:domain com:PricedItem ;
+    rdfs:range  xsd:decimal .
+
+com:currencyCode a owl:DatatypeProperty ;
+    rdfs:label "currency code"@en ;
+    rdfs:comment "ISO 4217 currency code for a monetary amount, e.g. USD."@en ;
+    rdfs:range xsd:string .
