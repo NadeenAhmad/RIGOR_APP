@@ -31,9 +31,6 @@ Use **Python ≤ 3.12** (PyTorch has no wheels for 3.13+ yet, and none for Intel
 macOS past torch 2.2.2). The simplest reliable setup is a Python 3.12 venv:
 
 ```bash
-python3.12 -m venv .venv
-source .venv/bin/activate
-pip install -U pip
 pip install -r requirements.txt
 ```
 
