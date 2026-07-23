@@ -154,3 +154,93 @@ if __name__ == "__main__":
         clean_ontology_file(sys.argv[1], sys.argv[2])
     else:
         print("Usage: python validate_fix_ontology_syntax.py <input.ttl> <output.ttl>")
+
+# ---------------------------------------------------------------------------
+# Format-agnostic file entry point used by the Gradio app
+# ---------------------------------------------------------------------------
+def _candidate_formats(path: str):
+    from pathlib import Path
+    from rdflib.util import guess_format
+    candidates = []
+    guessed = guess_format(path)
+    if guessed:
+        candidates.append(guessed)
+    try:
+        head = Path(path).read_bytes()[:4096].lstrip().lower()
+        if head.startswith(b"<?xml") or b"<rdf:rdf" in head:
+            candidates.insert(0, "xml")
+        elif head.startswith((b"@prefix", b"prefix", b"base")):
+            candidates.insert(0, "turtle")
+        elif head.startswith((b"{", b"[")):
+            candidates.insert(0, "json-ld")
+    except OSError:
+        pass
+    for fmt in ("xml", "turtle", "json-ld", "nt", "n3", "trig", "trix"):
+        if fmt not in candidates:
+            candidates.append(fmt)
+    return candidates
+
+
+def load_or_repair_ontology(path: str, *, allow_llm: bool = True, max_chars: int = 180_000):
+    """Load any common RDF serialization and return ``(Graph, format, note)``.
+
+    When all parsers fail and an API key is configured, the model is asked to
+    convert/fix the source into valid Turtle. The repaired Turtle is parsed
+    before it is returned; an unparseable model response is never accepted.
+    """
+    from pathlib import Path
+    import api_utils
+
+    errors = []
+    for fmt in _candidate_formats(path):
+        graph = Graph()
+        try:
+            graph.parse(path, format=fmt)
+            return graph, fmt, "parsed"
+        except Exception as exc:  # noqa: BLE001
+            errors.append(f"{fmt}: {exc}")
+
+    if not allow_llm:
+        raise RuntimeError("Could not parse ontology: " + " | ".join(errors))
+
+    text = Path(path).read_text(encoding="utf-8", errors="replace")
+    if len(text) > max_chars:
+        raise RuntimeError(
+            "The ontology is malformed and too large for whole-file syntax repair. "
+            "Please validate/convert it with an RDF editor first. Parse errors: "
+            + " | ".join(errors[:3])
+        )
+
+    prompt = f"""You are an RDF/OWL syntax repair expert.
+The source below could not be parsed in any common RDF serialization.
+Convert it to syntactically valid Turtle while preserving every recoverable
+ontology assertion and IRI.
+
+Strict rules:
+- Do not invent ontology entities or example placeholders.
+- Preserve labels, comments, provenance, alignments, restrictions and metadata.
+- Repair syntax only; do not redesign ontology semantics.
+- Return only Turtle between the markers.
+
+Parser errors:
+{chr(10).join(errors[:6])}
+
+Source:
+{text}
+
+###start_turtle###
+###end_turtle###
+"""
+    raw = api_utils.send_prompt_raw(
+        prompt, persona="RDF and OWL syntax repair expert", step_name="ontology_file_syntax_repair"
+    )
+    blocks = extract_between_markers(raw, "###start_turtle###", "###end_turtle###")
+    if not blocks:
+        raise RuntimeError("The syntax-repair model did not return a Turtle block.")
+    repaired = blocks[0].strip()
+    graph = Graph()
+    try:
+        graph.parse(data=repaired, format="turtle")
+    except Exception as exc:
+        raise RuntimeError(f"The syntax-repair model returned invalid Turtle: {exc}") from exc
+    return graph, "turtle", "llm_repaired"

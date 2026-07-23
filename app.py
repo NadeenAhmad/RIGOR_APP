@@ -99,6 +99,7 @@ MODELS = {
     "claude":   "anthropic/claude-opus-4-6",
     "mistral":  "mistralai/mistral-small-24b-instruct-2501",
     "deepseek": "deepseek/deepseek-chat",
+   
 }
 
 

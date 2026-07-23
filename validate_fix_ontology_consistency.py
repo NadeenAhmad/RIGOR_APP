@@ -104,17 +104,46 @@ def short(s: str, n: int = 2000) -> str:
 # Subprocess helper
 # =============================================================================
 
+# Hard ceiling so that no external process (for example a ROBOT/HermiT JVM stuck
+# resolving owl:imports over the network, or a reasoner that will not terminate)
+# can block the worker thread — and therefore the whole Gradio UI — forever.
+# Individual callers may still pass a smaller timeout_sec.
+DEFAULT_CMD_TIMEOUT_SEC = 300
+
+
 def run_cmd(cmd: List[str], *, timeout_sec: Optional[int] = None) -> Tuple[int, str, str]:
-    """Run command and return (rc, stdout, stderr)."""
-    p = subprocess.run(
-        cmd,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        timeout=timeout_sec,
-        check=False,
-    )
-    return p.returncode, (p.stdout or ""), (p.stderr or "")
+    """Run command and return (rc, stdout, stderr).
+
+    Always bounded: when ``timeout_sec`` is not supplied, ``DEFAULT_CMD_TIMEOUT_SEC``
+    is applied. A timeout is reported as an ordinary non-zero result (return code
+    124, the conventional timeout exit code) instead of raising, so existing
+    callers treat it like any other tool error and the pipeline degrades
+    gracefully rather than hanging.
+    """
+    if timeout_sec is None:
+        timeout_sec = DEFAULT_CMD_TIMEOUT_SEC
+    try:
+        p = subprocess.run(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=timeout_sec,
+            check=False,
+        )
+        return p.returncode, (p.stdout or ""), (p.stderr or "")
+    except subprocess.TimeoutExpired as exc:
+        out = exc.stdout or ""
+        err = exc.stderr or ""
+        if isinstance(out, bytes):
+            out = out.decode("utf-8", "replace")
+        if isinstance(err, bytes):
+            err = err.decode("utf-8", "replace")
+        err = (
+            f"{err}\n[run_cmd] command timed out after {timeout_sec}s: "
+            f"{' '.join(str(c) for c in cmd)}"
+        ).strip()
+        return 124, out, err
 
 
 # =============================================================================

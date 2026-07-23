@@ -138,12 +138,11 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
             external = bool(local_ns) and not nid.startswith(local_ns)
             if external:
                 nodes[nid] = {"id": nid, "label": _label(g, term), "title": nid,
-                              "shape": "ellipse", "color": _COLOR_EXTERNAL,
-                              "group": "external", "borderWidth": 2,
-                              "shapeProperties": {"borderDashes": [6, 4]}}
+                              "shape": "ellipse", "color": _COLOR_EXTERNAL, "borderWidth": 2,
+"shapeProperties": {"borderDashes": [6, 4]}}
             else:
                 nodes[nid] = {"id": nid, "label": _label(g, term), "title": nid,
-                              "shape": "ellipse", "color": _COLOR_CLASS, "group": "class"}
+                             "shape": "ellipse", "color": _COLOR_CLASS}
         return nid
 
     def add_datatype(term) -> str:
@@ -154,7 +153,7 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
         dt_counter += 1
         nid = f"dt::{dt_counter}::{term}"
         nodes[nid] = {"id": nid, "label": _local(term), "title": str(term),
-                      "shape": "box", "color": _COLOR_DATATYPE, "group": "datatype"}
+                      "shape": "box", "color": _COLOR_DATATYPE}
         return nid
 
     def add_filler(term) -> str:
@@ -168,7 +167,7 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
         lit_counter += 1
         nid = f"lit::{lit_counter}"
         nodes[nid] = {"id": nid, "label": str(term), "title": str(term),
-                      "shape": "box", "color": _COLOR_DATATYPE, "group": "datatype"}
+                     "shape": "box", "color": _COLOR_DATATYPE}
         return nid
 
     key_props = _key_properties(g)
@@ -338,9 +337,9 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
                 edges.append(e)
 
     stats = {
-        "classes": sum(1 for n in nodes.values() if n["group"] == "class"),
-        "external": sum(1 for n in nodes.values() if n["group"] == "external"),
-        "datatypes": sum(1 for n in nodes.values() if n["group"] == "datatype"),
+        "classes": sum(1 for n in nodes.values() if n.get("shape")=="ellipse" and "shapeProperties" not in n),
+        "external": sum(1 for n in nodes.values() if n.get("shape")=="ellipse" and "shapeProperties" in n),
+        "datatypes": sum(1 for n in nodes.values() if n.get("shape")=="box"),
         "object_props": n_obj,
         "datatype_props": n_dt,
         "restrictions": n_restr,
@@ -375,7 +374,7 @@ def _full_html(nodes: list, edges: list) -> str:
   <div><span class="sw" style="background:{_COLOR_OBJ_EDGE}"></span>object / datatype property</div>
   <div><span class="sw" style="background:{_COLOR_SUBCLASS}"></span>subClassOf (dashed)</div>
   <div><span class="sw" style="background:{_COLOR_RESTRICTION}"></span>restriction (∀ / ∃, dashed)</div>
-  <div><span class="sw" style="background:{_COLOR_EQUIV}"></span>equivalentClass / skos exact·closeMatch</div>
+  <div><span class="sw" style="background:{_COLOR_EQUIV}"></span>equivalentClass / skos exact·closeMatch (dashed)</div>
   <div><span class="sw" style="background:{_COLOR_DISJOINT}"></span>disjointWith</div>
   <div style="margin-top:4px;color:#777">Property alignments (≡ ⊑ ≈) appear on the property's edge label.</div>
 </div>
@@ -394,10 +393,11 @@ def _full_html(nodes: list, edges: list) -> str:
     var nodes = new vis.DataSet(data.nodes);
     var edges = new vis.DataSet(data.edges);
     new vis.Network(container, {{nodes: nodes, edges: edges}}, {{
-      nodes: {{ font: {{ size: 14 }}, borderWidth: 1, shadow: false }},
+     nodes: {{ font: {{ size: 14 }}, borderWidth: 1, shadow: false }},
+      groups: {{ useDefaultGroups: false }},
       edges: {{ font: {{ size: 10, align: 'middle', color: '#555',
                          strokeWidth: 3, strokeColor: '#ffffff' }},
-               smooth: {{ type: 'dynamic' }}, color: {{ inherit: false }} }},
+               smooth: {{ type: 'dynamic' }}, color: {{ inherit: false, highlight: '#f39c12', hover: '#f39c12' }} }},
       physics: {{ stabilization: {{ iterations: 250 }},
                  barnesHut: {{ springLength: 150, gravitationalConstant: -3500 }} }},
       interaction: {{ hover: true, tooltipDelay: 120, multiselect: true }}
