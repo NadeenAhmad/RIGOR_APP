@@ -1,0 +1,129 @@
+{
+  "categories": {
+    "columns": {
+      "categoryID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "categoryName": { "type": "TEXT", "not_null": true },
+      "description": { "type": "TEXT" }
+    },
+    "foreign_keys": []
+  },
+  "suppliers": {
+    "columns": {
+      "supplierID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "companyName": { "type": "TEXT", "not_null": true },
+      "contactName": { "type": "TEXT" },
+      "contactTitle": { "type": "TEXT" },
+      "address": { "type": "TEXT" },
+      "city": { "type": "TEXT" },
+      "region": { "type": "TEXT" },
+      "postalCode": { "type": "TEXT" },
+      "country": { "type": "TEXT" },
+      "phone": { "type": "TEXT" },
+      "fax": { "type": "TEXT" },
+      "homePage": { "type": "TEXT" }
+    },
+    "foreign_keys": []
+  },
+  "shippers": {
+    "columns": {
+      "shipperID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "companyName": { "type": "TEXT", "not_null": true },
+      "phone": { "type": "TEXT" }
+    },
+    "foreign_keys": []
+  },
+  "customers": {
+    "columns": {
+      "customerID": { "type": "TEXT", "primary_key": true, "not_null": true },
+      "companyName": { "type": "TEXT", "not_null": true },
+      "contactName": { "type": "TEXT" },
+      "contactTitle": { "type": "TEXT" },
+      "address": { "type": "TEXT" },
+      "city": { "type": "TEXT" },
+      "region": { "type": "TEXT" },
+      "postalCode": { "type": "TEXT" },
+      "country": { "type": "TEXT" },
+      "phone": { "type": "TEXT" },
+      "fax": { "type": "TEXT" }
+    },
+    "foreign_keys": []
+  },
+  "employees": {
+    "columns": {
+      "employeeID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "lastName": { "type": "TEXT", "not_null": true },
+      "firstName": { "type": "TEXT", "not_null": true },
+      "title": { "type": "TEXT" },
+      "titleOfCourtesy": { "type": "TEXT" },
+      "birthDate": { "type": "DATETIME" },
+      "hireDate": { "type": "DATETIME" },
+      "address": { "type": "TEXT" },
+      "city": { "type": "TEXT" },
+      "region": { "type": "TEXT" },
+      "postalCode": { "type": "TEXT" },
+      "country": { "type": "TEXT" },
+      "homePhone": { "type": "TEXT" },
+      "extension": { "type": "TEXT" },
+      "notes": { "type": "TEXT" },
+      "reportsTo": { "type": "INTEGER" },
+      "photoPath": { "type": "TEXT" }
+    },
+    "foreign_keys": [
+      { "column": "reportsTo", "references_table": "employees", "references_column": "employeeID" }
+    ]
+  },
+  "products": {
+    "columns": {
+      "productID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "productName": { "type": "TEXT", "not_null": true },
+      "supplierID": { "type": "INTEGER" },
+      "categoryID": { "type": "INTEGER" },
+      "quantityPerUnit": { "type": "TEXT" },
+      "unitPrice": { "type": "DECIMAL" },
+      "unitsInStock": { "type": "INTEGER" },
+      "unitsOnOrder": { "type": "INTEGER" },
+      "reorderLevel": { "type": "INTEGER" },
+      "discontinued": { "type": "BOOLEAN" }
+    },
+    "foreign_keys": [
+      { "column": "supplierID", "references_table": "suppliers", "references_column": "supplierID" },
+      { "column": "categoryID", "references_table": "categories", "references_column": "categoryID" }
+    ]
+  },
+  "orders": {
+    "columns": {
+      "orderID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "customerID": { "type": "TEXT" },
+      "employeeID": { "type": "INTEGER" },
+      "orderDate": { "type": "DATETIME" },
+      "requiredDate": { "type": "DATETIME" },
+      "shippedDate": { "type": "DATETIME" },
+      "shipVia": { "type": "INTEGER" },
+      "freight": { "type": "DECIMAL" },
+      "shipName": { "type": "TEXT" },
+      "shipAddress": { "type": "TEXT" },
+      "shipCity": { "type": "TEXT" },
+      "shipRegion": { "type": "TEXT" },
+      "shipPostalCode": { "type": "TEXT" },
+      "shipCountry": { "type": "TEXT" }
+    },
+    "foreign_keys": [
+      { "column": "customerID", "references_table": "customers", "references_column": "customerID" },
+      { "column": "employeeID", "references_table": "employees", "references_column": "employeeID" },
+      { "column": "shipVia", "references_table": "shippers", "references_column": "shipperID" }
+    ]
+  },
+  "order_details": {
+    "columns": {
+      "orderID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "productID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "unitPrice": { "type": "DECIMAL", "not_null": true },
+      "quantity": { "type": "INTEGER", "not_null": true },
+      "discount": { "type": "DECIMAL", "not_null": true }
+    },
+    "foreign_keys": [
+      { "column": "orderID", "references_table": "orders", "references_column": "orderID" },
+      { "column": "productID", "references_table": "products", "references_column": "productID" }
+    ]
+  }
+}
