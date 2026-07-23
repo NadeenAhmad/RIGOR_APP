@@ -157,7 +157,15 @@ originating foreign key.
 
 ![Turtle preview](screenshots/9.png)
 
-**10. Visualization.** The WebVOWL-style graph. `Album` links by `subClassOf`
+**10. Focused semantic review (when needed).** For pitfalls that can change
+domain meaning, the app shows pitfall-specific choices instead of applying a
+silent fix. Users may approve selected axioms, add alternatives from ontology
+entities, reject the proposal, or leave it unresolved. Accepted changes are
+revalidated before a separate reviewed ontology and decision report are made
+available.
+![Ontology visualization](screenshots/11.png)
+
+**11. Visualization.** The WebVOWL-style graph. `Album` links by `subClassOf`
 to the external `MusicAlbum` node (shown in the distinct external color), three
 property alignments appear as edge labels, and the legend plus the summary line
 (classes, properties, restrictions, disjointness, external alignments, edges)
@@ -165,12 +173,7 @@ describe the rest. You can also download the graph as a standalone HTML.
 
 ![Ontology visualization](screenshots/10.png)
 
-**11. Focused semantic review (when needed).** For pitfalls that can change
-domain meaning, the app shows pitfall-specific choices instead of applying a
-silent fix. Users may approve selected axioms, add alternatives from ontology
-entities, reject the proposal, or leave it unresolved. Accepted changes are
-revalidated before a separate reviewed ontology and decision report are made
-available.
+
 
 ## Requirements & limitations
 
