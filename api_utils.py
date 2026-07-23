@@ -142,6 +142,67 @@ def send_prompt(prompt: str, persona: str, step_name: str, max_retries: int = 3,
             return None
 
 
+
+def send_prompt_raw(prompt: str, persona: str, step_name: str, max_retries: int = 3, wait_time: int = 20, max_tokens: int = None) -> str:
+    """Send a prompt and return the model response verbatim.
+
+    Use this for structured multi-block protocols (for example decision + add +
+    delete markers). Unlike ``send_prompt``, it does not extract or rewrite any
+    marker block.
+    """
+    if not API_KEY:
+        raise RuntimeError(
+            "OpenRouter API key is not set. Configure it in the app settings "
+            "(it is kept in memory for this session only)."
+        )
+
+    system_prompt = {
+        "role": "system",
+        "content": (
+            f"{persona}\n"
+            "Follow the exact output markers requested in the user prompt. "
+            "Do not add prose outside those markers."
+        ),
+    }
+    user_prompt = {"role": "user", "content": prompt}
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = requests.post(
+                OPENROUTER_API_URL,
+                headers={
+                    "Authorization": f"Bearer {API_KEY}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": MODEL,
+                    "messages": [system_prompt, user_prompt],
+                    "max_tokens": max_tokens if max_tokens is not None else MAX_TOKENS,
+                },
+                timeout=180,
+            )
+        except requests.RequestException as exc:
+            if attempt < max_retries:
+                time.sleep(wait_time)
+                continue
+            raise RuntimeError(f"Network error contacting OpenRouter ({step_name}): {exc}") from exc
+
+        if response.status_code == 200:
+            reply = response.json()["choices"][0]["message"]["content"]
+            print(f"\n--- MODEL RESPONSE ({step_name}) ---\n{reply[:500]}...\n")
+            if SAVE_OUTPUTS:
+                try:
+                    save_output_to_file(reply, f"{step_name}.txt")
+                except Exception as exc:
+                    print(f"⚠️ Could not save debug output: {exc}")
+            return reply
+        if response.status_code == 429 and attempt < max_retries:
+            time.sleep(wait_time)
+            continue
+        raise RuntimeError(f"OpenRouter error {response.status_code}: {response.text[:500]}")
+
+    raise RuntimeError(f"OpenRouter request failed for {step_name}")
+
 def load_ontology_as_context(ontology_file: str) -> str:
     """Load the current full ontology .ttl file as text for LLM context."""
     try:
