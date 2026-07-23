@@ -7,7 +7,7 @@
 **RIGOR** (*Retrieval-augmented Iterative Generation of RDB Ontologies*) is an
 LLM-driven approach that turns relational database schemas into rich OWL 2 DL
 ontologies with minimal human effort. Rather than requiring an engineer to model
-an ontology by hand — or settling for the bare structure a direct mapping
+an ontology by hand, or settling for the bare structure, a direct mapping
 produces — RIGOR combines three sources through Retrieval-Augmented Generation
 (RAG): the database schema together with its documentation, a repository of
 existing domain ontologies, and a growing *core* ontology. It prompts a
@@ -29,7 +29,7 @@ this README.
 ## Install
 
 Use **Python ≤ 3.12** (PyTorch has no wheels for 3.13+ yet, and none for Intel
-macOS past torch 2.2.2). The simplest reliable setup is a Python 3.12 venv:
+macOS past Torch 2.2.2). The simplest reliable setup is a Python 3.12 venv:
 
 ```bash
 python3.12 -m venv .venv
@@ -42,21 +42,21 @@ pip install -r requirements.txt
 torch) plus Gradio. The torch line is pinned per architecture automatically:
 torch 2.2.2 on Intel macOS, any recent torch elsewhere.
 
-For the **logical-consistency** stage you also need Java on your PATH (JDK/JRE
+For the **logical-consistency** stage, you also need Java on your PATH (JDK/JRE
 **11+**, which covers both ROBOT and HermiT) plus two jars:
 
 - `HermiT.jar`
 - `robot.jar` (ROBOT)
 
 Confirm Java works with `java -version`. The jars are picked up automatically
-if they sit in the working directory (or next to `rigor_app.py`); otherwise
+if they sit in the working directory (or next to `rigor_app.py`); otherwise,
 enter their paths in the UI. Detection vs. repair:
 
 - HermiT deterministic fixes and ROBOT reasoning run **without** an API key.
 - The actual inconsistency *repair* loop calls the LLM, so it only fixes
   things when an OpenRouter key is set.
 
-If Java or a jar is missing, the stage is skipped with a clear message and the
+If Java or a jar is missing, the stage is skipped with a clear message, and the
 ontology is passed through unchanged.
 
 The logo shown in the header is loaded from `rigor_logo.png` next to
@@ -71,14 +71,14 @@ python rigor_app.py
 
 Then open the printed local URL. This app is intended to run **locally for a
 single user**; it is not hardened for shared multi-user hosting (the API key
-and model are held in process memory for the session, not isolated per user).
+and models are held in session memory, not isolated per user).
 
 ## Using the app
 
-1. **Upload** a CSV (types are inferred and a schema is synthesised) or a SQL
+1. **Upload** a CSV (types are inferred and a schema is synthesized) or a SQL
    schema JSON.
 2. Review the **summary**: rows, columns, detected types, missing values, a
-   preview, and any warnings (e.g. no primary key detected).
+   preview, and any warnings (e.g., no primary key detected).
 3. In **Settings**, paste your OpenRouter API key, pick a model, and enable the
    required validation stages.
 4. Click **Run pipeline**. Progress streams live with elapsed time and a coarse
@@ -90,7 +90,7 @@ and model are held in process memory for the session, not isolated per user).
    expand the Turtle preview, or render the interactive graph.
 
 To repair an ontology without generating one from a schema, use the
-**Repair existing ontology** section and upload a supported RDF/OWL file.
+**Repair the existing ontology** section and upload a supported RDF/OWL file.
 
 ## Example walkthrough
 
@@ -138,7 +138,7 @@ timer is visible in the corner.
 ![Run started, progress streaming](screenshots/6.png)
 
 **7. Early progress.** The jars are auto-detected, the schema loads (3 tables),
-the local embedding model (`all-MiniLM-L6-v2`) initializes, and the two FAISS
+the local embedding model (`all-MiniLM-L6-v2`) is initialized, and the two FAISS
 indexes are built — 5 document chunks and 12 external-ontology chunks.
 
 ![Early progress log](screenshots/7.png)
@@ -161,7 +161,7 @@ originating foreign key.
 to the external `MusicAlbum` node (shown in the distinct external color), three
 property alignments appear as edge labels, and the legend plus the summary line
 (classes, properties, restrictions, disjointness, external alignments, edges)
-describe the rest. You can also download the graph as standalone HTML.
+describe the rest. You can also download the graph as a standalone HTML.
 
 ![Ontology visualization](screenshots/10.png)
 
@@ -179,24 +179,24 @@ available.
   alignment is **best-effort**: the model may align only some classes or
   properties, and coverage varies by model and by what retrieval surfaces.
 - **Logical consistency** (HermiT/ROBOT) requires **Java on PATH** plus
-  `HermiT.jar` and `robot.jar`. If any is missing the stage is skipped.
+  `HermiT.jar` and `robot.jar`. If any are missing, the stage is skipped.
 - **OOPS! pitfall detection** uses the public OOPS! service and therefore needs
   network access; there is no OOPS API key. Deterministic repairs do not require
   an OpenRouter key, while LLM-assisted proposals do. Repairs that may change
   domain meaning always require user confirmation.
 - Without an **API key**, generation falls back to deterministic Direct Mapping.
-  Syntax checks and enabled deterministic validation/repair stages can still run.
+  Syntax checks and deterministic validation/repair stages can still run even if syntax checks are disabled.
 
 ## Behavior with missing optional inputs
 
 Only the **schema (CSV or JSON)** is required. Every other input is optional,
 and the app degrades gracefully — it never errors out because something is
-absent; it just skips the part that needs it and tells you in the log.
+absent; it just skips the part that needs it and logs it.
 
 | Missing input | What happens |
 |---|---|
 | **OpenRouter API key** | Generation uses **deterministic Direct Mapping only**. You still get a structurally complete ontology, but no Gen-LLM enrichment, Judge step, or LLM-assisted alignment/repair. Syntax checks, OOPS! detection, and enabled deterministic fixes can still run when their other requirements are available. |
-| **External ontologies** | No alignment is produced and no external retrieval happens. Everything else runs normally; the ontology simply has no `equivalentClass` / `subClassOf` / `subPropertyOf` links to outside vocabularies. |
+| **External ontologies** | No alignment is produced, and no external retrieval happens. Everything else runs normally; the ontology simply has no `equivalentClass` / `subClassOf` / `subPropertyOf` links to outside vocabularies. |
 | **Documents** | No document retrieval. Enrichment proceeds from the schema (and the seed core ontology, if provided) without extra textual context. |
 | **Seed core ontology** | The run starts from an empty core and builds entirely from the schema — this is the normal case. |
 | **Java / `HermiT.jar` / `robot.jar`** | The logical-consistency stage is **skipped** with a message; the ontology passes through unchanged. (Note: even with the jars, the consistency *repair* loop needs the API key — without a key it can report issues but not fix them.) |
