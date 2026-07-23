@@ -1,0 +1,1677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:prov="http://www.w3.org/ns/prov#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+>
+  <rdf:Description rdf:about="http://example.org/ontology#shippers_phone">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Phone</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'shippers.phone' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Telephone number of the shipping company.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Shippers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:equivalentProperty rdf:resource="http://xmlns.com/foaf/0.1/phone"/>
+    <skos:altLabel xml:lang="en">phone</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/shippers/phone"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b114">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_lastName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_shipPostalCode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">ship Postal Code</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'orders.shipPostalCode' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Postal or ZIP code the order is shipped to.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">ship to postal code</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/shipPostalCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b33">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_companyName"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#customers_companyName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Company Name</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'customers.companyName' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Legal or trading name of the customer company.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Customers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">company Name</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers/companyName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#customers_city">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">City</rdfs:label>
+    <rdfs:comment xml:lang="en">City of the customer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'customers.city' with range xsd:string.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Customers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">city</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers/city"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#products_unitsOnOrder">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">units On Order</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'products.unitsOnOrder' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The number of units that have been ordered from the supplier but not yet received.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Products"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <skos:altLabel xml:lang="en">units on order</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/products/unitsOnOrder"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#customers_customerID">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Customer ID</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'customers.customerID' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Unique five-character code identifying the customer. Primary key.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Customers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">customer ID</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers/customerID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b78">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_country"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_lastName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">last Name</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.lastName' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Family name of the employee.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">last name</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/lastName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_shipCity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">ship City</rdfs:label>
+    <rdfs:comment xml:lang="en">City the order is shipped to.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'orders.shipCity' with range xsd:string.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">ship to city</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/shipCity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#Categories">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Categories</rdfs:label>
+    <rdfs:comment xml:lang="en">A classification of products sold by Northwind Traders into groups such as Beverages, Condiments, etc.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'categories'.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b1"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b2"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b3"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b4"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b5"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b6"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b7"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b8"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b9"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b10"/>
+    <rdfs:subClassOf rdf:resource="http://purl.org/goodrelations/v1#category"/>
+    <owl:hasKey rdf:nodeID="n705c5914c0a145b6919315674881b391b11"/>
+    <skos:altLabel xml:lang="en">Product Category</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/categories"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b99">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_orderID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#Employees">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Employee</rdfs:label>
+    <rdfs:comment xml:lang="en">A person employed by the company, typically a sales representative who manages customer orders. Employees are organized in a management hierarchy.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'employees'.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b105"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b106"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b107"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b108"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b109"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b110"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b111"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b112"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b113"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b114"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b115"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b116"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b117"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b118"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b119"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b120"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b121"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b122"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b123"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b124"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b125"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b126"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b127"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b128"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b129"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b130"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b131"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b132"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b133"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b134"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b135"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b136"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b137"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b138"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b139"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b140"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b141"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b142"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b143"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b144"/>
+    <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <owl:hasKey rdf:nodeID="n705c5914c0a145b6919315674881b391b145"/>
+    <skos:altLabel xml:lang="en">Employees</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b12">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#order_details_quantity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#products_discontinued">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">discontinued</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'products.discontinued' with range xsd:boolean.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Indicates whether the product has been discontinued.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Products"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/products/discontinued"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b31">
+    <rdf:first rdf:resource="http://example.org/ontology#shippers_shipperID"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_shipName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">ship Name</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'orders.shipName' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Name of the recipient the order is shipped to.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">ship to name</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/shipName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_homePhone">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">home Phone</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.homePhone' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Home telephone number of the employee.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">home phone</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/homePhone"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#products_hasCategory">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">has category</rdfs:label>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'products.categoryID' referencing 'categories.categoryID'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The category this product belongs to.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Products"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#Categories"/>
+    <skos:altLabel xml:lang="en">products has Category</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/products/categoryID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#OrderDetails">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Order Details</rdfs:label>
+    <rdfs:comment xml:lang="en">Class generated from source table 'order_details'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Represents a line item in an order, specifying the product, quantity, price, and discount for that item.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b12"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b13"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b14"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b15"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b16"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b17"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b18"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b19"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b20"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b21"/>
+    <rdfs:subClassOf rdf:resource="http://purl.org/goodrelations/v1#UnitPriceSpecification"/>
+    <owl:hasKey rdf:nodeID="n705c5914c0a145b6919315674881b391b22"/>
+    <skos:altLabel xml:lang="en">Order Line Item</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/order_details"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#products_reorderLevel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">reorder Level</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'products.reorderLevel' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The inventory threshold at which the product should be reordered from the supplier.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Products"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <skos:altLabel xml:lang="en">reorder level</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/products/reorderLevel"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_city">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">city</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.city' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Home city of the employee.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/city"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b83">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_homePage"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#Suppliers">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Supplier</rdfs:label>
+    <rdfs:comment xml:lang="en">A business partner on the purchasing (inbound) side of the company that provides one or more products.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'suppliers'.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b60"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b61"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b62"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b63"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b64"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b65"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b66"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b67"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b68"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b69"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b70"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b71"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b72"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b73"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b74"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b75"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b76"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b77"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b78"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b79"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b80"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b81"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b82"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b83"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b84"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b85"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b86"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b87"/>
+    <owl:equivalentClass rdf:resource="http://purl.org/goodrelations/v1#BusinessEntity"/>
+    <owl:hasKey rdf:nodeID="n705c5914c0a145b6919315674881b391b88"/>
+    <skos:altLabel xml:lang="en">Suppliers</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#products_unitsInStock">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">units In Stock</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'products.unitsInStock' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The number of units currently held in inventory and available to sell.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Products"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <skos:altLabel xml:lang="en">units in stock</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/products/unitsInStock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_birthDate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">birth Date</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.birthDate' with range xsd:datetime.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Date of birth of the employee.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <skos:altLabel xml:lang="en">birth date</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/birthDate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#Products">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Product</rdfs:label>
+    <rdfs:comment xml:lang="en">A product sold by Northwind Traders, with inventory and pricing information.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'products'.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b47"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b48"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b49"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b50"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b51"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b52"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b53"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b54"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b55"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b56"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b57"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b58"/>
+    <rdfs:subClassOf rdf:resource="http://purl.org/goodrelations/v1#ProductOrServiceModel"/>
+    <owl:hasKey rdf:nodeID="n705c5914c0a145b6919315674881b391b59"/>
+    <skos:altLabel xml:lang="en">Products</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/products"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b89">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_requiredDate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#Shippers">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Shipper</rdfs:label>
+    <rdfs:comment xml:lang="en">A freight company used by Northwind to deliver customer orders.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'shippers'.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b24"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b25"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b26"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b27"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b28"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b29"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b30"/>
+    <owl:hasKey rdf:nodeID="n705c5914c0a145b6919315674881b391b31"/>
+    <skos:altLabel xml:lang="en">Shippers</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/shippers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_reportsTo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">employees reports To</rdfs:label>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'employees.reportsTo' referencing 'employees.employeeID'. This is an explicit recursive self-referential relationship within the Employees class.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The employeeID of this employee's supervisor. This is a self-reference into the employees table: it links an employee to their manager, defining the reporting hierarchy. May be empty for employees at the top of the hierarchy.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#Employees"/>
+    <skos:altLabel xml:lang="en">reports to</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/reportsTo"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b14">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#order_details_discount"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b117">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#Employees"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_reportsTo"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b35">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_postalCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#categories_categoryName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">category Name</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'categories.categoryName' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Short human-readable name of the product category (e.g. 'Beverages').</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Categories"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/goodrelations/v1#name"/>
+    <skos:altLabel xml:lang="en">category name</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/categories/categoryName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_titleOfCourtesy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">title Of Courtesy</rdfs:label>
+    <rdfs:comment xml:lang="en">Courtesy title used when addressing the employee (e.g. 'Ms.', 'Dr.').</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.titleOfCourtesy' with range xsd:string.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">title of courtesy</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/titleOfCourtesy"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b23">
+    <rdf:first rdf:resource="http://example.org/ontology#order_details_hasProduct"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b49">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_discontinued"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b85">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_companyName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_city">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">city</rdfs:label>
+    <rdfs:comment xml:lang="en">City of the supplier.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.city' with range xsd:string.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/city"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#order_details_hasProduct">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">has product</rdfs:label>
+    <rdfs:comment xml:lang="en">Links an order line item to the product being ordered.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'order_details.productID' referencing 'products.productID'.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#OrderDetails"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#Products"/>
+    <skos:altLabel xml:lang="en">order details has Product</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/order_details/productID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b72">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_contactTitle"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b47">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_unitPrice"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_postalCode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">postal Code</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.postalCode' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Postal or ZIP code of the supplier.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">postal code</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/postalCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b124">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_hireDate"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b129">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_postalCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_orderDate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">order Date</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'orders.orderDate' with range xsd:datetime.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The date when the order was placed by the customer.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <skos:altLabel xml:lang="en">order date</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/orderDate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_companyName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">company Name</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.companyName' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Legal or trading name of the supplier company.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">company name</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/companyName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b43">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_phone"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b19">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#order_details_unitPrice"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b91">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_shipName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b112">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_photoPath"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_requiredDate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">required Date</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'orders.requiredDate' with range xsd:datetime.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The date by which the customer requires the order to be delivered.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <skos:altLabel xml:lang="en">required delivery date</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/requiredDate"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b127">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_city"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b7">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#categories_description"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b56">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#Categories"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_hasCategory"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_region">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">region</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.region' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">State, province, or region of the supplier; may be empty.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/region"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b84">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_fax"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_shipCountry">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">ship Country</rdfs:label>
+    <rdfs:comment xml:lang="en">Country the order is shipped to.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'orders.shipCountry' with range xsd:string.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">ship to country</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/shipCountry"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b6">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#categories_categoryID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#Orders">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Order</rdfs:label>
+    <rdfs:comment xml:lang="en">A customer order containing information about the customer, employee handling the order, shipping details, and order dates.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'orders'.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b89"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b90"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b91"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b92"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b93"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b94"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b95"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b96"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b97"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b98"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b99"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b100"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b101"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b102"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b103"/>
+    <rdfs:subClassOf rdf:resource="http://purl.org/goodrelations/v1#DeliveryMethod"/>
+    <owl:hasKey rdf:nodeID="n705c5914c0a145b6919315674881b391b104"/>
+    <skos:altLabel xml:lang="en">Orders</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b106">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_hireDate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_firstName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">first Name</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.firstName' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Given name of the employee.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">first name</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/firstName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b21">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#order_details_discount"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#order_details_quantity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">order details quantity</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'order_details.quantity' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The number of units of the product ordered on this line.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#OrderDetails"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/goodrelations/v1#amountOfThisGood"/>
+    <skos:altLabel xml:lang="en">quantity</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/order_details/quantity"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b24">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#shippers_shipperID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_shippedDate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">shipped Date</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'orders.shippedDate' with range xsd:datetime.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The date when the order was actually shipped; may be empty if not yet shipped.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <skos:altLabel xml:lang="en">shipped date</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/shippedDate"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b128">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_lastName"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#Customers">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Customer</rdfs:label>
+    <rdfs:comment xml:lang="en">A business partner on the sales (outbound) side of the company, representing companies that buy products from Northwind.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'customers'.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b32"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b33"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b34"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b35"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b36"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b37"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b38"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b39"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b40"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b41"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b42"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b43"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b44"/>
+    <rdfs:subClassOf rdf:nodeID="n705c5914c0a145b6919315674881b391b45"/>
+    <owl:hasKey rdf:nodeID="n705c5914c0a145b6919315674881b391b46"/>
+    <skos:altLabel xml:lang="en">Customers</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_fax">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">fax</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.fax' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Fax number of the supplier; may be empty.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/fax"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#customers_phone">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Phone</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'customers.phone' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Telephone number of the customer.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Customers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">phone</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers/phone"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#order_details_hasOrder">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">has order</rdfs:label>
+    <rdfs:comment xml:lang="en">Links an order line item to the order it belongs to.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'order_details.orderID' referencing 'orders.orderID'.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#OrderDetails"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#Orders"/>
+    <skos:altLabel xml:lang="en">order details has Order</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/order_details/orderID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b77">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_contactName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b133">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_homePhone"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_orderID">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">order ID</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'orders.orderID' with range xsd:integer.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/orderID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b3">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#categories_categoryName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b38">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_fax"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#shippers_shipperID">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Shipper ID</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'shippers.shipperID' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Unique identifier of the shipping company.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Shippers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <skos:altLabel xml:lang="en">shipper ID</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/shippers/shipperID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b142">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_titleOfCourtesy"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_contactTitle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">contact Title</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.contactTitle' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Job title of the contact person at the supplier (e.g. 'Purchasing Manager').</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">contact title</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/contactTitle"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b108">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_lastName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#categories_categoryID">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">category ID</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'categories.categoryID' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Unique identifier of the product category.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Categories"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/categories/categoryID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#categories_description">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">category description</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'categories.description' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Longer free-text description of the kinds of products the category contains.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Categories"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/description"/>
+    <skos:altLabel xml:lang="en">description</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/categories/description"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b36">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_companyName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b66">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_supplierID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b16">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#Products"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#order_details_hasProduct"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b57">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_quantityPerUnit"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b113">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_postalCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b81">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_region"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b87">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_region"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#shippers_companyName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Company Name</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'shippers.companyName' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Name of the shipping company.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Shippers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">company Name</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/shippers/companyName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b20">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#order_details_hasProduct"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/ontology#Products"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b120">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_region"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b10">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#categories_categoryID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_country">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">country</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.country' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Home country of the employee.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/country"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_postalCode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">postal Code</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.postalCode' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Home postal or ZIP code of the employee.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">postal code</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/postalCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b97">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_shippedDate"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b52">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_productName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#customers_address">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Address</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'customers.address' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Street address of the customer.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Customers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">address</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers/address"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#products_productName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">product Name</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'products.productName' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Name of the product (e.g. 'Chai', 'Aniseed Syrup').</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Products"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">product name</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/products/productName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#products_hasSupplier">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">has supplier</rdfs:label>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'products.supplierID' referencing 'suppliers.supplierID'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The supplier that provides this product.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Products"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#Suppliers"/>
+    <skos:altLabel xml:lang="en">products has Supplier</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/products/supplierID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_hasShippers">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">orders has Shippers</rdfs:label>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'orders.shipVia' referencing 'shippers.shipperID'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The shipping company used to deliver the order.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#Shippers"/>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/goodrelations/v1#hasDeliveryMethod"/>
+    <skos:altLabel xml:lang="en">shipped via</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/shipVia"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#customers_region">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Region</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'customers.region' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">State, province, or region of the customer; may be empty.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Customers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">region</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers/region"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_extension">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">extension</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.extension' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Internal office telephone extension number of the employee.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/extension"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#customers_contactTitle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Contact Title</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'customers.contactTitle' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Job title of the contact person at the customer (e.g. 'Sales Representative').</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Customers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">contact Title</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers/contactTitle"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_region">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">region</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.region' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Home state, province, or region of the employee; may be empty.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/region"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b17">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#order_details_unitPrice"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#products_unitPrice">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">unit Price</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'products.unitPrice' with range xsd:decimal.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The current selling price for one unit of the product.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Products"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <skos:altLabel xml:lang="en">unit price</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/products/unitPrice"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_shipRegion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">ship Region</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'orders.shipRegion' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">State, province, or region the order is shipped to; may be empty.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">ship to region</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/shipRegion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_contactName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">contact Name</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.contactName' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Name of the individual contact person at the supplier.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">contact name</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/contactName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#products_productID">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">product ID</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'products.productID' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Unique identifier of the product.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Products"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/products/productID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b134">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_employeeID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b8">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#categories_categoryName"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_phone">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">phone</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.phone' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Telephone number of the supplier.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/phone"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#order_details_discount">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">discount</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'order_details.discount' with range xsd:decimal.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The discount applied to this line, expressed as a fraction between 0 and 1 (e.g., 0.15 means a 15% discount).</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#OrderDetails"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <skos:altLabel xml:lang="en">order details discount</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/order_details/discount"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b30">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#shippers_shipperID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b122">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_notes"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b86">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_supplierID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b80">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_supplierID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b130">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_firstName"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b109">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_region"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b64">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_country"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#order_details_unitPrice">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">order details unit Price</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'order_details.unitPrice' with range xsd:decimal.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The price per unit charged for the product on this order line, which may differ from the product's current catalogue price.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#OrderDetails"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/goodrelations/v1#hasUnitPrice"/>
+    <skos:altLabel xml:lang="en">unit Price</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/order_details/unitPrice"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b37">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_country"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#products_quantityPerUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">quantity Per Unit</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'products.quantityPerUnit' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Description of the packaging and unit of sale (e.g. '10 boxes x 20 bags').</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Products"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">quantity per unit</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/products/quantityPerUnit"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b54">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_productName"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b62">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_address"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b75">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_contactName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b58">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_unitsOnOrder"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b27">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#shippers_companyName"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b11">
+    <rdf:first rdf:resource="http://example.org/ontology#categories_categoryID"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b135">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_address"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b123">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#Employees"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_reportsTo"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b29">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#shippers_companyName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b73">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_homePage"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_title">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">job title</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.title' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Job title of the employee (e.g. 'Sales Representative', 'Vice President, Sales').</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">title</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/title"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_shipAddress">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">ship Address</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'orders.shipAddress' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Street address the order is shipped to.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">ship to address</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/shipAddress"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_hireDate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">hire Date</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.hireDate' with range xsd:datetime.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Date the employee was hired by the company.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <skos:altLabel xml:lang="en">hire date</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/hireDate"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b28">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#shippers_phone"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b121">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_country"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b119">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_title"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b90">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#Customers"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_hasCustomer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b93">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#Shippers"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_hasShippers"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b48">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_reorderLevel"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b69">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_city"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b71">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_address"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b95">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_orderDate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_photoPath">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">photo Path</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.photoPath' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">URL or file path of a photograph of the employee.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:subPropertyOf rdf:resource="http://xmlns.com/foaf/0.1/depiction"/>
+    <skos:altLabel xml:lang="en">photo path</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/photoPath"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_hasCustomer">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">orders has Customer</rdfs:label>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'orders.customerID' referencing 'customers.customerID'.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#Customers"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/customerID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b101">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_shipPostalCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#customers_contactName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Contact Name</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'customers.contactName' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Name of the individual contact person at the customer.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Customers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">contact Name</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers/contactName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_freight">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">freight</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'orders.freight' with range xsd:decimal.</rdfs:comment>
+    <rdfs:comment xml:lang="en">The shipping cost charged for the order.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <skos:altLabel xml:lang="en">freight cost</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/freight"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_supplierID">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">supplier ID</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.supplierID' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Unique identifier of the supplier.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/supplierID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#customers_country">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Country</rdfs:label>
+    <rdfs:comment xml:lang="en">Country of the customer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'customers.country' with range xsd:string.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Customers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">country</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers/country"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b65">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_supplierID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b68">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_postalCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b18">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#order_details_quantity"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b63">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_contactTitle"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b105">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_notes"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_address">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">address</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.address' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Street address of the supplier.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/address"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b143">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_city"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b100">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_shipCountry"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b116">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_birthDate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_address">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">address</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.address' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Home street address of the employee.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/address"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b126">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_titleOfCourtesy"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b132">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_employeeID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b45">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_customerID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_employeeID">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">employee ID</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.employeeID' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Unique identifier of the employee.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/employeeID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#customers_fax">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Fax</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'customers.fax' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Fax number of the customer; may be empty.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Customers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">fax</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers/fax"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b50">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_productID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b15">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#Orders"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#order_details_hasOrder"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b44">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_customerID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b111">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_firstName"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b102">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_shipCity"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b140">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_title"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_homePage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">home Page</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.homePage' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">URL or reference to the supplier's home page; may be empty.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">home page</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/homePage"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b137">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_employeeID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b144">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_homePhone"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b41">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_address"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b22">
+    <rdf:first rdf:resource="http://example.org/ontology#order_details_hasOrder"/>
+    <rdf:rest rdf:nodeID="n705c5914c0a145b6919315674881b391b23"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b131">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_lastName"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b4">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#categories_categoryName"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b70">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_phone"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b110">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_country"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b26">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#shippers_shipperID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#employees_notes">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">notes</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'employees.notes' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Free-text biographical notes about the employee's background, education, and skills.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Employees"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/employees/notes"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b2">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#categories_categoryID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b42">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_contactName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b5">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#categories_categoryID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b32">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_region"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b115">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_firstName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#suppliers_country">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">country</rdfs:label>
+    <rdfs:comment xml:lang="en">Country of the supplier.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'suppliers.country' with range xsd:string.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Suppliers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/suppliers/country"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b136">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_extension"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#categories_categoryName"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#customers_postalCode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">Postal Code</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'customers.postalCode' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Postal or ZIP code of the customer.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Customers"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">postal Code</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/customers/postalCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b138">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_firstName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b118">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_extension"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b40">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_customerID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#orders_hasEmployee">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">orders has Employee</rdfs:label>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'orders.employeeID' referencing 'employees.employeeID'.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Orders"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#Employees"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/orders/employeeID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b92">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_shipAddress"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b59">
+    <rdf:first rdf:resource="http://example.org/ontology#products_productID"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b94">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_orderID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b39">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_city"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b55">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_unitsInStock"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b25">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#shippers_shipperID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b34">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#customers_contactTitle"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b96">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_freight"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b9">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#categories_description"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b60">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_postalCode"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b139">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_photoPath"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b107">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_employeeID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b74">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_companyName"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b61">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_city"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b53">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#Suppliers"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_hasSupplier"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b82">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_phone"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b79">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_companyName"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b103">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#Employees"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_hasEmployee"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b104">
+    <rdf:first rdf:resource="http://example.org/ontology#orders_orderID"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b141">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_address"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b67">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_companyName"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b88">
+    <rdf:first rdf:resource="http://example.org/ontology#suppliers_supplierID"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b51">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#products_productID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b76">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#suppliers_fax"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b98">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#orders_shipRegion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <prov:generatedAtTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-07-15T17:46:20.493319+00:00</prov:generatedAtTime>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b46">
+    <rdf:first rdf:resource="http://example.org/ontology#customers_customerID"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b145">
+    <rdf:first rdf:resource="http://example.org/ontology#employees_employeeID"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b13">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#order_details_hasOrder"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/ontology#Orders"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n705c5914c0a145b6919315674881b391b125">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#employees_birthDate"/>
+  </rdf:Description>
+</rdf:RDF>
