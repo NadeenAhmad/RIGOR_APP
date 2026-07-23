@@ -324,23 +324,4 @@ The sample data and generated ontologies in this repository are licensed under a
 [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 Code in this repository is licensed under the MIT License.
 
-## 📋 Paper
 
-[Read our paper](https://arxiv.org/abs/2506.01232)
-([PDF](https://arxiv.org/pdf/2506.01232)).
-
-## 📄 Citation
-
-If you find this work useful, please consider citing our paper:
-
-> Nayyeri, Mojtaba, et al. "Retrieval-Augmented Generation of Ontologies from
-> Relational Databases." *arXiv preprint* arXiv:2506.01232 (2025).
-
-```bibtex
-@article{nayyeri2025rigor,
-  title   = {Retrieval-Augmented Generation of Ontologies from Relational Databases},
-  author  = {Nayyeri, Mojtaba and Yogi, Athish A and Fathallah, Nadeen and Thapa, Ratan Bahadur and Tautenhahn, Hans-Michael and Schnurpel, Anton and Staab, Steffen},
-  journal = {arXiv preprint arXiv:2506.01232},
-  year    = {2025}
-}
-```
