@@ -26,6 +26,8 @@ and repair an existing RDF/OWL ontology. It is designed to run **locally for a
 single user**. For the method and evaluation, see the paper linked at the end of
 this README.
 
+## [Demo Video Link](https://drive.google.com/drive/folders/1XsPji18kmX4gMaap6TjGUOzxE53Gi3dW?usp=sharing)
+
 ## Install
 
 Use **Python ≤ 3.12** (PyTorch has no wheels for 3.13+ yet, and none for Intel
