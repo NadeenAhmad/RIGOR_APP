@@ -330,3 +330,18 @@ The sample data and generated ontologies in this repository are licensed under a
 Code in this repository is licensed under the MIT License.
 
 
+## 📋 [Read our paper](https://arxiv.org/pdf/2506.01232?)
+
+## 📄 Citation
+
+If you find this work useful, please consider citing our paper:
+
+```
+@inproceedings{Fathallah2026RIGOR,
+  author    = {Nadeen Fathallah and
+               Mojtaba Nayyeri and
+               Steffen Staab},
+  title     = {RIGOR App: A Demo System for Retrieval-Augmented Generation of Ontologies from Relational Databases},
+  booktitle = {ISWC (Industry/Doctoral Consortium/Posters/Demos)},
+  year      = {2026}
+}
