@@ -330,7 +330,8 @@ The sample data and generated ontologies in this repository are licensed under a
 Code in this repository is licensed under the MIT License.
 
 
-## 📋 [Read our paper](https://arxiv.org/pdf/2506.01232?)
+## 📋 [Read our main paper](https://arxiv.org/pdf/2506.01232?)
+## 📋 [Read our demo paper](https://github.com/NadeenAhmad/RIGOR_APP/blob/main/paper_599.pdf)
 
 ## 📄 Citation
 
