@@ -111,6 +111,24 @@ def _cleanup_sessions(keep: Path | None = None) -> None:
 atexit.register(lambda: shutil.rmtree(SESSION_DIR, ignore_errors=True))
 
 
+# The browser re-renders the whole progress box and Turtle preview on every
+# update; unbounded text from long LLM runs can freeze the page.
+_LOG_LINES_SHOWN = 300
+_PREVIEW_CHARS = 60_000
+
+
+def _log_text(log: list[str]) -> str:
+    if len(log) <= _LOG_LINES_SHOWN:
+        return "\n".join(log)
+    return "\n".join([f"… {len(log) - _LOG_LINES_SHOWN} earlier lines hidden …"] + log[-_LOG_LINES_SHOWN:])
+
+
+def _preview(turtle: str) -> str:
+    if len(turtle) <= _PREVIEW_CHARS:
+        return turtle
+    return turtle[:_PREVIEW_CHARS] + "\n\n# … preview truncated; download the ontology file for the full Turtle …\n"
+
+
 def _fmt_elapsed(seconds: float) -> str:
     m, s = divmod(int(seconds), 60)
     return f"{m:d}:{s:02d}"
@@ -325,17 +343,17 @@ def run_pipeline(file_obj, api_key, model, k_attempts,
         except queue.Empty:
             if _cancel_event.is_set():
                 push("⏹ Cancelled (UI stopped; any in-flight model call finishes in the background).")
-                yield "\n".join(log), None, "", status(frac), "[]", "", None
+                yield _log_text(log), None, "", status(frac), "[]", "", None
                 return
             # Keep the elapsed clock ticking during quiet stretches.
-            yield "\n".join(log), None, "", status(frac), "[]", "", None
+            yield _log_text(log), None, "", status(frac), "[]", "", None
             continue
 
         if msg == _DONE:
             break
         if msg.startswith(_ERR):
             push("❌ " + msg[len(_ERR):])
-            yield "\n".join(log), None, "", status(frac), "[]", "", None
+            yield _log_text(log), None, "", status(frac), "[]", "", None
             return
 
         push(msg)
@@ -352,9 +370,9 @@ def run_pipeline(file_obj, api_key, model, k_attempts,
 
         if _cancel_event.is_set():
             push("⏹ Cancelled (UI stopped; any in-flight model call finishes in the background).")
-            yield "\n".join(log), None, "", status(frac), "[]", "", None
+            yield _log_text(log), None, "", status(frac), "[]", "", None
             return
-        yield "\n".join(log), None, "", status(frac), "[]", "", None
+        yield _log_text(log), None, "", status(frac), "[]", "", None
 
     turtle_preview = ""
     out_file = None
@@ -363,15 +381,15 @@ def run_pipeline(file_obj, api_key, model, k_attempts,
         try:
             from rdflib import Graph
             g = Graph(); g.parse(str(final), format="xml")
-            turtle_preview = g.serialize(format="turtle")
+            turtle_preview = _preview(g.serialize(format="turtle"))
         except Exception:
-            turtle_preview = final.read_text(encoding="utf-8", errors="replace")
+            turtle_preview = _preview(final.read_text(encoding="utf-8", errors="replace"))
     reviews = work_result.get("review_items", [])
     review_state = json.dumps(reviews)
     review_md = _review_overview(reviews)
     report_file = work_result.get("report_markdown")
     push("✅ Done.")
-    yield "\n".join(log), out_file, turtle_preview, status(1.0), review_state, review_md, report_file
+    yield _log_text(log), out_file, turtle_preview, status(1.0), review_state, review_md, report_file
 
 
 # --------------------------------------------------------------------------- #
@@ -825,7 +843,7 @@ def apply_review_decisions_ui(
             f"Retained intentionally: {retained} · Rejected by validation: {rejected} "
             f"· Still unresolved: {unresolved}." + reason_text
         )
-        return str(source), None, status, graph.serialize(format="turtle"), str(report)
+        return str(source), None, status, _preview(graph.serialize(format="turtle")), str(report)
 
     suffix = source.suffix or ".owl"
     output = source.with_name(source.stem + "_reviewed" + suffix).resolve()
@@ -845,7 +863,7 @@ def apply_review_decisions_ui(
     # Return the filepath directly. Keeping the component permanently visible
     # avoids Gradio-version-specific failures when revealing a hidden File
     # component with gr.update().
-    return str(output), str(output), status, updated.serialize(format="turtle"), str(report)
+    return str(output), str(output), status, _preview(updated.serialize(format="turtle")), str(report)
 
 
 def apply_review_decisions_stream(
@@ -991,28 +1009,28 @@ def run_existing_ontology_repair(
         try:
             message = q.get(timeout=1)
         except queue.Empty:
-            yield "\n".join(log), None, "", status(), "[]", "", None
+            yield _log_text(log), None, "", status(), "[]", "", None
             continue
         if message == _DONE:
             break
         if message.startswith(_ERR):
             log.append("❌ " + message[len(_ERR):])
-            yield "\n".join(log), None, "", status(), "[]", "", None
+            yield _log_text(log), None, "", status(), "[]", "", None
             return
         log.append(message)
-        yield "\n".join(log), None, "", status(), "[]", "", None
+        yield _log_text(log), None, "", status(), "[]", "", None
 
     reviews = result_box.get("review_items", [])
     preview = ""
     if final.exists():
         try:
             graph, _ = pitfall_mod.load_ontology(final)
-            preview = graph.serialize(format="turtle")
+            preview = _preview(graph.serialize(format="turtle"))
         except Exception:
-            preview = final.read_text(encoding="utf-8", errors="replace")
+            preview = _preview(final.read_text(encoding="utf-8", errors="replace"))
     log.append("✅ Existing ontology repair complete.")
     yield (
-        "\n".join(log),
+        _log_text(log),
         str(final) if final.exists() else None,
         preview,
         status(),
