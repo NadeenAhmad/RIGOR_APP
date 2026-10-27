@@ -81,7 +81,11 @@ def _resolve_jar(explicit: str | None, keyword: str) -> str | None:
 # De-duplicated, order-preserving model list (MODELS values may already include
 # some of the extras). Add more options by editing MODELS in app.py or appending
 # OpenRouter model ids to the list below — see the README ("Adding models").
-MODEL_CHOICES = list(dict.fromkeys(list(MODELS.values()) + ["deepseek/deepseek-chat", "openai/gpt-4o"]))
+MODEL_CHOICES = list(dict.fromkeys(list(MODELS.values()) + [
+    "deepseek/deepseek-chat", "openai/gpt-4o",
+    # Fast, low-cost options for quick test runs.
+    "google/gemini-3.8-flash", "google/gemini-3.7-flash",
+]))
 SESSION_DIR = Path(tempfile.gettempdir()) / "rigor_sessions"
 
 # Single-user app: one in-flight run at a time. The Stop button sets this; the
