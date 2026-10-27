@@ -14,7 +14,7 @@ if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
 fi
 
 docker rm -f "$NAME" >/dev/null 2>&1 || true
-docker run -d --name "$NAME" -p "$PORT:8080" "$IMAGE" >/dev/null
+docker run -d --restart unless-stopped --name "$NAME" -p "$PORT:8080" "$IMAGE" >/dev/null
 
 echo "Waiting for OOPS! to start..."
 for _ in $(seq 1 60); do
