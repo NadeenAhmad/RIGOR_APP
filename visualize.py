@@ -8,8 +8,8 @@ client-side with vis-network, returned as an HTML string the Gradio UI embeds in
 a sandboxed iframe. A standalone .html copy is also written so the graph can be
 opened directly in a browser if inline rendering is unavailable.
 
-No external service is contacted by Python; the only runtime asset is
-vis-network, fetched from a CDN by the user's browser.
+No external service is contacted: vis-network is inlined from assets/ (with a
+CDN fallback if that file is missing), so the graph also renders offline.
 """
 
 from __future__ import annotations
@@ -17,6 +17,7 @@ from __future__ import annotations
 import html
 import json
 import os
+import re
 import tempfile
 from pathlib import Path
 from typing import Tuple
@@ -25,8 +26,18 @@ from rdflib import Graph, URIRef
 from rdflib.namespace import RDF, RDFS, OWL, XSD, SKOS
 from rdflib.collection import Collection
 
-# vis-network standalone UMD build (bundles DataSet); loaded by the browser.
+# vis-network standalone UMD build (bundles DataSet). A copy ships in assets/
+# and is inlined so the graph renders offline; the CDN is only a fallback.
 _VIS_CDN = "https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"
+_VIS_LOCAL = Path(__file__).resolve().parent / "assets" / "vis-network.min.js"
+
+
+def _vis_script_tag() -> str:
+    try:
+        js = _VIS_LOCAL.read_text(encoding="utf-8")
+    except OSError:
+        return f'<script src="{_VIS_CDN}"></script>'
+    return "<script>" + js.replace("</script", "<\\/script") + "</script>"
 
 _COLOR_CLASS = "#aacbff"
 _COLOR_DATATYPE = "#ffe49b"
@@ -79,11 +90,66 @@ def _local(term) -> str:
     return s
 
 
+def _humanize(name: str) -> str:
+    s = re.sub(r"([a-z])([A-Z])", r"\1 \2", str(name))
+    return re.sub(r"\s+", " ", s.replace("_", " ").replace("-", " ")).strip()
+
+
+def _is_generated_label(term, label: str) -> bool:
+    """True for the mechanical labels Direct Mapping derives from identifiers
+    (e.g. 'BM DEP' for ae_tox_BM_DEP), as opposed to a curated label."""
+    parts = _local(term).split("_")
+    generated = {_humanize("_".join(parts[i:])).lower() for i in range(len(parts))}
+    return label.strip().lower() in generated
+
+
 def _label(g: Graph, term) -> str:
-    for o in g.objects(term, RDFS.label):
-        if str(o).strip():
-            return str(o)
-    return _local(term)
+    """Prefer an English, curated label; fall back to any label, then the IRI."""
+    labels = [o for o in g.objects(term, RDFS.label) if str(o).strip()]
+    labels += [o for o in g.objects(term, SKOS.altLabel) if str(o).strip()]
+    if not labels:
+        return _local(term)
+    english = [o for o in labels if (getattr(o, "language", None) or "en").startswith("en")] or labels
+    primary = set(g.objects(term, RDFS.label))
+    whole = _humanize(_local(term)).lower()
+    return str(min(english, key=lambda o: (
+        _is_generated_label(term, str(o)),
+        str(o).strip().lower() == whole,
+        o not in primary,
+        str(o),
+    )))
+
+
+_WELL_KNOWN_PREFIXES = {
+    "http://purl.org/goodrelations/v1#": "gr",
+    "http://xmlns.com/foaf/0.1/": "foaf",
+    "http://schema.org/": "schema",
+    "https://schema.org/": "schema",
+    "http://purl.org/dc/terms/": "dcterms",
+    "http://www.w3.org/ns/prov#": "prov",
+}
+
+
+def _short_iri(g: Graph, iri: str) -> str:
+    ns = _ns(iri)
+    for prefix, uri in g.namespaces():
+        if prefix and str(uri) == ns and not re.fullmatch(r"ns\d+|default\d*", prefix):
+            return f"{prefix}:{_local(iri)}"
+    if ns in _WELL_KNOWN_PREFIXES:
+        return f"{_WELL_KNOWN_PREFIXES[ns]}:{_local(iri)}"
+    return _local(iri)
+
+
+def _external_label(g: Graph, term) -> str:
+    """External terms show their vocabulary prefix (e.g. foaf:Person) when the
+    ontology binds one, so a link to a standard vocabulary is recognisable."""
+    ns = _ns(term)
+    for prefix, uri in g.namespaces():
+        if prefix and str(uri) == ns and not re.fullmatch(r"ns\d+|default\d*", prefix):
+            return f"{prefix}:{_local(term)}"
+    if ns in _WELL_KNOWN_PREFIXES:
+        return f"{_WELL_KNOWN_PREFIXES[ns]}:{_local(term)}"
+    return _label(g, term)
 
 
 def _key_properties(g: Graph) -> set:
@@ -137,7 +203,7 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
         if nid not in nodes:
             external = bool(local_ns) and not nid.startswith(local_ns)
             if external:
-                nodes[nid] = {"id": nid, "label": _label(g, term), "title": nid,
+                nodes[nid] = {"id": nid, "label": _external_label(g, term), "title": nid,
                               "shape": "ellipse", "color": _COLOR_EXTERNAL, "borderWidth": 2,
 "shapeProperties": {"borderDashes": [6, 4]}}
             else:
@@ -185,61 +251,6 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
         if isinstance(c, URIRef):
             add_class(c)
 
-    # subClassOf: named superclass -> dashed edge; blank node -> OWL restriction.
-    for s, o in g.subject_objects(RDFS.subClassOf):
-        if not isinstance(s, URIRef):
-            continue
-        if isinstance(o, URIRef):
-            add_class(s)
-            add_class(o)
-            edges.append({"from": str(s), "to": str(o), "label": "subClassOf",
-                          "dashes": True, "arrows": "to", "color": {"color": _COLOR_SUBCLASS}})
-            continue
-        # Blank node: handle owl:Restriction (the universal/existential axioms).
-        if (o, RDF.type, OWL.Restriction) in g:
-            prop = next(g.objects(o, OWL.onProperty), None)
-            if not isinstance(prop, URIRef):
-                continue
-            # quantifier + filler
-            filler = next(g.objects(o, OWL.allValuesFrom), None)
-            quant = "∀"
-            if filler is None:
-                filler = next(g.objects(o, OWL.someValuesFrom), None)
-                quant = "∃"
-            if filler is None:
-                filler = next(g.objects(o, OWL.onClass), None)  # qualified cardinality
-                quant = "∃"
-            if filler is None:
-                hv = next(g.objects(o, OWL.hasValue), None)
-                if hv is not None:
-                    filler, quant = hv, "value"
-            if filler is None:
-                continue
-            add_class(s)
-            target = add_filler(filler)
-            n_restr += 1
-            edges.append({"from": str(s), "to": target,
-                          "label": f"{plabel_of(prop)} {quant}",
-                          "arrows": "to", "dashes": True,
-                          "color": {"color": _COLOR_RESTRICTION}})
-
-    # equivalentClass edges
-    for s, o in g.subject_objects(OWL.equivalentClass):
-        if isinstance(s, URIRef) and isinstance(o, URIRef):
-            add_class(s)
-            add_class(o)
-            edges.append({"from": str(s), "to": str(o), "label": "equivalentClass",
-                          "dashes": True, "arrows": "", "color": {"color": _COLOR_EQUIV}})
-
-    # disjointWith edges
-    for s, o in g.subject_objects(OWL.disjointWith):
-        if isinstance(s, URIRef) and isinstance(o, URIRef):
-            add_class(s)
-            add_class(o)
-            edges.append({"from": str(s), "to": str(o), "label": "disjointWith",
-                          "dashes": True, "arrows": "", "color": {"color": _COLOR_DISJOINT}})
-            n_disjoint += 1
-
     # --- External alignment (beyond subClassOf/equivalentClass) -------------
     # Property edges are drawn as labelled lines, not nodes, so a property->
     # property alignment can't be a node; we annotate the property's edge with
@@ -282,6 +293,31 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
             return None
         return f"{p}  ·  aligned: " + "; ".join(f"{sym} {iri}" for sym, _, iri in al)
 
+    # Pairwise class axioms: one edge per pair (symmetric ones in either order).
+    seen_pairs: set = set()
+
+    def pair_edge(s, o, label, color, arrows, symmetric) -> bool:
+        key = (label, frozenset((str(s), str(o)))) if symmetric else (label, str(s), str(o))
+        if key in seen_pairs:
+            return False
+        seen_pairs.add(key)
+        add_class(s)
+        add_class(o)
+        edges.append({"from": str(s), "to": str(o), "label": label,
+                      "dashes": True, "arrows": arrows, "color": {"color": color}})
+        return True
+
+    for s, o in g.subject_objects(RDFS.subClassOf):
+        if isinstance(s, URIRef) and isinstance(o, URIRef):
+            pair_edge(s, o, "subClassOf", _COLOR_SUBCLASS, "to", False)
+    for s, o in g.subject_objects(OWL.equivalentClass):
+        if isinstance(s, URIRef) and isinstance(o, URIRef):
+            pair_edge(s, o, "equivalentClass", _COLOR_EQUIV, "", True)
+    for s, o in g.subject_objects(OWL.disjointWith):
+        if isinstance(s, URIRef) and isinstance(o, URIRef):
+            if pair_edge(s, o, "disjointWith", _COLOR_DISJOINT, "", True):
+                n_disjoint += 1
+
     # Class-level skos:exactMatch / skos:closeMatch -> external alignment edges.
     n_align = 0
     for pred, plbl in ((SKOS.exactMatch, "exactMatch"), (SKOS.closeMatch, "closeMatch")):
@@ -290,51 +326,102 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
                 continue
             if s in all_prop_iris:
                 continue  # property alignment -> annotated on the property edge instead
-            add_class(s)
-            add_class(o)  # external target renders as a magenta external node
-            edges.append({"from": str(s), "to": str(o), "label": plbl,
-                          "dashes": True, "arrows": "", "color": {"color": _COLOR_EQUIV}})
-            n_align += 1
+            if pair_edge(s, o, plbl, _COLOR_EQUIV, "", True):
+                n_align += 1
 
-    # Object properties: domain -> range, labelled with the property.
-    n_obj = 0
-    for p in set(g.subjects(RDF.type, OWL.ObjectProperty)):
-        if not isinstance(p, URIRef):
+    # Property axioms. Domain/range declarations and every restriction on the
+    # same (class, property, filler) are merged into ONE edge whose label lists
+    # them (e.g. "unit price  ∀ ∃ ≤1"), so a column is never drawn several times.
+    prop_edges: dict = {}
+
+    def note(cls, prop, filler, mark: str) -> None:
+        entry = prop_edges.setdefault((str(cls), str(prop), str(filler)),
+                                      {"cls": cls, "prop": prop, "filler": filler, "marks": []})
+        if mark not in entry["marks"]:
+            entry["marks"].append(mark)
+
+    _CARDINALITIES = (
+        (OWL.qualifiedCardinality, "="), (OWL.cardinality, "="),
+        (OWL.minQualifiedCardinality, "\u2265"), (OWL.minCardinality, "\u2265"),
+        (OWL.maxQualifiedCardinality, "\u2264"), (OWL.maxCardinality, "\u2264"),
+    )
+    for s, o in g.subject_objects(RDFS.subClassOf):
+        if not isinstance(s, URIRef) or (o, RDF.type, OWL.Restriction) not in g:
             continue
-        n_obj += 1
+        prop = next(g.objects(o, OWL.onProperty), None)
+        if not isinstance(prop, URIRef):
+            continue
+        noted = False
+        for filler in g.objects(o, OWL.allValuesFrom):
+            note(s, prop, filler, "\u2200"); noted = True
+        for filler in g.objects(o, OWL.someValuesFrom):
+            note(s, prop, filler, "\u2203"); noted = True
+        for value in g.objects(o, OWL.hasValue):
+            note(s, prop, value, "value"); noted = True
+        for pred, sym in _CARDINALITIES:
+            for n in g.objects(o, pred):
+                filler = (next(g.objects(o, OWL.onClass), None)
+                          or next(g.objects(o, OWL.onDataRange), None)
+                          or next((r for r in g.objects(prop, RDFS.range) if isinstance(r, URIRef)), None))
+                if filler is not None:
+                    note(s, prop, filler, f"{sym}{n}"); noted = True
+        if noted:
+            n_restr += 1
+
+    # Declared domain -> range (object and datatype properties).
+    for p in obj_prop_iris | data_prop_iris:
         domains = [d for d in g.objects(p, RDFS.domain) if isinstance(d, URIRef)]
         ranges = [r for r in g.objects(p, RDFS.range) if isinstance(r, URIRef)]
-        for d in domains or []:
-            for r in ranges or []:
-                add_class(d)
-                add_class(r)
-                e = {"from": str(d), "to": str(r), "label": _prop_label(p),
-                     "arrows": "to", "color": {"color": _COLOR_OBJ_EDGE}}
-                _t = _prop_title(p)
-                if _t:
-                    e["title"] = _t
-                    e["dashes"] = True
-                edges.append(e)
+        for d in domains:
+            for r in ranges:
+                note(d, p, r, "domain")
+    n_obj = len(obj_prop_iris)
+    n_dt = len(data_prop_iris)
 
-    # Datatype properties: class -> datatype box, labelled with the property.
-    n_dt = 0
-    for p in set(g.subjects(RDF.type, OWL.DatatypeProperty)):
-        if not isinstance(p, URIRef):
-            continue
-        n_dt += 1
-        domains = [d for d in g.objects(p, RDFS.domain) if isinstance(d, URIRef)]
-        ranges = [r for r in g.objects(p, RDFS.range) if isinstance(r, URIRef)]
-        for d in domains or []:
-            add_class(d)
-            for r in (ranges or []):
-                dt_id = add_datatype(r)
-                e = {"from": str(d), "to": dt_id, "label": _prop_label(p),
-                     "arrows": "to", "color": {"color": _COLOR_OBJ_EDGE}}
-                _t = _prop_title(p)
-                if _t:
-                    e["title"] = _t
-                    e["dashes"] = True
-                edges.append(e)
+    _MARK_ORDER = {"\u2200": 0, "\u2203": 1, "value": 2}
+    for entry in prop_edges.values():
+        marks = entry["marks"]
+        declared = "domain" in marks
+        shown = sorted((m for m in marks if m != "domain"),
+                       key=lambda m: (_MARK_ORDER.get(m, 3), m))
+        label = _prop_label(entry["prop"]) + ("  " + " ".join(shown) if shown else "")
+        source = add_class(entry["cls"])
+        target = add_filler(entry["filler"])
+        e = {"from": source, "to": target, "label": label, "arrows": "to", "prop": str(entry["prop"]),
+             "color": {"color": _COLOR_OBJ_EDGE if declared else _COLOR_RESTRICTION}}
+        if not declared:
+            e["dashes"] = True
+        _t = _prop_title(entry["prop"])
+        if _t:
+            e["title"] = _t
+            e["dashes"] = True
+        edges.append(e)
+
+    # Two different classes must never look identical: add the IRI's short
+    # form (prefix:name, or the full IRI if that is still ambiguous) to any
+    # shared label.
+    def disambiguate(items, iri_of) -> None:
+        groups: dict = {}
+        for item in items:
+            groups.setdefault(item["label"], []).append(item)
+        for same in groups.values():
+            if len({iri_of(i) for i in same}) < 2:
+                continue
+            shorts = {iri_of(i): _short_iri(g, iri_of(i)) for i in same}
+            unique = len(set(shorts.values())) == len(shorts)
+            for item in same:
+                tag = shorts[iri_of(item)] if unique else iri_of(item)
+                item["label"] = f"{item['label']}\n({tag})"
+
+    disambiguate([n for n in nodes.values() if n.get("shape") == "ellipse"], lambda n: n["id"])
+    by_ends: dict = {}
+    for e in edges:
+        if "prop" in e:
+            by_ends.setdefault((e["from"], e["to"]), []).append(e)
+    for same_ends in by_ends.values():
+        disambiguate(same_ends, lambda e: e["prop"])
+    for e in edges:
+        e.pop("prop", None)
 
     stats = {
         "classes": sum(1 for n in nodes.values() if n.get("shape")=="ellipse" and "shapeProperties" not in n),
@@ -355,7 +442,7 @@ def _full_html(nodes: list, edges: list) -> str:
     payload = json.dumps({"nodes": nodes, "edges": edges})
     return f"""<!DOCTYPE html>
 <html><head><meta charset="utf-8">
-<script src="{_VIS_CDN}"></script>
+{_vis_script_tag()}
 <style>
   html,body{{margin:0;height:100%;font-family:system-ui,Arial,sans-serif;}}
   #net{{width:100%;height:100%;}}
@@ -373,7 +460,8 @@ def _full_html(nodes: list, edges: list) -> str:
   <div><span class="sw" style="background:{_COLOR_DATATYPE}"></span>Datatype</div>
   <div><span class="sw" style="background:{_COLOR_OBJ_EDGE}"></span>object / datatype property</div>
   <div><span class="sw" style="background:{_COLOR_SUBCLASS}"></span>subClassOf (dashed)</div>
-  <div><span class="sw" style="background:{_COLOR_RESTRICTION}"></span>restriction (∀ / ∃, dashed)</div>
+  <div><span class="sw" style="background:{_COLOR_RESTRICTION}"></span>restriction only (dashed)</div>
+  <div style="color:#777">∀ ∃ = ≤ ≥ after a property name: its restrictions on that class</div>
   <div><span class="sw" style="background:{_COLOR_EQUIV}"></span>equivalentClass / skos exact·closeMatch (dashed)</div>
   <div><span class="sw" style="background:{_COLOR_DISJOINT}"></span>disjointWith</div>
   <div style="margin-top:4px;color:#777">Property alignments (≡ ⊑ ≈) appear on the property's edge label.</div>
@@ -393,9 +481,9 @@ def _full_html(nodes: list, edges: list) -> str:
     var nodes = new vis.DataSet(data.nodes);
     var edges = new vis.DataSet(data.edges);
     new vis.Network(container, {{nodes: nodes, edges: edges}}, {{
-     nodes: {{ font: {{ size: 14 }}, borderWidth: 1, shadow: false }},
+     nodes: {{ font: {{ size: 18 }}, borderWidth: 1, shadow: false }},
       groups: {{ useDefaultGroups: false }},
-      edges: {{ font: {{ size: 10, align: 'middle', color: '#555',
+      edges: {{ font: {{ size: 13, align: 'middle', color: '#333',
                          strokeWidth: 3, strokeColor: '#ffffff' }},
                smooth: {{ type: 'dynamic' }}, color: {{ inherit: false, highlight: '#f39c12', hover: '#f39c12' }} }},
       physics: {{ stabilization: {{ iterations: 250 }},
@@ -458,7 +546,7 @@ def visualize_ontology(file_or_path, out_dir: str | None = None) -> Tuple[str, s
         f"Showing {stats['classes']} classes, {stats['external']} external/aligned "
         f"classes, {stats['object_props']} object properties, "
         f"{stats['datatype_props']} datatype properties, "
-        f"{stats['restrictions']} restrictions (∀/∃), {stats['disjoint']} disjointness "
+        f"{stats['restrictions']} restrictions (∀ ∃ = ≤ ≥), {stats['disjoint']} disjointness "
         f"axioms, {stats['class_alignments']} class + {stats['prop_alignments']} property "
         f"external alignments · {stats['edges']} edges. Drag nodes, scroll to zoom."
         "</div>"

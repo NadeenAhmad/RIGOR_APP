@@ -1624,9 +1624,19 @@ def normalize_axioms(g: Graph) -> None:
         by_lang: Dict[Any, list] = {}
         for lab in g.objects(subj, RDFS.label):
             by_lang.setdefault(getattr(lab, "language", None), []).append(lab)
+        local = str(subj).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
+        parts = local.split("_")
+        generated = {humanize_identifier("_".join(parts[i:])).lower() for i in range(len(parts))}
         for labs in by_lang.values():
             if len(labs) > 1:
-                keep = sorted(labs, key=str)[0]
+                # Keep a curated (LLM) label over the mechanical Direct Mapping
+                # one derived from the identifier, e.g. "BM DEP"; the label of
+                # the whole identifier ("employees reports To") ranks last.
+                keep = min(labs, key=lambda lab: (
+                    str(lab).strip().lower() in generated,
+                    str(lab).strip().lower() == humanize_identifier(local).lower(),
+                    str(lab),
+                ))
                 for lab in labs:
                     if lab != keep:
                         g.remove((subj, RDFS.label, lab))
