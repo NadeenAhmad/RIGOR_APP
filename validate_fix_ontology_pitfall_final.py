@@ -443,6 +443,16 @@ def parse_oops_graph(text: str) -> Graph:
             and (str(term).startswith(str(OOPS)) or str(term).startswith(str(OOPS_OLD)))
             for triple in g for term in triple
         ):
+            # A failed analysis comes back as an oops:response carrying a title
+            # and messages ("OOPS! something went wrong") instead of pitfalls;
+            # it must not read as a clean result.
+            error_titles = [
+                str(title)
+                for response in g.subjects(RDF.type, OOPS.response)
+                for title in g.objects(response, OOPS.hasTitle)
+            ]
+            if error_titles and not any(g.subjects(OOPS.hasCode, None)):
+                raise RuntimeError(f"OOPS analysis failed: {error_titles[0]}")
             return g
         errors.append(f"{fmt}: no OOPS vocabulary")
     raise RuntimeError("Invalid OOPS response: " + " | ".join(errors))

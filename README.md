@@ -311,6 +311,18 @@ The `OOPS_ENDPOINT` environment variable overrides the default if you ever need
 to point at a different instance (e.g. a self-hosted one). Most users won't set
 it. To fall back to the public service, clear it: `unset OOPS_ENDPOINT`.
 
+**Run OOPS! locally (recommended for demos).** `oops_local/` builds the OOPS!
+authors' Docker image (`mpovedavillalon/oops`) with the WordNet 3.0 files it
+needs but does not ship. It then answers in about a second with no
+dependence on the public server. With Docker running:
+
+```bash
+./oops_local/start_oops.sh
+OOPS_ENDPOINT=http://localhost:8080/OOPS/rest python rigor_app.py
+```
+
+The first run downloads about 140 MB. Stop it with `docker rm -f rigor-oops`.
+
 **When OOPS! is unreachable.** The app does not hang or drop the stage:
 
 - Each successful OOPS! response is cached on disk, keyed by ontology content
