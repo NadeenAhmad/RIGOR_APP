@@ -471,6 +471,9 @@ _MAX_PROPOSALS_SHOWN = 20
 # The class-pair picker (two class dropdowns + "Add class pair") has frozen
 # the page on some machines; it is off unless RIGOR_PAIR_PICKER=1.
 _PAIR_PICKER_ENABLED = os.environ.get("RIGOR_PAIR_PICKER", "0") == "1"
+# RIGOR_SIMPLE_DECISIONS=1: show only the first decision, as plain text with
+# at most 8 suggested axioms (the others stay unresolved).
+_SIMPLE_DECISIONS = os.environ.get("RIGOR_SIMPLE_DECISIONS", "0") == "1"
 _MAX_EVIDENCE_SHOWN = 12
 
 
@@ -563,7 +566,7 @@ def render_review_card(review_state, index: int):
         gr.update(choices=SUBCLASS_MODE_CHOICES, value="cancel", visible=False),  # subclass handling
         gr.update(value="", visible=False),                         # pair status
     )
-    if index >= len(reviews):
+    if index >= len(reviews) or (_SIMPLE_DECISIONS and index > 0):
         return hidden
 
     item = reviews[index]
@@ -571,14 +574,17 @@ def render_review_card(review_state, index: int):
     explanation = item.get("explanation") or ""
     question = item.get("question") or item.get("title") or "Review this finding"
     atomic = item.get("atomic_proposals") or []
-    md = (
-        f"#### {item.get('title', item.get('code', 'Finding'))}\n"
-        f"{question}\n\n"
-        + _candidate_evidence_markdown(item)
-        + f"_{explanation}_\n\n"
-        f"Affected: `{', '.join(str(x) for x in affected[:5]) or 'ontology-wide'}`\n\n"
-        + _review_details_html(item)
-    )
+    if _SIMPLE_DECISIONS:
+        md = f"#### {item.get('title', item.get('code', 'Finding'))}\n{question}\n"
+    else:
+        md = (
+            f"#### {item.get('title', item.get('code', 'Finding'))}\n"
+            f"{question}\n\n"
+            + _candidate_evidence_markdown(item)
+            + f"_{explanation}_\n\n"
+            f"Affected: `{', '.join(str(x) for x in affected[:5]) or 'ontology-wide'}`\n\n"
+            + _review_details_html(item)
+        )
 
     raw_choices = item.get("choices") or ["Apply proposed repair", "Keep current modeling"]
     choices = [choice for choice in raw_choices if choice != "Review details"]
@@ -591,7 +597,7 @@ def render_review_card(review_state, index: int):
     atomic_choices = [
         (str(proposal.get("label")), str(proposal.get("id") or proposal.get("label")))
         for proposal in atomic if proposal.get("label")
-    ][:_MAX_PROPOSALS_SHOWN]
+    ][:(8 if _SIMPLE_DECISIONS else _MAX_PROPOSALS_SHOWN)]
     input_kind = item.get("custom_input_kind", "none")
     input_label = item.get("custom_input_label") or "Optional value or note"
 
