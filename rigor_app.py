@@ -468,6 +468,9 @@ def _review_overview(reviews) -> str:
 # class pairs, and rendering them all can freeze the browser. Experts can
 # still add any pair with the class dropdowns.
 _MAX_PROPOSALS_SHOWN = 20
+# The class-pair picker (two class dropdowns + "Add class pair") has frozen
+# the page on some machines; it is off unless RIGOR_PAIR_PICKER=1.
+_PAIR_PICKER_ENABLED = os.environ.get("RIGOR_PAIR_PICKER", "0") == "1"
 _MAX_EVIDENCE_SHOWN = 12
 
 
@@ -592,7 +595,11 @@ def render_review_card(review_state, index: int):
     input_kind = item.get("custom_input_kind", "none")
     input_label = item.get("custom_input_label") or "Optional value or note"
 
-    pair_supported = item.get("code") in {"P10", "P30"} and len(item.get("entity_options") or []) >= 2
+    pair_supported = (
+        _PAIR_PICKER_ENABLED
+        and item.get("code") in {"P10", "P30"}
+        and len(item.get("entity_options") or []) >= 2
+    )
     entity_choices = [
         (str(option.get("label") or option.get("iri")), str(option.get("iri")))
         for option in (item.get("entity_options") or []) if option.get("iri")
