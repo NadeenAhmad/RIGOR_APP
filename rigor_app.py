@@ -464,6 +464,17 @@ def _review_overview(reviews) -> str:
     return "\n".join(lines)
 
 
+# A decision card must stay light: an LLM answer can propose hundreds of
+# class pairs, and rendering them all can freeze the browser. Experts can
+# still add any pair with the class dropdowns.
+_MAX_PROPOSALS_SHOWN = 20
+_MAX_EVIDENCE_SHOWN = 12
+
+
+def _clip(text: str, limit: int = 4000) -> str:
+    return text if len(text) <= limit else text[:limit] + "\n... [truncated] ..."
+
+
 def _review_details_html(item: dict) -> str:
     """Render evidence as an expandable block; this is viewing, not a decision."""
     affected = item.get("affected") or []
@@ -485,10 +496,10 @@ def _review_details_html(item: dict) -> str:
         parts.append("</ul>")
     if add_ttl:
         parts.append("<p><b>Triples proposed for addition:</b></p>")
-        parts.append(f"<pre style='white-space:pre-wrap'>{html.escape(add_ttl)}</pre>")
+        parts.append(f"<pre style='white-space:pre-wrap;max-height:320px;overflow:auto'>{html.escape(_clip(add_ttl))}</pre>")
     if delete_ttl:
         parts.append("<p><b>Triples proposed for deletion:</b></p>")
-        parts.append(f"<pre style='white-space:pre-wrap'>{html.escape(delete_ttl)}</pre>")
+        parts.append(f"<pre style='white-space:pre-wrap;max-height:320px;overflow:auto'>{html.escape(_clip(delete_ttl))}</pre>")
     if not add_ttl and not delete_ttl and item.get("code") == "P24":
         parts.append(
             "<p><b>Executable action:</b> the app will locate the recursive OWL "
@@ -519,11 +530,13 @@ def _candidate_evidence_markdown(item: dict) -> str:
             "knowledge establishes the relationship."
         )
         return "\n\n".join(lines) + "\n\n"
-    for entry in entries:
+    for entry in entries[:_MAX_EVIDENCE_SHOWN]:
         source = str(entry.get("source") or "Evidence")
         label = str(entry.get("label") or "Candidate")
         summary = str(entry.get("summary") or "")
         lines.append(f"- **{source}:** `{label}`" + (f" — {summary}" if summary else ""))
+    if len(entries) > _MAX_EVIDENCE_SHOWN:
+        lines.append(f"- … {len(entries) - _MAX_EVIDENCE_SHOWN} more candidates not shown")
     return "\n".join(lines) + "\n\n"
 
 def render_review_card(review_state, index: int):
@@ -575,7 +588,7 @@ def render_review_card(review_state, index: int):
     atomic_choices = [
         (str(proposal.get("label")), str(proposal.get("id") or proposal.get("label")))
         for proposal in atomic if proposal.get("label")
-    ]
+    ][:_MAX_PROPOSALS_SHOWN]
     input_kind = item.get("custom_input_kind", "none")
     input_label = item.get("custom_input_label") or "Optional value or note"
 
