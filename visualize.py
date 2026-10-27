@@ -166,6 +166,24 @@ def _external_label(g: Graph, term) -> str:
     return f"{guessed}:{_local(term)}" if guessed else _label(g, term)
 
 
+_PROV_DERIVED = URIRef("http://www.w3.org/ns/prov#wasDerivedFrom")
+
+
+def _source(g: Graph, term) -> str | None:
+    """'ae_tox.BM_DEP' (or 'ae_tox') from RIGOR's prov:wasDerivedFrom IRI."""
+    for o in g.objects(term, _PROV_DERIVED):
+        tail = str(o).split("/provenance/", 1)
+        if len(tail) == 2 and tail[1]:
+            return tail[1].strip("/").replace("/", ".")
+    return None
+
+
+def _is_mangled(iri) -> bool:
+    """A full IRI flattened into a local name by the Manchester parser
+    (e.g. #_http_example_org_ext_clinical_Patient_): a parsing artifact."""
+    return bool(re.match(r"_https?_", _local(iri)))
+
+
 def _key_properties(g: Graph) -> set:
     """Property IRIs that appear in any owl:hasKey list (for a '(key)' marker)."""
     keys: set = set()
@@ -217,11 +235,14 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
         if nid not in nodes:
             external = bool(local_ns) and not nid.startswith(local_ns)
             if external:
-                nodes[nid] = {"id": nid, "label": _external_label(g, term), "title": nid,
+                nodes[nid] = {"id": nid, "label": _external_label(g, term),
+                              "title": f"{_external_label(g, term)} · external vocabulary · {nid}",
                               "shape": "ellipse", "color": _COLOR_EXTERNAL, "borderWidth": 2,
 "shapeProperties": {"borderDashes": [6, 4]}}
             else:
-                nodes[nid] = {"id": nid, "label": _label(g, term), "title": nid,
+                src = _source(g, term)
+                title = f"{_label(g, term)} · " + (f"from table {src} · " if src else "") + nid
+                nodes[nid] = {"id": nid, "label": _label(g, term), "title": title,
                              "shape": "ellipse", "color": _COLOR_CLASS}
         return nid
 
@@ -262,7 +283,7 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
         classes.add(s)
         classes.add(o)
     for c in classes:
-        if isinstance(c, URIRef):
+        if isinstance(c, URIRef) and not _is_mangled(c):
             add_class(c)
 
     # --- External alignment (beyond subClassOf/equivalentClass) -------------
@@ -270,8 +291,8 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
     # property alignment can't be a node; we annotate the property's edge with
     # it. Class-level skos:exactMatch/closeMatch, by contrast, do get rendered
     # as alignment edges to an external (magenta) class node.
-    obj_prop_iris = {p for p in g.subjects(RDF.type, OWL.ObjectProperty) if isinstance(p, URIRef)}
-    data_prop_iris = {p for p in g.subjects(RDF.type, OWL.DatatypeProperty) if isinstance(p, URIRef)}
+    obj_prop_iris = {p for p in g.subjects(RDF.type, OWL.ObjectProperty) if isinstance(p, URIRef) and not _is_mangled(p)}
+    data_prop_iris = {p for p in g.subjects(RDF.type, OWL.DatatypeProperty) if isinstance(p, URIRef) and not _is_mangled(p)}
     all_prop_iris = obj_prop_iris | data_prop_iris
 
     _STD_NS = (str(OWL), str(RDFS), str(RDF), str(XSD), str(SKOS))
@@ -291,26 +312,39 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
     prop_alignments: dict = {}
     for pred, sym in _ALIGN_PREDS:
         for s, o in g.subject_objects(pred):
-            if s in all_prop_iris and _is_external(o):
-                prop_alignments.setdefault(s, []).append((sym, _local(o), str(o)))
+            if s in all_prop_iris and _is_external(o) and not _is_mangled(o):
+                prop_alignments.setdefault(s, []).append((sym, _short_iri(g, str(o)), str(o)))
 
     def _prop_label(p) -> str:
         base = plabel_of(p)
+        src = _source(g, p)
+        column = src.rsplit(".", 1)[-1] if src and "." in src else None
+        # Show the cryptic source column next to a curated label, e.g.
+        # "bone marrow depression grade (BM_DEP)".
+        if column and _humanize(column).lower() not in base.lower():
+            base += f" ({column})"
         al = prop_alignments.get(p)
         if al:
-            base += "  " + " ".join(f"{sym} {loc}" for sym, loc, _ in al)
+            base += "  " + " ".join(f"{sym} {short}" for sym, short, _ in al)
         return base
 
     def _prop_title(p):
-        al = prop_alignments.get(p)
-        if not al:
-            return None
-        return f"{p}  ·  aligned: " + "; ".join(f"{sym} {iri}" for sym, _, iri in al)
+        src = _source(g, p)
+        parts = [plabel_of(p)]
+        if src:
+            parts.append(f"from column {src}")
+        for sym, short, iri in prop_alignments.get(p, []):
+            kind = "equivalent to" if sym == "\u2261" else "sub-property of" if sym == "\u2291" else "matches"
+            parts.append(f"{kind} {short} ({iri})")
+        parts.append(str(p))
+        return " · ".join(parts)
 
     # Pairwise class axioms: one edge per pair (symmetric ones in either order).
     seen_pairs: set = set()
 
     def pair_edge(s, o, label, color, arrows, symmetric) -> bool:
+        if _is_mangled(s) or _is_mangled(o):
+            return False
         key = (label, frozenset((str(s), str(o)))) if symmetric else (label, str(s), str(o))
         if key in seen_pairs:
             return False
@@ -394,6 +428,8 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
 
     _MARK_ORDER = {"\u2200": 0, "\u2203": 1, "value": 2}
     for entry in prop_edges.values():
+        if any(_is_mangled(x) for x in (entry["cls"], entry["prop"], entry["filler"]) if isinstance(x, URIRef)):
+            continue
         marks = entry["marks"]
         declared = "domain" in marks
         shown = sorted((m for m in marks if m != "domain"),
@@ -405,9 +441,10 @@ def build_vis_data(g: Graph) -> Tuple[list, list, dict]:
              "color": {"color": _COLOR_OBJ_EDGE if declared else _COLOR_RESTRICTION}}
         if not declared:
             e["dashes"] = True
-        _t = _prop_title(entry["prop"])
-        if _t:
-            e["title"] = _t
+        e["title"] = _prop_title(entry["prop"])
+        if entry["prop"] in prop_alignments:
+            e["color"] = {"color": _COLOR_EXTERNAL}
+            e["width"] = 2.5
             e["dashes"] = True
         edges.append(e)
 
@@ -478,7 +515,8 @@ def _full_html(nodes: list, edges: list) -> str:
   <div style="color:#777">∀ ∃ = ≤ ≥ after a property name: its restrictions on that class</div>
   <div><span class="sw" style="background:{_COLOR_EQUIV}"></span>equivalentClass / skos exact·closeMatch (dashed)</div>
   <div><span class="sw" style="background:{_COLOR_DISJOINT}"></span>disjointWith</div>
-  <div style="margin-top:4px;color:#777">Property alignments (≡ ⊑ ≈) appear on the property's edge label.</div>
+  <div><span class="sw" style="background:{_COLOR_EXTERNAL}"></span>property aligned to an external vocabulary (≡ equivalent, ⊑ sub-property)</div>
+  <div style="margin-top:4px;color:#777">Hover a node or edge for its source table/column and alignment.</div>
 </div>
 <div id="net"></div>
 <script>
