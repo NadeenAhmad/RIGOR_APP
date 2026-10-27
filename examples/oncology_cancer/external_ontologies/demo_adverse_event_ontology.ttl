@@ -1,0 +1,109 @@
+@prefix ae:   <http://example.org/ext/adverse-event#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ext/adverse-event> a owl:Ontology ;
+    rdfs:label "Demo Adverse Event Ontology (CTCAE-style)"@en ;
+    rdfs:comment "A small, fictional adverse-event vocabulary modelled on the CTCAE grading approach, for the RIGOR demo. Not an official CTCAE release."@en .
+
+# ---- Classes ----
+
+ae:AdverseEvent a owl:Class ;
+    rdfs:label "adverse event"@en ;
+    skos:altLabel "AE"@en, "toxicity"@en ;
+    rdfs:comment "Any unfavourable sign, symptom or disease (AE, toxicity) temporally associated with a medical treatment such as a chemotherapy cycle, whether or not considered related to it."@en .
+
+ae:SeriousAdverseEvent a owl:Class ;
+    rdfs:subClassOf ae:AdverseEvent ;
+    rdfs:label "serious adverse event"@en ;
+    skos:altLabel "SAE"@en ;
+    rdfs:comment "Serious adverse event (SAE): an adverse event that results in death, is life-threatening, or requires hospitalisation."@en .
+
+ae:HematologicToxicity a owl:Class ;
+    rdfs:subClassOf ae:AdverseEvent ;
+    rdfs:label "hematologic toxicity"@en ;
+    rdfs:comment "Adverse event affecting the blood or blood-forming organs, detected from blood counts (ANC, PLT, HGB)."@en .
+
+ae:BoneMarrowDepression a owl:Class ;
+    rdfs:subClassOf ae:HematologicToxicity ;
+    rdfs:label "bone marrow depression"@en ;
+    skos:altLabel "myelosuppression"@en, "bone marrow suppression"@en, "BM depression"@en ;
+    rdfs:comment "Bone marrow depression (myelosuppression, BM depression): reduced production of blood cells by the bone marrow, typically caused by chemotherapy. Graded on the CTCAE 1-5 scale."@en .
+
+ae:Neutropenia a owl:Class ;
+    rdfs:subClassOf ae:BoneMarrowDepression ;
+    rdfs:label "neutropenia"@en ;
+    rdfs:comment "Bone marrow depression with an abnormally low absolute neutrophil count (ANC)."@en .
+
+ae:FebrileNeutropenia a owl:Class ;
+    rdfs:subClassOf ae:Neutropenia ;
+    rdfs:label "febrile neutropenia"@en ;
+    rdfs:comment "Neutropenia accompanied by fever; a medical emergency during chemotherapy."@en .
+
+ae:Thrombocytopenia a owl:Class ;
+    rdfs:subClassOf ae:BoneMarrowDepression ;
+    rdfs:label "thrombocytopenia"@en ;
+    rdfs:comment "Bone marrow depression with an abnormally low platelet count (PLT)."@en .
+
+ae:Anemia a owl:Class ;
+    rdfs:subClassOf ae:BoneMarrowDepression ;
+    rdfs:label "anemia"@en ;
+    rdfs:comment "Bone marrow depression with a low haemoglobin concentration (HGB)."@en .
+
+ae:Nausea a owl:Class ;
+    rdfs:subClassOf ae:AdverseEvent ;
+    rdfs:label "nausea"@en ;
+    rdfs:comment "Gastrointestinal adverse event: a queasy sensation and urge to vomit. Graded CTCAE 1-3."@en .
+
+ae:PeripheralSensoryNeuropathy a owl:Class ;
+    rdfs:subClassOf ae:AdverseEvent ;
+    rdfs:label "peripheral sensory neuropathy"@en ;
+    rdfs:comment "Nervous system adverse event: damage to peripheral sensory nerves (numbness, tingling), e.g. after taxanes or platinum drugs."@en .
+
+ae:CausalityAttribution a owl:Class ;
+    rdfs:label "causality attribution"@en ;
+    rdfs:comment "Assessment of how likely an adverse event was caused by the treatment: unrelated, unlikely, possible, probable or definite."@en .
+
+# ---- Properties ----
+
+ae:severityGrade a owl:DatatypeProperty ;
+    rdfs:label "severity grade"@en ;
+    rdfs:comment "CTCAE severity grade of an adverse event: 0 none, 1 mild, 2 moderate, 3 severe, 4 life-threatening, 5 death related to the adverse event."@en ;
+    rdfs:domain ae:AdverseEvent ;
+    rdfs:range xsd:integer .
+
+ae:onsetDate a owl:DatatypeProperty ;
+    rdfs:label "onset date"@en ;
+    rdfs:comment "Calendar date on which an adverse event started."@en ;
+    rdfs:domain ae:AdverseEvent ;
+    rdfs:range xsd:date .
+
+ae:isSerious a owl:DatatypeProperty ;
+    rdfs:label "is serious"@en ;
+    rdfs:comment "True when the adverse event meets serious adverse event (SAE) criteria."@en ;
+    rdfs:domain ae:AdverseEvent ;
+    rdfs:range xsd:boolean .
+
+ae:occurredDuring a owl:ObjectProperty ;
+    rdfs:label "occurred during"@en ;
+    rdfs:comment "Relates an adverse event to the treatment cycle during which it started."@en ;
+    rdfs:domain ae:AdverseEvent .
+
+ae:hasAttribution a owl:ObjectProperty ;
+    rdfs:label "has attribution"@en ;
+    rdfs:comment "Relates an adverse event to its causality attribution to the treatment."@en ;
+    rdfs:domain ae:AdverseEvent ;
+    rdfs:range ae:CausalityAttribution .
+
+ae:actionTaken a owl:DatatypeProperty ;
+    rdfs:label "action taken"@en ;
+    rdfs:comment "Treatment change made because of an adverse event: none, dose reduced, delayed, or discontinued."@en ;
+    rdfs:domain ae:AdverseEvent ;
+    rdfs:range xsd:string .
+
+ae:gradedFrom a owl:ObjectProperty ;
+    rdfs:label "graded from"@en ;
+    rdfs:comment "Relates a hematologic toxicity to the laboratory blood count used to assign its grade."@en ;
+    rdfs:domain ae:HematologicToxicity .

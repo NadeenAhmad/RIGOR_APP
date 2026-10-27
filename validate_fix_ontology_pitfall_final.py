@@ -17,6 +17,7 @@ and reports.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -42,6 +43,17 @@ from api_utils import extract_between_markers
 # Configuration
 # ---------------------------------------------------------------------------
 OOPS_ENDPOINT = os.environ.get("OOPS_ENDPOINT", "https://oops.linkeddata.es/rest")
+OOPS_CONNECT_TIMEOUT = float(os.environ.get("OOPS_CONNECT_TIMEOUT", "10"))
+OOPS_READ_TIMEOUT = float(os.environ.get("OOPS_READ_TIMEOUT", "120"))
+OOPS_RETRIES = int(os.environ.get("OOPS_RETRIES", "3"))
+OOPS_COOLDOWN_SECONDS = float(os.environ.get("OOPS_COOLDOWN_SECONDS", "300"))
+# Successful OOPS! responses are cached on disk by ontology content; set
+# RIGOR_OOPS_CACHE_DIR to an empty string to disable.
+OOPS_CACHE_DIR = os.environ.get(
+    "RIGOR_OOPS_CACHE_DIR", str(Path.home() / ".cache" / "rigor_oops")
+)
+# Pitfalls that local_findings() detects without the OOPS! service.
+LOCAL_PITFALL_CODES = frozenset({"P11", "P25", "P26", "P34", "P35", "P38", "P39", "P41"})
 DEFAULT_IMPORTANCE_LEVELS = ("critical", "important")
 DEFAULT_LICENSE_URI = os.environ.get(
     "RIGOR_DEFAULT_LICENSE", "https://creativecommons.org/licenses/by/4.0/"
@@ -317,28 +329,99 @@ def build_request_xml(rdfxml: str) -> str:
 </OOPSRequest>'''
 
 
-def call_oops(request_xml: str, retries: int = 4) -> str:
+class OopsUnavailable(RuntimeError):
+    """OOPS! could not be reached (or answered garbage) and no cached result exists."""
+
+
+# After a failure, skip the network for this long so one outage costs a single
+# timeout instead of one per repair candidate.
+_oops_down_until = 0.0
+_oops_last_error = ""
+_oops_memory_cache: dict[str, str] = {}
+
+
+def _oops_cache_key(graph: Graph) -> str:
+    """Content hash that ignores triple order and blank-node labels.
+
+    Each blank node is named by a hash of its own outgoing triples, which is
+    exact for the tree-shaped blank nodes OWL uses (restrictions, lists), so
+    the same ontology hits the cache across runs and processes. Full
+    isomorphism canonicalisation is far too slow to run per OOPS! call.
+    """
+    memo: dict[BNode, str] = {}
+
+    def term(t: Any, depth: int = 0) -> str:
+        if not isinstance(t, BNode):
+            return t.n3()
+        if t in memo:
+            return memo[t]
+        if depth > 50:
+            return "_:deep"
+        memo[t] = "_:cycle"
+        parts = sorted(f"{p.n3()} {term(o, depth + 1)}" for p, o in graph.predicate_objects(t))
+        memo[t] = "_:" + hashlib.sha256("\n".join(parts).encode("utf-8")).hexdigest()[:20]
+        return memo[t]
+
+    lines = sorted(f"{term(s)} {p.n3()} {term(o)}" for s, p, o in graph)
+    return hashlib.sha256("\n".join(lines).encode("utf-8")).hexdigest()
+
+
+def _oops_cache_get(key: str) -> str | None:
+    if key in _oops_memory_cache:
+        return _oops_memory_cache[key]
+    if not OOPS_CACHE_DIR:
+        return None
+    try:
+        text = (Path(OOPS_CACHE_DIR) / f"{key}.xml").read_text(encoding="utf-8")
+    except OSError:
+        return None
+    _oops_memory_cache[key] = text
+    return text
+
+
+def _oops_cache_put(key: str, text: str) -> None:
+    _oops_memory_cache[key] = text
+    if not OOPS_CACHE_DIR:
+        return
+    try:
+        Path(OOPS_CACHE_DIR).mkdir(parents=True, exist_ok=True)
+        (Path(OOPS_CACHE_DIR) / f"{key}.xml").write_text(text, encoding="utf-8")
+    except OSError:
+        pass
+
+
+def call_oops(
+    request_xml: str,
+    retries: int | None = None,
+    read_timeout: float | None = None,
+) -> str:
     headers = {
         "Content-Type": "application/xml",
         "Accept": "application/rdf+xml, text/turtle;q=0.8, */*;q=0.1",
     }
+    retries = max(1, retries or OOPS_RETRIES)
+    timeout = (OOPS_CONNECT_TIMEOUT, read_timeout or OOPS_READ_TIMEOUT)
     for attempt in range(1, retries + 1):
         try:
             response = requests.post(
                 OOPS_ENDPOINT,
                 data=request_xml.encode("utf-8"),
                 headers=headers,
-                timeout=280,
+                timeout=timeout,
             )
+        except requests.ReadTimeout as exc:
+            # The server accepted the request but is not answering; resending
+            # the same analysis would just wait out the timeout again.
+            raise RuntimeError(f"OOPS request timed out after {timeout[1]:.0f}s") from exc
         except requests.RequestException as exc:
             if attempt == retries:
                 raise RuntimeError(f"OOPS request failed: {exc}") from exc
-            time.sleep(3 * attempt)
+            time.sleep(2 * attempt)
             continue
         if response.ok:
             return response.text
-        if response.status_code >= 500 and attempt < retries:
-            time.sleep(3 * attempt)
+        if (response.status_code >= 500 or response.status_code == 429) and attempt < retries:
+            time.sleep(2 * attempt)
             continue
         raise RuntimeError(f"OOPS HTTP {response.status_code}: {response.text[:1000]}")
     raise RuntimeError("OOPS request failed")
@@ -366,7 +449,60 @@ def parse_oops_graph(text: str) -> Graph:
 
 
 def run_oops(graph: Graph) -> Graph:
-    return parse_oops_graph(call_oops(build_request_xml(graph.serialize(format="xml"))))
+    """Scan ``graph`` with OOPS!, using the response cache when possible.
+
+    Raises ``OopsUnavailable`` when the service fails and nothing is cached.
+    """
+    global _oops_down_until, _oops_last_error
+    request_xml = build_request_xml(graph.serialize(format="xml"))
+    key = _oops_cache_key(graph)
+    cached = _oops_cache_get(key)
+    if cached is not None:
+        try:
+            return parse_oops_graph(cached)
+        except RuntimeError:
+            _oops_memory_cache.pop(key, None)
+    if time.time() < _oops_down_until:
+        raise OopsUnavailable(f"OOPS! unavailable ({_oops_last_error})")
+    try:
+        text = call_oops(request_xml)
+        oops_graph = parse_oops_graph(text)
+    except Exception as exc:  # noqa: BLE001
+        _oops_down_until = time.time() + OOPS_COOLDOWN_SECONDS
+        _oops_last_error = str(exc)[:300]
+        raise OopsUnavailable(f"OOPS! unavailable ({_oops_last_error})") from exc
+    _oops_down_until = 0.0
+    _oops_cache_put(key, text)
+    return oops_graph
+
+
+def run_oops_or_local(graph: Graph, emit=None) -> Graph:
+    """Like ``run_oops`` but returns an empty result when OOPS! is unavailable,
+    so callers continue with ``local_findings`` alone."""
+    try:
+        return run_oops(graph)
+    except OopsUnavailable as exc:
+        if emit:
+            emit(f"⚠️ {str(exc)[:160]}; continuing with local pitfall checks only")
+        return Graph()
+
+
+def oops_health_check(timeout: float = 20.0) -> tuple[bool, str]:
+    """Send a tiny ontology to OOPS! (bypassing the cache) and report the result."""
+    global _oops_down_until, _oops_last_error
+    probe = Graph()
+    probe.add((URIRef("http://example.org/rigor-probe"), RDF.type, OWL.Ontology))
+    probe.add((URIRef("http://example.org/rigor-probe#Thing"), RDF.type, OWL.Class))
+    started = time.time()
+    try:
+        parse_oops_graph(call_oops(build_request_xml(probe.serialize(format="xml")),
+                                   retries=1, read_timeout=timeout))
+    except Exception as exc:  # noqa: BLE001
+        _oops_down_until = time.time() + OOPS_COOLDOWN_SECONDS
+        _oops_last_error = str(exc)[:300]
+        return False, f"OOPS! unreachable at {OOPS_ENDPOINT}: {_oops_last_error}"
+    _oops_down_until = 0.0
+    return True, f"OOPS! reachable at {OOPS_ENDPOINT} ({time.time() - started:.1f}s)"
 
 
 def _objects_by_local(graph: Graph, subject: Any, name: str):
@@ -1319,6 +1455,18 @@ def validate_candidate_graph(
         after_findings = merge_findings(
             findings_from_oops(after_oops, levels), local_findings(trial, levels)
         )
+    except OopsUnavailable as exc:
+        if finding.code not in LOCAL_PITFALL_CODES and not user_approved:
+            result.reasons.append(f"fresh OOPS verification failed: {exc}")
+            return result
+        # Compare like with like: both sides from local checks only. A
+        # user-approved change to a pitfall only OOPS! can count is accepted
+        # on the reasoner and structural checks alone.
+        baseline_findings = local_findings(graph, levels)
+        after_findings = local_findings(trial, levels)
+        if finding.code not in LOCAL_PITFALL_CODES:
+            allow_target_unchanged = True
+        result.reasons.append("OOPS! unavailable; verified with local checks only")
     except Exception as exc:
         result.reasons.append(f"fresh OOPS verification failed: {exc}")
         return result
@@ -2097,7 +2245,7 @@ def repair_pitfalls(
     graph = clone_graph(ontology_graph)
     for iteration in range(1, max_iterations + 1):
         emit(f"OOPS repair pass {iteration}/{max_iterations}")
-        oops_graph = run_oops(graph)
+        oops_graph = run_oops_or_local(graph, emit)
         findings = merge_findings(findings_from_oops(oops_graph, levels), local_findings(graph, levels))
         if not findings:
             emit("No Critical/Important pitfalls remain.")
@@ -2226,7 +2374,7 @@ def repair_pitfalls(
             break
         time.sleep(1)
 
-    final_oops = run_oops(graph)
+    final_oops = run_oops_or_local(graph, emit)
     final_findings = merge_findings(findings_from_oops(final_oops, levels), local_findings(graph, levels))
     final_summary = summary_from_findings(final_findings)
     report_json, report_md = write_reports(out_dir, source_label, applied, reviews, unresolved, final_summary)
@@ -2507,7 +2655,7 @@ def apply_user_decisions(
                     })
                     continue
                 emit(f"{item.code}: running OOPS and logical validation...")
-                baseline_oops = run_oops(current)
+                baseline_oops = run_oops_or_local(current, emit)
                 findings = merge_findings(
                     findings_from_oops(baseline_oops, importance_levels),
                     local_findings(current, importance_levels),
@@ -2667,7 +2815,7 @@ def apply_user_decisions(
                     else (item.proposed_add_ttl, item.proposed_delete_ttl)
                 )
             emit(f"{item.code}: running OOPS and logical validation...")
-            baseline_oops = run_oops(current)
+            baseline_oops = run_oops_or_local(current, emit)
             findings = merge_findings(findings_from_oops(baseline_oops, importance_levels), local_findings(current, importance_levels))
             finding = next((f for f in findings if f.code == item.code), Finding(item.code, item.title, item.severity, affected=item.affected))
             if not add_ttl.strip() and not delete_ttl.strip():
@@ -2770,7 +2918,7 @@ def main() -> int:
     serialize_ontology(result.graph, output, fmt)
     # Verify exact serialized bytes can be parsed and scanned.
     probe, _ = load_ontology(output, fmt)
-    run_oops(probe)
+    run_oops_or_local(probe, print)
     print(f"Repaired ontology: {output}")
     print(f"Automatic fixes: {len(result.applied)}")
     print(f"Needs user decision: {len(result.review_items)}")

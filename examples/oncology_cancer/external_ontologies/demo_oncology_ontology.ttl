@@ -1,0 +1,122 @@
+@prefix onc:  <http://example.org/ext/oncology#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ext/oncology> a owl:Ontology ;
+    rdfs:label "Demo Oncology Ontology (NCIt/RECIST-style)"@en ;
+    rdfs:comment "A small, fictional oncology vocabulary for the RIGOR demo, loosely modelled on NCI Thesaurus, TNM/AJCC staging and RECIST 1.1. Not an official release of any of them."@en .
+
+# ---- Classes ----
+
+onc:CancerDiagnosis a owl:Class ;
+    rdfs:label "cancer diagnosis"@en ;
+    rdfs:comment "Diagnosis of a malignant neoplasm in a patient, with primary site (topography), histology (morphology), TNM stage and grade."@en .
+
+onc:ChemotherapyRegimen a owl:Class ;
+    rdfs:label "chemotherapy regimen"@en ;
+    skos:altLabel "protocol"@en ;
+    rdfs:comment "A named combination of antineoplastic drugs with doses and schedule, given in repeated cycles (e.g. FOLFOX, AC-T)."@en .
+
+onc:ChemotherapyCycle a owl:Class ;
+    rdfs:label "chemotherapy cycle"@en ;
+    rdfs:comment "One administration period of a chemotherapy regimen, followed by a rest period; cycles are numbered 1, 2, 3."@en .
+
+onc:TumorResponseAssessment a owl:Class ;
+    rdfs:label "tumor response assessment"@en ;
+    rdfs:comment "Imaging-based evaluation of how a tumour responded to treatment, classified with RECIST 1.1 (CR, PR, SD, PD)."@en .
+
+onc:CompleteResponse a owl:Class ;
+    rdfs:subClassOf onc:TumorResponseAssessment ;
+    rdfs:label "complete response"@en ;
+    rdfs:comment "RECIST CR: disappearance of all target lesions."@en .
+
+onc:PartialResponse a owl:Class ;
+    rdfs:subClassOf onc:TumorResponseAssessment ;
+    rdfs:label "partial response"@en ;
+    rdfs:comment "RECIST PR: at least 30% decrease in the sum of diameters of target lesions."@en .
+
+onc:StableDisease a owl:Class ;
+    rdfs:subClassOf onc:TumorResponseAssessment ;
+    rdfs:label "stable disease"@en ;
+    rdfs:comment "RECIST SD: neither sufficient shrinkage for PR nor increase for PD."@en .
+
+onc:ProgressiveDisease a owl:Class ;
+    rdfs:subClassOf onc:TumorResponseAssessment ;
+    rdfs:label "progressive disease"@en ;
+    rdfs:comment "RECIST PD: at least 20% increase in the sum of diameters of target lesions, or new lesions."@en .
+
+# ---- Properties ----
+
+onc:diagnosisDate a owl:DatatypeProperty ;
+    rdfs:label "diagnosis date"@en ;
+    rdfs:comment "Date on which the cancer was diagnosed."@en ;
+    rdfs:domain onc:CancerDiagnosis ;
+    rdfs:range xsd:date .
+
+onc:primarySiteCode a owl:DatatypeProperty ;
+    rdfs:label "primary site code"@en ;
+    rdfs:comment "ICD-O-3 topography code of the primary tumour site, e.g. C50.9 (breast)."@en ;
+    rdfs:domain onc:CancerDiagnosis ;
+    rdfs:range xsd:string .
+
+onc:histologyCode a owl:DatatypeProperty ;
+    rdfs:label "histology code"@en ;
+    rdfs:comment "ICD-O-3 morphology code of the tumour histology and behaviour, e.g. 8500/3."@en ;
+    rdfs:domain onc:CancerDiagnosis ;
+    rdfs:range xsd:string .
+
+onc:tnmStageGroup a owl:DatatypeProperty ;
+    rdfs:label "stage group"@en ;
+    rdfs:comment "AJCC stage group (I-IV) derived from the TNM T, N and M categories."@en ;
+    rdfs:domain onc:CancerDiagnosis ;
+    rdfs:range xsd:string .
+
+onc:histologicGrade a owl:DatatypeProperty ;
+    rdfs:label "histologic grade"@en ;
+    rdfs:comment "Histologic grade 1-4 of tumour differentiation (1 well, 4 undifferentiated)."@en ;
+    rdfs:domain onc:CancerDiagnosis ;
+    rdfs:range xsd:integer .
+
+onc:usesRegimen a owl:ObjectProperty ;
+    rdfs:label "uses regimen"@en ;
+    rdfs:comment "Relates a chemotherapy cycle to the regimen it administers."@en ;
+    rdfs:domain onc:ChemotherapyCycle ;
+    rdfs:range onc:ChemotherapyRegimen .
+
+onc:treats a owl:ObjectProperty ;
+    rdfs:label "treats"@en ;
+    rdfs:comment "Relates a chemotherapy cycle to the cancer diagnosis it treats."@en ;
+    rdfs:domain onc:ChemotherapyCycle ;
+    rdfs:range onc:CancerDiagnosis .
+
+onc:cycleNumber a owl:DatatypeProperty ;
+    rdfs:label "cycle number"@en ;
+    rdfs:comment "Ordinal number of a chemotherapy cycle within its regimen."@en ;
+    rdfs:domain onc:ChemotherapyCycle ;
+    rdfs:range xsd:integer .
+
+onc:relativeDoseIntensity a owl:DatatypeProperty ;
+    rdfs:label "relative dose intensity"@en ;
+    rdfs:comment "Percentage of the planned chemotherapy dose actually delivered in a cycle."@en ;
+    rdfs:domain onc:ChemotherapyCycle ;
+    rdfs:range xsd:decimal .
+
+onc:treatmentIntent a owl:DatatypeProperty ;
+    rdfs:label "treatment intent"@en ;
+    rdfs:comment "Goal of a regimen: curative, palliative, adjuvant or neoadjuvant."@en ;
+    rdfs:domain onc:ChemotherapyRegimen ;
+    rdfs:range xsd:string .
+
+onc:assesses a owl:ObjectProperty ;
+    rdfs:label "assesses"@en ;
+    rdfs:comment "Relates a tumour response assessment to the cancer diagnosis evaluated."@en ;
+    rdfs:domain onc:TumorResponseAssessment ;
+    rdfs:range onc:CancerDiagnosis .
+
+onc:sumOfLongestDiameters a owl:DatatypeProperty ;
+    rdfs:label "sum of longest diameters"@en ;
+    rdfs:comment "RECIST sum of the longest diameters of all target lesions, in millimetres."@en ;
+    rdfs:domain onc:TumorResponseAssessment ;
+    rdfs:range xsd:decimal .

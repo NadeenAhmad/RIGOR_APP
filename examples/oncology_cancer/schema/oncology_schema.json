@@ -1,0 +1,110 @@
+{
+  "pt_mstr": {
+    "columns": {
+      "PT_ID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "MRN": { "type": "TEXT", "not_null": true },
+      "SEX_CD": { "type": "INTEGER" },
+      "BIRTH_YR": { "type": "INTEGER" },
+      "ECOG_PS": { "type": "INTEGER" },
+      "SMK_ST": { "type": "TEXT" },
+      "DOD_DT": { "type": "DATE" }
+    },
+    "foreign_keys": []
+  },
+  "onc_staff": {
+    "columns": {
+      "STAFF_ID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "STAFF_NM": { "type": "TEXT", "not_null": true },
+      "ROLE_CD": { "type": "TEXT" },
+      "DEPT_CD": { "type": "TEXT" }
+    },
+    "foreign_keys": []
+  },
+  "tumor_dx": {
+    "columns": {
+      "DX_ID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "PT_ID": { "type": "INTEGER", "not_null": true },
+      "DX_DT": { "type": "DATE" },
+      "TOPO_CD": { "type": "TEXT" },
+      "MORPH_CD": { "type": "TEXT" },
+      "T_CAT": { "type": "TEXT" },
+      "N_CAT": { "type": "TEXT" },
+      "M_CAT": { "type": "TEXT" },
+      "STG_GRP": { "type": "TEXT" },
+      "GRD": { "type": "INTEGER" }
+    },
+    "foreign_keys": [
+      { "column": "PT_ID", "references_table": "pt_mstr", "references_column": "PT_ID" }
+    ]
+  },
+  "rgmn": {
+    "columns": {
+      "RGMN_CD": { "type": "TEXT", "primary_key": true, "not_null": true },
+      "RGMN_NM": { "type": "TEXT" },
+      "CYC_LEN_D": { "type": "INTEGER" },
+      "INTENT_CD": { "type": "TEXT" }
+    },
+    "foreign_keys": []
+  },
+  "tx_cyc": {
+    "columns": {
+      "CYC_ID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "DX_ID": { "type": "INTEGER", "not_null": true },
+      "RGMN_CD": { "type": "TEXT", "not_null": true },
+      "CYC_NO": { "type": "INTEGER" },
+      "ADMIN_DT": { "type": "DATE" },
+      "DOSE_PCT": { "type": "DECIMAL" },
+      "DLY_FLG": { "type": "BOOLEAN" },
+      "PRESCR_ID": { "type": "INTEGER" }
+    },
+    "foreign_keys": [
+      { "column": "DX_ID", "references_table": "tumor_dx", "references_column": "DX_ID" },
+      { "column": "RGMN_CD", "references_table": "rgmn", "references_column": "RGMN_CD" }
+    ]
+  },
+  "lab_heme": {
+    "columns": {
+      "LAB_ID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "CYC_ID": { "type": "INTEGER", "not_null": true },
+      "DRAW_DT": { "type": "DATE" },
+      "WBC": { "type": "DECIMAL" },
+      "ANC": { "type": "DECIMAL" },
+      "HGB": { "type": "DECIMAL" },
+      "PLT": { "type": "INTEGER" },
+      "NADIR_FLG": { "type": "BOOLEAN" }
+    },
+    "foreign_keys": [
+      { "column": "CYC_ID", "references_table": "tx_cyc", "references_column": "CYC_ID" }
+    ]
+  },
+  "ae_tox": {
+    "columns": {
+      "AE_ID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "CYC_ID": { "type": "INTEGER", "not_null": true },
+      "ONSET_DT": { "type": "DATE" },
+      "BM_DEP": { "type": "INTEGER" },
+      "FN_FLG": { "type": "BOOLEAN" },
+      "NAUS_GR": { "type": "INTEGER" },
+      "PN_GR": { "type": "INTEGER" },
+      "SAE_FLG": { "type": "BOOLEAN" },
+      "ATTR_CD": { "type": "INTEGER" },
+      "ACT_TKN": { "type": "TEXT" },
+      "LAB_REF": { "type": "INTEGER" }
+    },
+    "foreign_keys": [
+      { "column": "CYC_ID", "references_table": "tx_cyc", "references_column": "CYC_ID" }
+    ]
+  },
+  "resp_asmt": {
+    "columns": {
+      "RESP_ID": { "type": "INTEGER", "primary_key": true, "not_null": true },
+      "DX_ID": { "type": "INTEGER", "not_null": true },
+      "ASMT_DT": { "type": "DATE" },
+      "RECIST_CD": { "type": "TEXT" },
+      "SLD_MM": { "type": "DECIMAL" }
+    },
+    "foreign_keys": [
+      { "column": "DX_ID", "references_table": "tumor_dx", "references_column": "DX_ID" }
+    ]
+  }
+}

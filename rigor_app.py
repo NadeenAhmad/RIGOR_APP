@@ -816,7 +816,7 @@ def apply_review_decisions_ui(
 
     # Validate the exact bytes that the user will download.
     probe, _ = pitfall_mod.load_ontology(str(output), output_format)
-    pitfall_mod.run_oops(probe)
+    pitfall_mod.run_oops_or_local(probe)
 
     status = (
         f"Updated ontology ready: **{output.name}** ({len(updated):,} triples). "
@@ -1007,6 +1007,14 @@ def run_existing_ontology_repair(
 # --------------------------------------------------------------------------- #
 # UI
 # --------------------------------------------------------------------------- #
+def _oops_status_markdown() -> str:
+    ok, detail = pitfall_mod.oops_health_check()
+    if ok:
+        return f"✅ {detail}"
+    return (f"⚠️ {detail}  \nRuns will use cached OOPS! results and local pitfall "
+            "checks; try another network (e.g. a phone hotspot) for live OOPS!.")
+
+
 def build_ui():
     with gr.Blocks(title="RIGOR — Retrieval-Augmented Generation of Ontologies from Relational Databases") as demo:
         gr.HTML(_logo_html())
@@ -1025,8 +1033,9 @@ def build_ui():
                 "`HermiT.jar` and `robot.jar`. If any is missing, the stage is skipped.\n"
                 "- **OOPS! pitfall detection** uses the public OOPS! web service "
                 "(needs **network access**, no OOPS key). The **repair** is LLM-driven, "
-                "so it reuses your OpenRouter key — the stage runs only when a key is set, "
-                "and is skipped offline.\n"
+                "so it reuses your OpenRouter key — the stage runs only when a key is set. "
+                "If OOPS! is unreachable, the stage uses cached OOPS! results and local "
+                "checks (P11, P25, P26, P34, P35, P38, P39, P41) instead of waiting.\n"
                 "- Without an **API key**, the pipeline runs deterministic Direct Mapping "
                 "only (no LLM enrichment, no OOPS repair)."
             )
@@ -1058,6 +1067,13 @@ def build_ui():
             with gr.Row():
                 hermit_jar = gr.Textbox(label="HermiT.jar path (optional)", placeholder="/path/to/HermiT.jar")
                 robot_jar = gr.Textbox(label="robot.jar path (optional)", placeholder="/path/to/robot.jar")
+            with gr.Row():
+                oops_check_btn = gr.Button("Check OOPS! connection", variant="secondary", scale=1)
+                oops_status_md = gr.Markdown(
+                    "_If OOPS! is unreachable, the run continues with cached OOPS! results "
+                    "and local pitfall checks instead of waiting on the service._"
+                )
+            oops_check_btn.click(_oops_status_markdown, inputs=None, outputs=oops_status_md)
 
         with gr.Accordion("Optional context (advanced)", open=False):
             gr.Markdown(
@@ -1254,4 +1270,5 @@ def build_ui():
 
 
 if __name__ == "__main__":
+    print(pitfall_mod.oops_health_check()[1], flush=True)
     build_ui().queue().launch()

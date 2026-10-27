@@ -1,0 +1,105 @@
+@prefix clin: <http://example.org/ext/clinical#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ext/clinical> a owl:Ontology ;
+    rdfs:label "Demo Clinical Ontology"@en ;
+    rdfs:comment "A small, fictional clinical vocabulary (patients, clinicians, laboratory blood counts) for the RIGOR demo."@en .
+
+# ---- Classes ----
+
+clin:Patient a owl:Class ;
+    rdfs:label "patient"@en ;
+    rdfs:comment "A person receiving medical care, identified by a medical record number (MRN)."@en .
+
+clin:Clinician a owl:Class ;
+    rdfs:label "clinician"@en ;
+    rdfs:comment "A health professional who provides care: physician, nurse or pharmacist."@en .
+
+clin:Oncologist a owl:Class ;
+    rdfs:subClassOf clin:Clinician ;
+    rdfs:label "oncologist"@en ;
+    rdfs:comment "A physician specialised in diagnosing and treating cancer, who prescribes chemotherapy."@en .
+
+clin:LaboratoryTest a owl:Class ;
+    rdfs:label "laboratory test"@en ;
+    rdfs:comment "A test performed on a patient specimen, such as a blood sample."@en .
+
+clin:CompleteBloodCount a owl:Class ;
+    rdfs:subClassOf clin:LaboratoryTest ;
+    rdfs:label "complete blood count"@en ;
+    skos:altLabel "CBC"@en, "haematology panel"@en ;
+    rdfs:comment "Complete blood count (CBC): a blood test measuring white cells (WBC), neutrophils (ANC), haemoglobin (HGB) and platelets (PLT)."@en .
+
+# ---- Properties ----
+
+clin:medicalRecordNumber a owl:DatatypeProperty ;
+    rdfs:label "medical record number"@en ;
+    rdfs:comment "Hospital medical record number (MRN) that identifies a patient."@en ;
+    rdfs:domain clin:Patient ;
+    rdfs:range xsd:string .
+
+clin:administrativeSex a owl:DatatypeProperty ;
+    rdfs:label "administrative sex"@en ;
+    rdfs:comment "Sex of the patient recorded for administrative purposes: male, female or unknown."@en ;
+    rdfs:domain clin:Patient .
+
+clin:birthYear a owl:DatatypeProperty ;
+    rdfs:label "birth year"@en ;
+    rdfs:comment "Year in which the patient was born."@en ;
+    rdfs:domain clin:Patient ;
+    rdfs:range xsd:gYear .
+
+clin:ecogPerformanceStatus a owl:DatatypeProperty ;
+    rdfs:label "ECOG performance status"@en ;
+    rdfs:comment "ECOG performance status (ECOG PS) 0-4 describing a cancer patient's level of functioning: 0 fully active to 4 completely disabled."@en ;
+    rdfs:domain clin:Patient ;
+    rdfs:range xsd:integer .
+
+clin:smokingStatus a owl:DatatypeProperty ;
+    rdfs:label "smoking status"@en ;
+    rdfs:comment "Tobacco smoking status of a patient: never, former or current smoker."@en ;
+    rdfs:domain clin:Patient .
+
+clin:dateOfDeath a owl:DatatypeProperty ;
+    rdfs:label "date of death"@en ;
+    rdfs:comment "Calendar date on which the patient died."@en ;
+    rdfs:domain clin:Patient ;
+    rdfs:range xsd:date .
+
+clin:specimenCollectionDate a owl:DatatypeProperty ;
+    rdfs:label "specimen collection date"@en ;
+    rdfs:comment "Date on which the blood sample or other specimen was drawn."@en ;
+    rdfs:domain clin:LaboratoryTest ;
+    rdfs:range xsd:date .
+
+clin:absoluteNeutrophilCount a owl:DatatypeProperty ;
+    rdfs:label "absolute neutrophil count"@en ;
+    rdfs:comment "Absolute neutrophil count (ANC) in 10^9 cells/L; low ANC indicates neutropenia."@en ;
+    rdfs:domain clin:CompleteBloodCount ;
+    rdfs:range xsd:decimal .
+
+clin:whiteBloodCellCount a owl:DatatypeProperty ;
+    rdfs:label "white blood cell count"@en ;
+    rdfs:comment "White blood cell count (WBC) in 10^9 cells/L."@en ;
+    rdfs:domain clin:CompleteBloodCount ;
+    rdfs:range xsd:decimal .
+
+clin:hemoglobinConcentration a owl:DatatypeProperty ;
+    rdfs:label "hemoglobin concentration"@en ;
+    rdfs:comment "Haemoglobin concentration (HGB) in g/dL; low HGB indicates anaemia."@en ;
+    rdfs:domain clin:CompleteBloodCount ;
+    rdfs:range xsd:decimal .
+
+clin:plateletCount a owl:DatatypeProperty ;
+    rdfs:label "platelet count"@en ;
+    rdfs:comment "Platelet count (PLT) in 10^9 cells/L; low PLT indicates thrombocytopenia."@en ;
+    rdfs:domain clin:CompleteBloodCount ;
+    rdfs:range xsd:decimal .
+
+clin:prescribedBy a owl:ObjectProperty ;
+    rdfs:label "prescribed by"@en ;
+    rdfs:comment "Relates a treatment, such as a chemotherapy cycle, to the clinician who prescribed it."@en ;
+    rdfs:range clin:Clinician .

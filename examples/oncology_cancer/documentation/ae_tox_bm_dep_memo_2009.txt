@@ -1,0 +1,16 @@
+MEMO (2009) - ae_tox column BM_DEP - recovered from the old shared drive
+
+BM_DEP in table ae_tox = Bone Marrow DEPression, also called myelosuppression
+or bone marrow suppression. It is a haematologic toxicity of chemotherapy: the
+bone marrow makes fewer blood cells, so neutrophils (ANC), platelets (PLT) and
+haemoglobin (HGB) fall. It is NOT a depression (mood) score.
+
+BM_DEP is an INTEGER grade on the CTCAE severity scale:
+  0 = no bone marrow depression
+  1 = mild          2 = moderate          3 = severe
+  4 = life-threatening (urgent intervention)
+  5 = death related to the adverse event
+Graded from the cycle's nadir blood count in lab_heme (see ae_tox.LAB_REF).
+Grade 3 or higher usually triggers ACT_TKN = DR or DLY.
+Bone marrow depression includes neutropenia, thrombocytopenia and anaemia;
+FN_FLG marks the febrile neutropenia complication.

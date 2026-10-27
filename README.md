@@ -177,6 +177,15 @@ describe the rest. You can also download the graph as a standalone HTML.
 
 
 
+## Oncology example: the case of `BM_DEP`
+
+`examples/oncology_cancer/` is a fictional legacy oncology database (8 tables)
+whose `ae_tox.BM_DEP INTEGER` column means *bone marrow depression grade*. Only
+the documentation says so. It comes with per-table data dictionaries, a 2009
+memo explaining `BM_DEP`, and three demo external ontologies (adverse events,
+oncology, clinical). See [its README](examples/oncology_cancer/README.md) for
+what to upload and what to point at in the result.
+
 ## Requirements & limitations
 
 - **External alignment** requires uploading **external ontologies** under
@@ -205,7 +214,7 @@ absent; it just skips the part that needs it and logs it.
 | **Documents** | No document retrieval. Enrichment proceeds from the schema (and the seed core ontology, if provided) without extra textual context. |
 | **Seed core ontology** | The run starts from an empty core and builds entirely from the schema — this is the normal case. |
 | **Java / `HermiT.jar` / `robot.jar`** | The logical-consistency stage is **skipped** with a message; the ontology passes through unchanged. (Note: even with the jars, the consistency *repair* loop needs the API key — without a key it can report issues but not fix them.) |
-| **Network access** | The **OOPS!** stage is skipped (it calls a remote service). Any LLM calls also fail, so without network the run behaves much like the no-key case: Direct Mapping, syntax validation, and offline consistency still run. |
+| **Network access** | **OOPS!** detection falls back to cached OOPS! results and local pitfall checks (it calls a remote service). Any LLM calls also fail, so without network the run behaves much like the no-key case: Direct Mapping, syntax validation, and offline consistency still run. |
 
 In short: with no API key you get a valid deterministic baseline; each optional
 input enables another layer of enrichment, validation, or repair.
@@ -301,6 +310,27 @@ endpoint stalls or resets, try a different network (e.g. a phone hotspot).
 The `OOPS_ENDPOINT` environment variable overrides the default if you ever need
 to point at a different instance (e.g. a self-hosted one). Most users won't set
 it. To fall back to the public service, clear it: `unset OOPS_ENDPOINT`.
+
+**When OOPS! is unreachable.** The app does not hang or drop the stage:
+
+- Each successful OOPS! response is cached on disk, keyed by ontology content
+  (`~/.cache/rigor_oops`; override with `RIGOR_OOPS_CACHE_DIR`, or set it empty
+  to disable). Re-checking an ontology OOPS! has already seen needs no network.
+- After a failure, OOPS! is not retried for `OOPS_COOLDOWN_SECONDS` (300), so an
+  outage costs one timeout, not one per repair candidate.
+- Detection falls back to local checks (P11, P25, P26, P34, P35, P38, P39, P41),
+  and their deterministic fixes are verified locally. User-approved decisions
+  are still checked by HermiT and the structural guards.
+- **Settings → Check OOPS! connection** (also printed at startup) tells you
+  whether the live service is reachable.
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `OOPS_CONNECT_TIMEOUT` | `10` | Seconds to wait for a connection. |
+| `OOPS_READ_TIMEOUT` | `120` | Seconds to wait for an analysis; a read timeout is not retried. |
+| `OOPS_RETRIES` | `3` | Attempts on connection errors, HTTP 5xx, or 429. |
+| `OOPS_COOLDOWN_SECONDS` | `300` | How long to skip OOPS! after a failure. |
+| `RIGOR_OOPS_CACHE_DIR` | `~/.cache/rigor_oops` | On-disk OOPS! response cache. |
 
 **Troubleshooting:** repeated `Connection refused` (e.g. to `localhost:8080`)
 during the OOPS! stage usually means `OOPS_ENDPOINT` is set to an instance that
