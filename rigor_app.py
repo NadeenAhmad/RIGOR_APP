@@ -145,9 +145,23 @@ def summarize(file_obj):
             s = ingest.summarize_schema_json(path)
             lines = [f"**Detected input:** schema JSON  ·  **Tables:** {s['table_count']}", ""]
             for t in s["tables"]:
-                pk = next((c["name"] for c in t["columns"] if c["primary_key"]), "none")
-                lines.append(f"- **`{t['name']}`** — {len(t['columns'])} columns, "
-                             f"{len(t['foreign_keys'])} FK(s), PK: `{pk}`")
+                pk = ", ".join(c["name"] for c in t["columns"] if c["primary_key"]) or "none"
+                fk_by_col = {
+                    fk.get("column"): f"{fk.get('references_table')}.{fk.get('references_column')}"
+                    for fk in t["foreign_keys"] if isinstance(fk, dict)
+                }
+                lines += [
+                    f"**`{t['name']}`** — {len(t['columns'])} columns, "
+                    f"{len(t['foreign_keys'])} FK(s), PK: `{pk}`",
+                    "",
+                    "| Column | Type | PK | References |",
+                    "|---|---|---|---|",
+                ]
+                for c in t["columns"]:
+                    ref = fk_by_col.get(c["name"])
+                    lines.append(f"| `{c['name']}` | {c['type']} | {'✓' if c['primary_key'] else ''} "
+                                 f"| {f'`{ref}`' if ref else ''} |")
+                lines.append("")
 
         if s.get("warnings"):
             lines += ["", "**Warnings**"]
