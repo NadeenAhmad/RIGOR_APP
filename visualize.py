@@ -130,6 +130,18 @@ _WELL_KNOWN_PREFIXES = {
 }
 
 
+def _prefix_from_namespace(ns: str) -> str | None:
+    """A readable stand-in prefix when the file binds none, taken from the
+    namespace path: http://example.org/ext/oncology# -> 'oncology'."""
+    segments = [seg for seg in re.split(r"[/#]", ns.split("://", 1)[-1]) if seg]
+    for seg in reversed(segments[1:]):  # skip the host name
+        if re.fullmatch(r"v?\d+(\.\d+)*|ns|ontology|owl|rdf|schema", seg.lower()):
+            continue
+        if re.fullmatch(r"[A-Za-z][\w-]{1,30}", seg):
+            return seg.lower()
+    return None
+
+
 def _short_iri(g: Graph, iri: str) -> str:
     ns = _ns(iri)
     for prefix, uri in g.namespaces():
@@ -137,7 +149,8 @@ def _short_iri(g: Graph, iri: str) -> str:
             return f"{prefix}:{_local(iri)}"
     if ns in _WELL_KNOWN_PREFIXES:
         return f"{_WELL_KNOWN_PREFIXES[ns]}:{_local(iri)}"
-    return _local(iri)
+    guessed = _prefix_from_namespace(ns)
+    return f"{guessed}:{_local(iri)}" if guessed else _local(iri)
 
 
 def _external_label(g: Graph, term) -> str:
@@ -149,7 +162,8 @@ def _external_label(g: Graph, term) -> str:
             return f"{prefix}:{_local(term)}"
     if ns in _WELL_KNOWN_PREFIXES:
         return f"{_WELL_KNOWN_PREFIXES[ns]}:{_local(term)}"
-    return _label(g, term)
+    guessed = _prefix_from_namespace(ns)
+    return f"{guessed}:{_local(term)}" if guessed else _label(g, term)
 
 
 def _key_properties(g: Graph) -> set:
