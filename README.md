@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="rigor_logo.png" alt="RIGOR logo" height="90">
+  <img src="rigor_logo_new.png" alt="RIGOR logo" height="90">
 </p>
 
 # RIGOR App
