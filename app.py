@@ -1418,7 +1418,10 @@ def parse_llm_ontology(llm_output: str) -> Graph:
             kind, name = header.split(":", 1)
             kind = kind.strip()
             name = name.strip()
-            subject = uri(name)
+            # Headers may name external terms (<IRI> or a known prefix:local);
+            # resolve them like any other token so the frame stays an
+            # alignment instead of becoming a flattened local name.
+            subject = parse_prefixed_or_uri(name) or uri(name)
 
             if kind == "Class":
                 g.add((subject, RDF.type, OWL.Class))
