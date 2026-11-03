@@ -29,6 +29,7 @@ import tempfile
 import threading
 import time
 import traceback
+import uuid
 from pathlib import Path
 
 import gradio as gr
@@ -86,6 +87,8 @@ MODEL_CHOICES = list(dict.fromkeys(list(MODELS.values()) + [
     # Fast, low-cost options for quick test runs.
     "google/gemini-3.8-flash", "google/gemini-3.7-flash",
 ]))
+# Preselected in the Model dropdown: fast and low-cost; any entry can be chosen.
+DEFAULT_UI_MODEL = "google/gemini-3.8-flash"
 SESSION_DIR = Path(tempfile.gettempdir()) / "rigor_sessions"
 
 # Single-user app: one in-flight run at a time. The Stop button sets this; the
@@ -93,22 +96,48 @@ SESSION_DIR = Path(tempfile.gettempdir()) / "rigor_sessions"
 _cancel_event = threading.Event()
 
 
+# Run dirs untouched for this long are removed when a new run starts. Younger
+# ones may still be in use: a run in progress, or a result being downloaded.
+SESSION_MAX_AGE_SECONDS = 6 * 3600
+_own_sessions: set[Path] = set()
+
+
+def _new_session_dir(prefix: str) -> Path:
+    """A fresh, uniquely named per-run temp dir (thread ids are reused)."""
+    session = SESSION_DIR / f"{prefix}_{uuid.uuid4().hex}"
+    session.mkdir(parents=True, exist_ok=True)
+    _own_sessions.add(session)
+    return session
+
+
 def _cleanup_sessions(keep: Path | None = None) -> None:
-    """Remove previous per-run temp dirs under SESSION_DIR. The current run's
-    dir (`keep`) is preserved because its final ontology is still being served
-    for download / visualization. Best-effort; never raises."""
+    """Remove stale per-run temp dirs under SESSION_DIR.
+
+    Only dirs older than SESSION_MAX_AGE_SECONDS go, so starting a run never
+    deletes one that is still running or whose result is being downloaded
+    (e.g. a repair started during a generation run). Best-effort; never raises.
+    """
     try:
         if not SESSION_DIR.exists():
             return
+        cutoff = time.time() - SESSION_MAX_AGE_SECONDS
         for d in SESSION_DIR.iterdir():
-            if d.is_dir() and (keep is None or d.resolve() != keep.resolve()):
+            if not d.is_dir() or (keep is not None and d.resolve() == keep.resolve()):
+                continue
+            if d.stat().st_mtime < cutoff:
                 shutil.rmtree(d, ignore_errors=True)
     except Exception:
         pass
 
 
-# On exit, drop the whole session scratch area so nothing lingers in temp.
-atexit.register(lambda: shutil.rmtree(SESSION_DIR, ignore_errors=True))
+def _remove_own_sessions() -> None:
+    for d in _own_sessions:
+        shutil.rmtree(d, ignore_errors=True)
+
+
+# On exit, drop this app's run dirs so nothing lingers in temp (other app
+# instances share SESSION_DIR, so their dirs are left alone).
+atexit.register(_remove_own_sessions)
 
 
 # The browser re-renders the whole progress box and Turtle preview on every
@@ -239,8 +268,7 @@ def run_pipeline(file_obj, api_key, model, k_attempts,
         os.environ["OPENROUTER_API_KEY"] = api_key
     os.environ["RIGOR_MODEL"] = model
 
-    session = SESSION_DIR / f"run_{os.getpid()}_{int(threading.get_ident())}"
-    session.mkdir(parents=True, exist_ok=True)
+    session = _new_session_dir("run")
     dataset = re.sub(r"[^A-Za-z0-9_-]+", "_", Path(file_obj.name).stem).strip("_") or "dataset"
     enriched = session / f"{dataset}_enriched_ontology.owl"
     final = session / f"{dataset}_final_ontology.owl"
@@ -468,9 +496,9 @@ def _review_overview(reviews) -> str:
 # class pairs, and rendering them all can freeze the browser. Experts can
 # still add any pair with the class dropdowns.
 _MAX_PROPOSALS_SHOWN = 20
-# The class-pair picker (two class dropdowns + "Add class pair") has frozen
-# the page on some machines; it is off unless RIGOR_PAIR_PICKER=1.
-_PAIR_PICKER_ENABLED = os.environ.get("RIGOR_PAIR_PICKER", "0") == "1"
+# The class-pair picker (two class dropdowns + "Add class pair") is shown on
+# P10/P30 cards; RIGOR_PAIR_PICKER=0 hides it.
+_PAIR_PICKER_ENABLED = os.environ.get("RIGOR_PAIR_PICKER", "1") == "1"
 # RIGOR_SIMPLE_DECISIONS=1: show only the first decision, as plain text with
 # at most 8 suggested axioms (the others stay unresolved).
 _SIMPLE_DECISIONS = os.environ.get("RIGOR_SIMPLE_DECISIONS", "0") == "1"
@@ -545,31 +573,13 @@ def _candidate_evidence_markdown(item: dict) -> str:
         lines.append(f"- … {len(entries) - _MAX_EVIDENCE_SHOWN} more candidates not shown")
     return "\n".join(lines) + "\n\n"
 
-def render_review_card(review_state, index: int):
-    """Render one semantic-review card using stable code-specific controls.
+def _review_card_spec(item: dict) -> dict:
+    """Content and controls of one semantic-review card.
 
-    P10/P30 always expose expert class-pair dropdowns populated with classes
-    that actually occur in the ontology. The LLM may suggest pairs, but it does
-    not define the interaction or button labels.
+    P10/P30 expose expert class-pair dropdowns populated with classes that
+    actually occur in the ontology. The LLM may suggest pairs, but it does not
+    define the interaction or button labels.
     """
-    reviews = _parse_review_state(review_state)
-    hidden = (
-        gr.update(value="", visible=False),                         # question
-        gr.update(choices=[], value=[], visible=False),              # LLM pairs
-        gr.update(choices=[], value=None, visible=False),            # decision
-        gr.update(value="", visible=False),                         # custom
-        gr.update(choices=[], value=None, visible=False),            # left class
-        gr.update(value="", visible=False),                         # symbol
-        gr.update(choices=[], value=None, visible=False),            # right class
-        gr.update(visible=False),                                    # add button
-        gr.update(choices=[], value=[], visible=False),              # expert pairs
-        gr.update(choices=SUBCLASS_MODE_CHOICES, value="cancel", visible=False),  # subclass handling
-        gr.update(value="", visible=False),                         # pair status
-    )
-    if index >= len(reviews) or (_SIMPLE_DECISIONS and index > 0):
-        return hidden
-
-    item = reviews[index]
     affected = item.get("affected") or []
     explanation = item.get("explanation") or ""
     question = item.get("question") or item.get("title") or "Review this finding"
@@ -610,42 +620,23 @@ def render_review_card(review_state, index: int):
         (str(option.get("label") or option.get("iri")), str(option.get("iri")))
         for option in (item.get("entity_options") or []) if option.get("iri")
     ]
-    symbol = "⟂" if item.get("code") == "P10" else "≡"
-    expert_label = (
-        "Expert-selected disjoint axioms"
-        if item.get("code") == "P10"
-        else "Expert-selected equivalent-class axioms"
-    )
-
-    return (
-        gr.update(value=md, visible=True),
-        gr.update(
-            choices=atomic_choices,
-            value=[],
-            label="Suggested axioms (approve any subset)",
-            visible=bool(atomic_choices),
-            show_select_all=bool(atomic_choices),
+    return {
+        "md": md,
+        "atomic_choices": atomic_choices,
+        "choices": choices,
+        "recommended": recommended,
+        "input_kind": input_kind,
+        "input_label": input_label,
+        "pair_supported": pair_supported,
+        "entity_choices": entity_choices,
+        "symbol": "⟂" if item.get("code") == "P10" else "≡",
+        "expert_label": (
+            "Expert-selected disjoint axioms"
+            if item.get("code") == "P10"
+            else "Expert-selected equivalent-class axioms"
         ),
-        gr.update(choices=choices, value=recommended, visible=True),
-        gr.update(
-            label=input_label,
-            placeholder=("DomainIRI | RangeIRI" if input_kind == "domain_range" else "Optional"),
-            value="",
-            visible=input_kind != "none",
-        ),
-        gr.update(choices=entity_choices, value=None, label="First class", visible=pair_supported),
-        gr.update(value=f"### {symbol}", visible=pair_supported),
-        gr.update(choices=entity_choices, value=None, label="Second class", visible=pair_supported),
-        gr.update(value="Add class pair", visible=pair_supported),
-        gr.update(choices=[], value=[], label=expert_label, visible=pair_supported),
-        gr.update(
-            choices=SUBCLASS_MODE_CHOICES,
-            value="cancel",
-            label="If these classes already have a subclass relation",
-            visible=item.get("code") == "P30" and pair_supported,
-        ),
-        gr.update(value="", visible=False),
-    )
+        "subclass_mode": item.get("code") == "P30" and pair_supported,
+    }
 
 def _encoded_pair(left: str, right: str, subclass_mode: str = "") -> str:
     ordered = sorted((str(left), str(right)))
@@ -778,24 +769,103 @@ def _pair_adder(index: int):
     return add
 
 
-def _card_renderer(index: int):
-    def render(state):
-        return render_review_card(state, index)
-    return render
+_ANSWER_SLOTS = (("atomic", []), ("choice", ""), ("custom", ""), ("pairs", []), ("mode", "cancel"))
 
 
-def render_all_review_cards(review_state):
-    """Render every fixed review slot in one callback.
+def _decision_applier(slots: list[dict]):
+    """Apply callback for the rendered cards.
 
-    Using one callback avoids Gradio branch-order issues where only the first
-    ``event.then(...)`` review card is refreshed even though the overview lists
-    several decisions. The returned values are flattened in the exact order of
-    ``review_components``.
+    ``slots`` maps each card's answer kind to its position among the callback's
+    values (cards without a control get the default), producing the flat
+    five-per-card ``answers`` that ``apply_review_decisions_ui`` expects.
     """
-    updates = []
-    for index in range(MAX_REVIEW_CARDS):
-        updates.extend(render_review_card(review_state, index))
-    return tuple(updates)
+    def apply(ontology_file, review_state, robot_jar, *values):
+        answers = []
+        for slot in slots:
+            for kind, default in _ANSWER_SLOTS:
+                position = slot.get(kind)
+                answers.append(values[position] if position is not None else default)
+        yield from apply_review_decisions_stream(ontology_file, review_state, robot_jar, *answers)
+    return apply
+
+
+def build_review_cards(state_value, review_state, apply_inputs, apply_outputs):
+    """Create the decision cards for ``state_value`` (called from gr.render).
+
+    ``review_state`` is the gr.State component, used as an event input.
+
+    Cards are built fresh with their controls already visible. Pre-built hidden
+    card slots that one update made visible froze Chrome for minutes with
+    Gradio 6.17: revealing their dropdowns and empty checkbox lists sent the
+    Svelte renderer into a loop ("RangeError: Set maximum size exceeded").
+    """
+    reviews = _parse_review_state(state_value)
+    shown = reviews[:1] if _SIMPLE_DECISIONS else reviews[:MAX_REVIEW_CARDS]
+    values, slots = [], []
+
+    def add_value(component, slot: dict, kind: str):
+        slot[kind] = len(values)
+        values.append(component)
+
+    for index, item in enumerate(shown):
+        spec = _review_card_spec(item)
+        slot: dict = {}
+        with gr.Group():
+            gr.Markdown(spec["md"])
+            if spec["atomic_choices"]:
+                add_value(gr.CheckboxGroup(
+                    choices=spec["atomic_choices"], value=[],
+                    label="Suggested axioms (approve any subset)", show_select_all=True,
+                ), slot, "atomic")
+            if spec["pair_supported"]:
+                with gr.Row():
+                    expert_left = gr.Dropdown(choices=spec["entity_choices"], value=None, label="First class")
+                    gr.Markdown(f"### {spec['symbol']}")
+                    expert_right = gr.Dropdown(choices=spec["entity_choices"], value=None, label="Second class")
+                    add_pair_btn = gr.Button("Add class pair")
+                expert_pairs = gr.CheckboxGroup(choices=[], value=[], label=spec["expert_label"])
+                add_value(expert_pairs, slot, "pairs")
+                subclass_mode = None
+                if spec["subclass_mode"]:
+                    subclass_mode = gr.Radio(
+                        choices=SUBCLASS_MODE_CHOICES, value="cancel",
+                        label="If these classes already have a subclass relation",
+                    )
+                    add_value(subclass_mode, slot, "mode")
+                pair_status = gr.Markdown("")
+            choice_radio = gr.Radio(choices=spec["choices"], value=spec["recommended"],
+                                    label=f"Decision {index + 1}")
+            add_value(choice_radio, slot, "choice")
+            if spec["input_kind"] != "none":
+                add_value(gr.Textbox(
+                    label=spec["input_label"], value="",
+                    placeholder=("DomainIRI | RangeIRI" if spec["input_kind"] == "domain_range" else "Optional"),
+                ), slot, "custom")
+        # Only "Add class pair" calls the server; radios, checkboxes and
+        # dropdowns stay client-side so they respond while validation runs.
+        if spec["pair_supported"]:
+            adder = _pair_adder(index)
+            if subclass_mode is None:
+                add_pair_btn.click(lambda s, l, r, p, _add=adder: _add(s, l, r, "cancel", p),
+                                   inputs=[review_state, expert_left, expert_right, expert_pairs],
+                                   outputs=[expert_pairs, pair_status, choice_radio], queue=False)
+            else:
+                add_pair_btn.click(adder,
+                                   inputs=[review_state, expert_left, expert_right, subclass_mode, expert_pairs],
+                                   outputs=[expert_pairs, pair_status, choice_radio], queue=False)
+        slots.append(slot)
+    # Cards not shown (simple view) keep the defaults, i.e. stay unresolved.
+    slots.extend({} for _ in reviews[len(shown):MAX_REVIEW_CARDS])
+
+    apply_btn = gr.Button("Apply selected decisions", variant="primary")
+    apply_btn.click(
+        _decision_applier(slots),
+        inputs=[*apply_inputs, *values],
+        outputs=apply_outputs,
+        show_progress="minimal",
+        concurrency_limit=1,
+        trigger_mode="once",
+    )
 
 
 def _coerce_uploaded_path(file_obj):
@@ -992,8 +1062,7 @@ def run_existing_ontology_repair(
     os.environ["RIGOR_MODEL"] = model
 
     _cleanup_sessions()
-    session = SESSION_DIR / f"repair_{os.getpid()}_{int(threading.get_ident())}"
-    session.mkdir(parents=True, exist_ok=True)
+    session = _new_session_dir("repair")
     source_path = Path(_coerce_path(ontology_file))
     copied = session / source_path.name
     shutil.copy(source_path, copied)
@@ -1107,7 +1176,7 @@ def build_ui():
                 api_key = gr.Textbox(label="OpenRouter API key", type="password",
                                      placeholder="sk-or-...", scale=2)
                 model = gr.Dropdown(label="Model", choices=MODEL_CHOICES,
-                                    value=MODEL_CHOICES[0], allow_custom_value=True, scale=2)
+                                    value=DEFAULT_UI_MODEL, allow_custom_value=True, scale=2)
                 k_attempts = gr.Slider(label="Correction retries (k)", minimum=0,
                                        maximum=4, step=1, value=2, scale=1)
             gr.Markdown("_The key is used locally for this session only. It is not stored "
@@ -1193,52 +1262,26 @@ def build_ui():
         review_state = gr.State("[]")
         review_summary = gr.Markdown("✅ **No semantic decisions are required.**")
         repair_report = gr.File(label="Repair report")
-        review_components = []
         with gr.Accordion("Needs your decision", open=True):
             gr.Markdown(
                 "This section appears only for semantic choices that cannot be "
                 "settled safely by deterministic rules, the LLM, and automated validators."
             )
-            for idx in range(MAX_REVIEW_CARDS):
-                with gr.Group():
-                    question_md = gr.Markdown(visible=False)
-                    atomic_choices = gr.CheckboxGroup(
-                        choices=[],
-                        label="LLM-proposed axioms (approve any subset)",
-                        show_select_all=True,
-                        visible=False,
-                    )
-                    with gr.Row():
-                        expert_left = gr.Dropdown(choices=[], label="First class", visible=False)
-                        pair_symbol = gr.Markdown("", visible=False)
-                        expert_right = gr.Dropdown(choices=[], label="Second class", visible=False)
-                        add_pair_btn = gr.Button("Add class pair", visible=False)
-                    expert_pairs = gr.CheckboxGroup(
-                        choices=[],
-                        label="Expert-selected class-pair axioms",
-                        visible=False,
-                    )
-                    subclass_mode = gr.Radio(
-                        choices=SUBCLASS_MODE_CHOICES,
-                        value="cancel",
-                        label="If these classes already have a subclass relation",
-                        visible=False,
-                    )
-                    pair_status = gr.Markdown("", visible=False)
-                    choice_radio = gr.Radio(choices=[], label=f"Decision {idx + 1}", visible=False)
-                    custom_text = gr.Textbox(label="Optional value", visible=False)
-                review_components.append((
-                    question_md, atomic_choices, choice_radio, custom_text,
-                    expert_left, pair_symbol, expert_right, add_pair_btn,
-                    expert_pairs, subclass_mode, pair_status,
-                ))
-            apply_decisions_btn = gr.Button("Apply selected decisions", variant="primary")
-            decision_status = gr.Markdown("")
-            reviewed_out_file = gr.File(
-                label="Ontology after decisions (download)",
-                visible=True,
-            )
-            decision_report = gr.File(label="Decision validation report")
+            decision_status = gr.Markdown("", render=False)
+            reviewed_out_file = gr.File(label="Ontology after decisions (download)", render=False)
+            decision_report = gr.File(label="Decision validation report", render=False)
+
+            @gr.render(inputs=review_state)
+            def decision_cards(state):
+                build_review_cards(
+                    state, review_state,
+                    apply_inputs=[out_file, review_state, robot_jar],
+                    apply_outputs=[out_file, reviewed_out_file, decision_status, turtle_box, decision_report],
+                )
+
+            decision_status.render()
+            reviewed_out_file.render()
+            decision_report.render()
 
         with gr.Accordion("Visualize ontology", open=False):
             gr.Markdown(
@@ -1266,61 +1309,12 @@ def build_ui():
             outputs=[log_box, out_file, turtle_box, status_md,
                      review_state, review_summary, repair_report],
         )
-        review_outputs = [
-            component
-            for card_components in review_components
-            for component in card_components
-        ]
-        run_event.then(
-            render_all_review_cards,
-            inputs=review_state,
-            outputs=review_outputs,
-            queue=False,
-        )
-
         existing_event = repair_existing_btn.click(
             run_existing_ontology_repair,
             inputs=[existing_ontology, api_key, model, run_consistency,
                     hermit_jar, robot_jar, repair_critical, repair_important],
             outputs=[log_box, out_file, turtle_box, status_md,
                      review_state, review_summary, repair_report],
-        )
-        existing_event.then(
-            render_all_review_cards,
-            inputs=review_state,
-            outputs=review_outputs,
-            queue=False,
-        )
-
-        # Expert class-pair builders are independent of the pipeline event.
-        # Users may add multiple pairs; the CheckboxGroup acts as an editable
-        # staging list before the validated Apply action.
-        for idx, components in enumerate(review_components):
-            (question_md, atomic_choices, choice_radio, custom_text,
-             expert_left, pair_symbol, expert_right, add_pair_btn,
-             expert_pairs, subclass_mode, pair_status) = components
-            add_pair_btn.click(
-                _pair_adder(idx),
-                inputs=[review_state, expert_left, expert_right, subclass_mode, expert_pairs],
-                outputs=[expert_pairs, pair_status, choice_radio],
-                queue=False,
-            )
-            # Do not attach server callbacks to radio/checkbox/dropdown changes.
-            # Those controls are intentionally client-side so they remain
-            # responsive even while a validation job is running.
-
-        decision_inputs = [out_file, review_state, robot_jar]
-        for (question_md, atomic_choices, choice_radio, custom_text,
-             expert_left, pair_symbol, expert_right, add_pair_btn,
-             expert_pairs, subclass_mode, pair_status) in review_components:
-            decision_inputs.extend([atomic_choices, choice_radio, custom_text, expert_pairs, subclass_mode])
-        apply_decisions_btn.click(
-            apply_review_decisions_stream,
-            inputs=decision_inputs,
-            outputs=[out_file, reviewed_out_file, decision_status, turtle_box, decision_report],
-            show_progress="minimal",
-            concurrency_limit=1,
-            trigger_mode="once",
         )
         # Stop sets the cancel flag (run loop breaks at the next checkpoint) and
         # cancels the streaming event so the UI returns control immediately.
