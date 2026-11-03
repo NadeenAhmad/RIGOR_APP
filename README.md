@@ -26,8 +26,11 @@ and repair an existing RDF/OWL ontology. It is designed to run **locally for a
 single user**. For the method and evaluation, see the paper linked at the end of
 this README.
 
-## [Demo Video Link](https://youtu.be/REPLACE_WITH_DEMO_VIDEO_ID)
-<!-- TODO: replace the link above with the new demo video. -->
+## [Demo videos on YouTube](https://www.youtube.com/playlist?list=PLV3vgCoFRQI4)
+
+The *RIGOR APP DEMO* playlist has the walkthrough of the app on the oncology
+example (cryptic `BM_DEP` column → bone marrow depression grade, expert review
+of OOPS! findings, and the ontology graph).
 
 ## Install
 
