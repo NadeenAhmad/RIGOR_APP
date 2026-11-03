@@ -94,6 +94,14 @@ retrieval for that table finds it.
 5. Open the semantic review cards if OOPS! raised any, approve or reject one,
    and download the reviewed ontology.
 
+## Saved results
+
+`rigor_app_results_gemini/` holds the run shown in the demo video (Gemini 3.8
+Flash, local OOPS!): the final ontology, the ontology after the expert's
+decisions (17 disjointness axioms added), the decision report, and the graph as
+a standalone HTML file. Open the `.html` in a browser, or load either `.owl`
+with **Visualize ontology** or **Repair an existing ontology**.
+
 ## Before the demo
 
 - **Run it once the night before, on the same model and laptop.** Save the outputs

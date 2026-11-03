@@ -32,31 +32,70 @@ The *RIGOR APP DEMO* playlist has the walkthrough of the app on the oncology
 example (cryptic `BM_DEP` column → bone marrow depression grade, expert review
 of OOPS! findings, and the ontology graph).
 
-## Install
+## Quick start
 
-Use **Python ≤ 3.12** (PyTorch has no wheels for 3.13+ yet, and none for Intel
-macOS past Torch 2.2.2). The simplest reliable setup is a Python 3.12 venv:
+**What you need**
+
+| What | Needed for | Where to get it |
+|---|---|---|
+| Python **3.10–3.12** | the app | [python.org](https://www.python.org/downloads/) (check with `python3 --version`; 3.13+ has no PyTorch wheels yet) |
+| An **OpenRouter API key** | LLM generation, judging and repair | [openrouter.ai/keys](https://openrouter.ai/keys). Optional: without a key the app runs deterministic Direct Mapping only |
+| **Java 11+** | HermiT/ROBOT consistency stage | [Adoptium Temurin](https://adoptium.net/) (macOS: `brew install --cask temurin`; Ubuntu: `sudo apt install default-jre`). Check with `java -version`. Optional: the stage is skipped without it |
+| `HermiT.jar` and `robot.jar` | same stage | downloaded in step 3 below |
+| **Docker Desktop** | a local OOPS! server | [docker.com](https://www.docker.com/products/docker-desktop/). Optional: only needed if the public OOPS! service is unreachable |
+
+**Install and start**
 
 ```bash
-python3.12 -m venv .venv
-source .venv/bin/activate
+# 1. Get the code
+git clone https://github.com/NadeenAhmad/RIGOR_APP.git
+cd RIGOR_APP
+
+# 2. Create a virtual environment and install the dependencies
+python3 -m venv .venv            # use Python 3.10-3.12, e.g. python3.12 -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -U pip
 pip install -r requirements.txt
+
+# 3. Download the reasoner jars next to rigor_app.py (for the consistency stage)
+curl -L -o robot.jar https://github.com/ontodev/robot/releases/latest/download/robot.jar
+curl -L -o HermiT.zip http://www.hermit-reasoner.com/download/current/HermiT.zip
+unzip -j HermiT.zip HermiT.jar && rm HermiT.zip
+
+# 4. Start the app
+python rigor_app.py
 ```
+
+Open the printed address (usually http://127.0.0.1:7860). On Windows, download
+the two jars in your browser instead and put `HermiT.jar` (inside `HermiT.zip`)
+and `robot.jar` in the `RIGOR_APP` folder.
+
+**First run** (the oncology example from the demo video):
+
+1. In **Settings**, paste your OpenRouter key; the model is preselected.
+2. Click **Check OOPS! connection**. If it reports the service unreachable,
+   start the local OOPS! server (see *Run* below) or just continue: the run then
+   uses local pitfall checks.
+3. Open **Optional context (advanced)** and upload the 7 files in
+   `examples/oncology_cancer/documentation/` as *Documents* and the 3 files in
+   `examples/oncology_cancer/external_ontologies/` as *External ontologies*.
+4. Upload `examples/oncology_cancer/schema/oncology_schema.json` and click
+   **Run generation pipeline** (about 8 minutes with Gemini Flash).
+5. Review the decision card, click **Apply selected decisions**, then
+   **Visualize ontology → Visualize last result**.
+
+## Install details
 
 `requirements.txt` includes the full RIGOR stack (sentence-transformers, faiss,
 torch) plus Gradio. The torch line is pinned per architecture automatically:
-torch 2.2.2 on Intel macOS, any recent torch elsewhere.
+torch 2.2.2 on Intel macOS, any recent torch elsewhere. On Intel macOS pip
+therefore also settles on matching `transformers` and Gradio versions (checked
+on an Intel Mac with Python 3.10: every package installs from a prebuilt wheel,
+nothing is compiled).
 
-For the **logical-consistency** stage, you also need Java on your PATH (JDK/JRE
-**11+**, which covers both ROBOT and HermiT) plus two jars:
-
-- `HermiT.jar`
-- `robot.jar` (ROBOT)
-
-Confirm Java works with `java -version`. The jars are picked up automatically
-if they sit in the working directory (or next to `rigor_app.py`); otherwise,
-enter their paths in the UI. Detection vs. repair:
+The jars are picked up automatically if they sit in the working directory (or
+next to `rigor_app.py`); otherwise, enter their paths in the UI. Detection vs.
+repair:
 
 - HermiT deterministic fixes and ROBOT reasoning run **without** an API key.
 - The actual inconsistency *repair* loop calls the LLM, so it only fixes
@@ -76,7 +115,8 @@ python rigor_app.py
 ```
 
 Then open the printed local URL. To run against a local OOPS! server instead
-of the public one (recommended for demos, see *OOPS! service endpoint*):
+of the public one (recommended for demos, and needed while the public service
+is down; requires Docker Desktop to be running):
 
 ```bash
 ./oops_local/start_oops.sh
@@ -109,88 +149,96 @@ and models are held in session memory, not isolated per user).
 To repair an ontology without generating one from a schema, use the
 **Repair the existing ontology** section and upload a supported RDF/OWL file.
 
-## Example walkthrough
+## Example walkthrough: the case of `BM_DEP`
 
-A complete run on the bundled **music** sample — a small `artist` / `album` /
-`track` schema, three description documents, and two external vocabularies
-(music + commerce). The screenshots below live in a `screenshots/` folder at
-the repository root; if you cloned without it, drop the ten PNGs there so the
-images resolve.
+This is the run shown in the [demo video](https://www.youtube.com/playlist?list=PLV3vgCoFRQI4),
+on `examples/oncology_cancer/`: **ONCOREG**, a fictional legacy oncology
+database with 8 tables. Its column `ae_tox.BM_DEP INTEGER` means *bone marrow
+depression grade* (CTCAE 0–5), but only a 2009 memo and the data dictionary say
+so. The example comes with per-table data dictionaries, that memo, and three
+small demo vocabularies for adverse events, oncology and clinical terms (all
+invented for the demo). See [its README](examples/oncology_cancer/README.md) for
+what to point at in the result. Model: Gemini 3.8 Flash; OOPS!: the local
+server from `oops_local/`. The resulting ontologies, decision report and graph
+are saved in `examples/oncology_cancer/rigor_app_results_gemini/`.
 
-**1. Landing page.** The header, then *Settings*: OpenRouter API key, model,
-correction retries (k), the validation toggles (logical consistency, Repair
-Critical pitfalls, and Repair Important pitfalls), and optional jar paths.
+**1. Settings.** The OpenRouter key is masked and kept in memory only; the
+model is preselected. The validation stages are on, the jars are found
+automatically, and **Check OOPS! connection** confirms the OOPS! server is
+reachable.
 
-![Landing page and settings](screenshots/1.png)
+![Settings and OOPS! check](screenshots/01_settings.png)
 
-**2. Optional context (advanced).** Three independent, all-optional upload
-zones: a seed core ontology to grow, supporting documents for retrieval, and
-external ontologies to align with. Leaving any of these empty simply disables
-the corresponding behavior (see *Behavior with missing optional inputs*).
+**2. Optional context.** The 7 documents (data dictionaries and the `BM_DEP`
+memo) and the 3 external vocabularies are uploaded under *Optional context*.
 
-![Optional context upload zones](screenshots/2.png)
+![Documents and external ontologies uploaded](screenshots/02_context.png)
 
-**3. Schema input.** The main drop zone accepts a CSV (types are inferred) or a
-SQL schema JSON.
+**3. Schema summary.** After `oncology_schema.json` is uploaded, the summary
+lists every table and column with keys and references. Nothing in the schema
+says what `ae_tox.BM_DEP INTEGER` means.
 
-![Schema upload zone](screenshots/3.png)
+![Schema summary with the cryptic BM_DEP column](screenshots/03_summary.png)
 
-**4. Settings filled in.** An OpenRouter key is entered (masked) and a model is
-selected. The key is held in memory for the session only.
+**4. Generation.** Progress streams live with the elapsed time. For each table
+RIGOR retrieves hints from the documents and vocabularies, the Gen-LLM drafts
+an ontology fragment, and the Judge-LLM approves it or sends it back.
 
-![Settings with key and model](screenshots/4.png)
+![Pipeline progress](screenshots/04_progress.png)
 
-**5. Context loaded and schema summarized.** Three documents
-(`sample_docs_music_*.md`) and two external ontologies
-(`sample_ext_commerce.ttl`, `sample_ext_music.ttl`) are uploaded, plus
-`sample_schema.json`. *Summarize table* reports the detected input as a schema
-JSON with three tables — `artist` (PK `artist_id`), `album` (PK `album_id`,
-1 FK), `track` (PK `track_id`, 1 FK) — and **No obvious issues detected**.
+**5. Validation and result.** Syntax normalization, HermiT/ROBOT consistency
+and the OOPS! repair loop run next; safe fixes are applied automatically and
+the final ontology is offered for download. *Needs your decision* lists the
+findings that would change domain meaning.
 
-![Loaded context and schema summary](screenshots/5.png)
+![Finished run and download](screenshots/05_finished.png)
 
-**6. Run started.** Clicking *Run pipeline* streams progress live; the elapsed
-timer is visible in the corner.
+**6. Turtle preview.** Columns become labelled properties with meaning taken
+from the documentation (for example *absolute neutrophil count*: "values below
+0.5 indicate grade 4 neutropenia"), the original column name as
+`skos:altLabel`, `prov:wasDerivedFrom` provenance back to the column, and
+alignments such as `lab_heme.HGB` ⊑ `clinical:hemoglobinConcentration`.
 
-![Run started, progress streaming](screenshots/6.png)
+![Turtle preview](screenshots/06_turtle.png)
 
-**7. Early progress.** The jars are auto-detected, the schema loads (3 tables),
-the local embedding model (`all-MiniLM-L6-v2`) is initialized, and the two FAISS
-indexes are built — 5 document chunks and 12 external-ontology chunks.
+**7. Decision card.** OOPS! reported missing disjointness (P10). The card shows
+the evidence and the LLM's suggested pairs to approve individually; here all
+15 pairs between the record classes were approved. The class-pair picker adds
+pairs the LLM missed: the people classes, e.g. *Cancer Patient* ⟂ *Tumor
+Diagnosis*.
 
-![Early progress log](screenshots/7.png)
+![Decision card with suggested axioms and the class-pair picker](screenshots/07_decision.png)
 
-**8. Finishing up.** The OOPS! repair loop applies safe fixes and queues any
-semantic findings that need confirmation. After final validation, the generated
-ontology (`sample_schema_final_ontology.owl`) is offered for download.
+**8. Apply.** The expert-selected pairs are listed with the decision; **Apply
+selected decisions** re-validates every change with HermiT and OOPS! and writes
+the reviewed ontology and a decision report: "Updated ontology ready … Applied:
+1 · Rejected by validation: 0".
 
-![Final progress and download](screenshots/8.png)
+![Decisions applied](screenshots/08_applied.png)
 
-**9. Turtle preview.** The generated ontology with prefixes, an `owl:Ontology`
-node carrying `prov:generatedAtTime`, the external `music#MusicAlbum` class, the
-aligned `releaseDate` / `releasedBy` properties, and a `track_hasAlbum` object
-property with a label, comment, and `prov:wasDerivedFrom` provenance back to the
-originating foreign key.
+**9. Graph after review.** *Visualize ontology* draws the result; the summary
+line reports 17 disjointness axioms, drawn as red links (here *Adverse Event
+and Toxicity Record* ⟂ *Haematology Blood Count*).
 
-![Turtle preview](screenshots/9.png)
+![Graph after the decisions](screenshots/09_after.png)
 
-**10. Focused semantic review (when needed).** For pitfalls that can change
-domain meaning, the app shows pitfall-specific choices instead of applying a
-silent fix. Users may approve selected axioms, add alternatives from ontology
-entities, reject the proposal, or leave it unresolved. Accepted changes are
-revalidated before a separate reviewed ontology and decision report are made
-available.
-![Ontology visualization](screenshots/11.png)
+**10. `BM_DEP` now has a meaning.** Every node and edge has a tooltip with its
+source table/column and IRI: the `BM_DEP` property is *bone marrow depression
+grade*, from column `ae_tox.BM_DEP`.
 
-**11. Visualization.** The WebVOWL-style graph. `Album` links by `subClassOf`
-to the external `MusicAlbum` node (shown in the distinct external color), three
-property alignments appear as edge labels, and the legend plus the summary line
-(classes, properties, restrictions, disjointness, external alignments, edges)
-describe the rest. You can also download the graph as a standalone HTML.
+![Hover on the BM_DEP property](screenshots/10_bm_dep.png)
 
-![Ontology visualization](screenshots/10.png)
+**11. Alignments.** Properties aligned to an external vocabulary are drawn as
+pink edges; the tooltip shows the vocabulary term and its full IRI, e.g.
+*haemoglobin concentration* from `lab_heme.HGB`, a sub-property of
+`clinical:hemoglobinConcentration`. The graph can also be downloaded as a
+standalone HTML file.
 
+![Hover on an aligned property](screenshots/11_alignment.png)
 
+**Other bundled examples:** `examples/northwind/` (the Northwind trading
+database, with saved results from Claude and DeepSeek runs) and
+`examples/toy_example_1_music_domain/` (a three-table music schema).
 
 ## Decision cards
 
@@ -210,15 +258,6 @@ The cards are created fresh for each result. An earlier version revealed
 pre-built hidden cards, which froze Chrome for minutes with Gradio 6.17
 (`RangeError: Set maximum size exceeded` in the console); that no longer
 happens, so the picker is on by default again.
-
-## Oncology example: the case of `BM_DEP`
-
-`examples/oncology_cancer/` is a fictional legacy oncology database (8 tables)
-whose `ae_tox.BM_DEP INTEGER` column means *bone marrow depression grade*. Only
-the documentation says so. It comes with per-table data dictionaries, a 2009
-memo explaining `BM_DEP`, and three demo external ontologies (adverse events,
-oncology, clinical). See [its README](examples/oncology_cancer/README.md) for
-what to upload and what to point at in the result.
 
 ## Requirements & limitations
 

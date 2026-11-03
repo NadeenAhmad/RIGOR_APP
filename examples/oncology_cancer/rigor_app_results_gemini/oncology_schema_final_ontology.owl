@@ -1,0 +1,1318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:prov="http://www.w3.org/ns/prov#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+>
+  <rdf:Description rdf:about="http://example.org/ontology#AeTox">
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b61"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b70"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b64"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b71"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b60"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b52"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b53"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b68"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b67"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b72"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b57"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b50"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b49"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b55"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b56"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b58"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b54"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b63"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b65"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b51"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b59"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b69"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b73"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b62"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b66"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b74"/>
+    <rdfs:comment xml:lang="en">Class generated from source table 'ae_tox'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">An adverse event or treatment-related toxicity observed in a patient during a chemotherapy treatment cycle, graded according to CTCAE criteria.</rdfs:comment>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox"/>
+    <owl:hasKey rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b75"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <skos:altLabel xml:lang="en">Ae Tox</skos:altLabel>
+    <rdfs:label xml:lang="en">Adverse Event and Toxicity Record</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#ae_tox_SAE_FLG">
+    <skos:altLabel xml:lang="en">SAE FLG</skos:altLabel>
+    <rdfs:domain rdf:resource="http://example.org/ontology#AeTox"/>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'ae_tox.SAE_FLG' with range xsd:boolean.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Boolean flag indicating whether the event meets regulatory criteria for a Serious Adverse Event (SAE), such as requiring hospitalization or being life-threatening.</rdfs:comment>
+    <rdfs:label xml:lang="en">serious adverse event flag</rdfs:label>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox/SAE_FLG"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#TxCyc">
+    <rdfs:comment xml:lang="en">Class representing a chemotherapy administration cycle.</rdfs:comment>
+    <rdfs:comment xml:lang="en">An administered chemotherapy treatment cycle for a cancer diagnosis, capturing cycle number, administered regimen, administration date, dose percentage, and delay status.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'tx_cyc'.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b97"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b96"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b90"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b94"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b95"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b98"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b89"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b92"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b99"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b91"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b93"/>
+    <skos:altLabel xml:lang="en">Tx Cyc</skos:altLabel>
+    <owl:hasKey rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b100"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Chemotherapy Cycle</rdfs:label>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tx_cyc"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b33">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#lab_heme_PLT"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b64">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_hasCYC"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/ontology#TxCyc"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#pt_mstr_SMK_ST">
+    <rdfs:comment xml:lang="en">Categorical smoking status: 'N' = never smoker, 'F' = former smoker, 'C' = current smoker.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'pt_mstr.SMK_ST' with range xsd:string.</rdfs:comment>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/pt_mstr/SMK_ST"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#PtMstr"/>
+    <skos:altLabel xml:lang="en">SMK ST</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">smoking status code</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b8">
+    <rdf:first rdf:resource="http://example.org/ontology#onc_staff_STAFF_ID"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b36">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#lab_heme_hasCYC"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/ontology#TxCyc"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tx_cyc_PRESCR_ID">
+    <rdfs:comment xml:lang="en">Identifier of the prescribing oncologist for this treatment cycle; references onc_staff.STAFF_ID.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tx_cyc.PRESCR_ID' with range xsd:integer.</rdfs:comment>
+    <skos:altLabel xml:lang="en">PRESCR ID</skos:altLabel>
+    <skos:altLabel xml:lang="en">tx cyc PRESCR ID</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tx_cyc/PRESCR_ID"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TxCyc"/>
+    <rdfs:label xml:lang="en">prescribing oncologist ID</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#resp_asmt_hasDX">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">has cancer diagnosis</rdfs:label>
+    <skos:altLabel xml:lang="en">resp asmt has DX</skos:altLabel>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'resp_asmt.DX_ID' referencing 'tumor_dx.DX_ID'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Foreign-key relationship linking the tumour response assessment to the assessed cancer diagnosis.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#RespAsmt"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/resp_asmt/DX_ID"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#TumorDx"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b47">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#pt_mstr_MRN"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#resp_asmt_RECIST_CD">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <skos:altLabel xml:lang="en">RECIST CD</skos:altLabel>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'resp_asmt.RECIST_CD' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Tumour response classification according to RECIST 1.1: CR (Complete Response), PR (Partial Response), SD (Stable Disease), PD (Progressive Disease), NE (Not Evaluable).</rdfs:comment>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/resp_asmt/RECIST_CD"/>
+    <rdfs:label xml:lang="en">RECIST response code</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#RespAsmt"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tx_cyc_DOSE_PCT">
+    <skos:altLabel xml:lang="en">DOSE PCT</skos:altLabel>
+    <skos:altLabel xml:lang="en">tx cyc DOSE PCT</skos:altLabel>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tx_cyc.DOSE_PCT' with range xsd:decimal.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Percentage of the planned protocol dose actually administered (100 indicates full dose; lower values reflect dose reductions).</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TxCyc"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tx_cyc/DOSE_PCT"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">dose percentage</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#RespAsmt">
+    <rdfs:comment xml:lang="en">Assessment of tumour response to oncological treatment according to RECIST 1.1 criteria, evaluated for a specific cancer diagnosis.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'resp_asmt'.</rdfs:comment>
+    <skos:altLabel xml:lang="en">Resp Asmt</skos:altLabel>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b10"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b13"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b15"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b11"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b9"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b12"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b14"/>
+    <owl:hasKey rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b16"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Tumour Response Assessment</rdfs:label>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/resp_asmt"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tumor_dx_DX_ID">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tumor_dx/DX_ID"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TumorDx"/>
+    <rdfs:comment xml:lang="en">Unique primary key identifier for the tumor diagnosis record.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tumor_dx.DX_ID' with range xsd:integer.</rdfs:comment>
+    <skos:altLabel xml:lang="en">DX ID</skos:altLabel>
+    <rdfs:label xml:lang="en">diagnosis ID</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b7">
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#onc_staff_STAFF_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ext/clinical#administrativeSex">
+    <rdfs:comment xml:lang="en">Sex of the patient recorded for administrative purposes: male, female or unknown.</rdfs:comment>
+    <rdfs:label xml:lang="en">administrative sex</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:domain rdf:resource="http://example.org/ext/clinical#Patient"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tx_cyc_CYC_ID">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tx_cyc.CYC_ID' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Unique identifier for the chemotherapy treatment cycle; primary key.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">treatment cycle ID</rdfs:label>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tx_cyc/CYC_ID"/>
+    <skos:altLabel xml:lang="en">CYC ID</skos:altLabel>
+    <skos:altLabel xml:lang="en">tx cyc CYC ID</skos:altLabel>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TxCyc"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#Rgmn">
+    <rdfs:comment xml:lang="en">Catalogue of chemotherapy regimens or treatment protocols specifying constituent antineoplastic drugs, standard cycle duration, and therapeutic intent.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'rgmn'.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b26"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b19"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b25"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b23"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b21"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b17"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b22"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b20"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b24"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b18"/>
+    <rdfs:label xml:lang="en">Chemotherapy Regimen</rdfs:label>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/rgmn"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:hasKey rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b27"/>
+    <skos:altLabel xml:lang="en">Rgmn</skos:altLabel>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b16">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="http://example.org/ontology#resp_asmt_RESP_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b69">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_AE_ID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b43">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#pt_mstr_MRN"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b92">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tx_cyc_ADMIN_DT"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#rgmn_INTENT_CD">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/rgmn/INTENT_CD"/>
+    <rdfs:label xml:lang="en">treatment intent code</rdfs:label>
+    <skos:altLabel xml:lang="en">INTENT CD</skos:altLabel>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'rgmn.INTENT_CD' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Therapeutic intent of the regimen: 'C' (Curative), 'P' (Palliative), 'A' (Adjuvant), or 'N' (Neoadjuvant).</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Rgmn"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tumor_dx_DX_DT">
+    <rdfs:comment xml:lang="en">Date on which the cancer diagnosis was established.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tumor_dx.DX_DT' with range xsd:date.</rdfs:comment>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tumor_dx/DX_DT"/>
+    <rdfs:label xml:lang="en">diagnosis date</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <skos:altLabel xml:lang="en">DX DT</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TumorDx"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#onc_staff_STAFF_NM">
+    <rdfs:comment xml:lang="en">Full name of the clinical staff member.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'onc_staff.STAFF_NM' with range xsd:string.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <skos:altLabel xml:lang="en">STAFF NM</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/onc_staff/STAFF_NM"/>
+    <rdfs:label xml:lang="en">staff full name</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/ontology#OncStaff"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#LabHeme">
+    <rdfs:subClassOf rdf:resource="http://example.org/ext/clinical#CompleteBloodCount"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b33"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b28"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b32"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b29"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b37"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b34"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b31"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b30"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b35"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b36"/>
+    <rdfs:comment xml:lang="en">A complete blood count (CBC) test drawn during a chemotherapy cycle, providing evidence for bone marrow depression grading.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'lab_heme'.</rdfs:comment>
+    <rdfs:label xml:lang="en">Haematology Blood Count</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:hasKey rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b38"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/lab_heme"/>
+    <skos:altLabel xml:lang="en">Lab Heme</skos:altLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#PtMstr">
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b42"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b46"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b44"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b43"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b41"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b45"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b40"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b47"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b39"/>
+    <rdfs:comment xml:lang="en">Patient master record representing an oncology patient receiving care in the oncology unit.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'pt_mstr'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Master record of a cancer patient.</rdfs:comment>
+    <rdfs:label xml:lang="en">Cancer Patient</rdfs:label>
+    <skos:altLabel xml:lang="en">Pt Mstr</skos:altLabel>
+    <skos:altLabel xml:lang="en">Patient Master</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/pt_mstr"/>
+    <owl:hasKey rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b48"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tumor_dx_MORPH_CD">
+    <rdfs:comment xml:lang="en">ICD-O-3 morphology code representing the histologic type and behavior of the tumor (e.g., 8500/3 for infiltrating duct carcinoma).</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tumor_dx.MORPH_CD' with range xsd:string.</rdfs:comment>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tumor_dx/MORPH_CD"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:equivalentProperty rdf:resource="http://example.org/ext/oncology#histologyCode"/>
+    <rdfs:label xml:lang="en">morphology code</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TumorDx"/>
+    <skos:altLabel xml:lang="en">MORPH CD</skos:altLabel>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b97">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tx_cyc_CYC_ID"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#TumorDx">
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b84"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b79"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b83"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b81"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b80"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b87"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b86"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b85"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b76"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b78"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b82"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b77"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Tumor Diagnosis</rdfs:label>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tumor_dx"/>
+    <owl:hasKey rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b88"/>
+    <rdfs:comment xml:lang="en">Clinical diagnosis of a malignant neoplasm (cancer) for a patient, including site, histology, TNM categories, and stage group.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Class generated from source table 'tumor_dx'.</rdfs:comment>
+    <skos:altLabel xml:lang="en">Tumor Dx</skos:altLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#pt_mstr_DOD_DT">
+    <rdfs:comment xml:lang="en">Date of death; null/empty while the patient is alive.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'pt_mstr.DOD_DT' with range xsd:date.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <skos:altLabel xml:lang="en">DOD DT</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/pt_mstr/DOD_DT"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#PtMstr"/>
+    <rdfs:label xml:lang="en">date of death</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tumor_dx_N_CAT">
+    <rdfs:domain rdf:resource="http://example.org/ontology#TumorDx"/>
+    <skos:altLabel xml:lang="en">N CAT</skos:altLabel>
+    <rdfs:label xml:lang="en">N category</rdfs:label>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tumor_dx/N_CAT"/>
+    <rdfs:comment xml:lang="en">TNM classification category for regional lymph node involvement (N).</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tumor_dx.N_CAT' with range xsd:string.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tumor_dx_TOPO_CD">
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tumor_dx.TOPO_CD' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">ICD-O-3 topography code indicating the primary tumor site (e.g., C50.9 for breast).</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:equivalentProperty rdf:resource="http://example.org/ext/oncology#primarySiteCode"/>
+    <skos:altLabel xml:lang="en">TOPO CD</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tumor_dx/TOPO_CD"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">topography code</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TumorDx"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#pt_mstr_MRN">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/pt_mstr/MRN"/>
+    <rdfs:subPropertyOf rdf:resource="http://example.org/ext/clinical#medicalRecordNumber"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#PtMstr"/>
+    <rdfs:comment xml:lang="en">Hospital medical record number (MRN) assigned to the patient.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'pt_mstr.MRN' with range xsd:string.</rdfs:comment>
+    <rdfs:label xml:lang="en">medical record number</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <skos:altLabel xml:lang="en">MRN</skos:altLabel>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b10">
+    <owl:onProperty rdf:resource="http://example.org/ontology#resp_asmt_RESP_ID"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#ae_tox_FN_FLG">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="en">Boolean flag indicating whether febrile neutropenia (fever with low absolute neutrophil count) was present.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'ae_tox.FN_FLG' with range xsd:boolean.</rdfs:comment>
+    <skos:altLabel xml:lang="en">FN FLG</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox/FN_FLG"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#AeTox"/>
+    <rdfs:label xml:lang="en">febrile neutropenia flag</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b3">
+    <owl:onProperty rdf:resource="http://example.org/ontology#onc_staff_STAFF_ID"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b63">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_hasCYC"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/ontology#TxCyc"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b85">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_GRD"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b11">
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#resp_asmt_RESP_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tx_cyc_DLY_FLG">
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tx_cyc.DLY_FLG' with range xsd:boolean.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Boolean indicator that is true when the treatment cycle administration was delayed, for example due to adverse events or hematologic toxicity.</rdfs:comment>
+    <skos:altLabel xml:lang="en">DLY FLG</skos:altLabel>
+    <skos:altLabel xml:lang="en">tx cyc DLY FLG</skos:altLabel>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TxCyc"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:label xml:lang="en">cycle delayed flag</rdfs:label>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tx_cyc/DLY_FLG"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tumor_dx_M_CAT">
+    <skos:altLabel xml:lang="en">M CAT</skos:altLabel>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tumor_dx.M_CAT' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">TNM classification category for the presence or absence of distant metastasis (M).</rdfs:comment>
+    <rdfs:label xml:lang="en">M category</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TumorDx"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tumor_dx/M_CAT"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#rgmn_CYC_LEN_D">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'rgmn.CYC_LEN_D' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Planned chemotherapy cycle duration in days (e.g., 14 or 21 days).</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">cycle length in days</rdfs:label>
+    <skos:altLabel xml:lang="en">CYC LEN D</skos:altLabel>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Rgmn"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/rgmn/CYC_LEN_D"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b34">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#lab_heme_ANC"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b76">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_hasPT"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#PtMstr"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#pt_mstr_BIRTH_YR">
+    <rdfs:comment xml:lang="en">Four-digit calendar year of birth of the patient.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'pt_mstr.BIRTH_YR' with range xsd:integer.</rdfs:comment>
+    <skos:altLabel xml:lang="en">BIRTH YR</skos:altLabel>
+    <rdfs:label xml:lang="en">year of birth</rdfs:label>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/pt_mstr/BIRTH_YR"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#PtMstr"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#onc_staff_ROLE_CD">
+    <skos:altLabel xml:lang="en">ROLE CD</skos:altLabel>
+    <rdfs:comment xml:lang="en">Clinical role code of the staff member. Coded values: ONC = Oncologist, HEM = Haematologist, RN = Registered Nurse, PHARM = Pharmacist.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'onc_staff.ROLE_CD' with range xsd:string.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#OncStaff"/>
+    <rdfs:label xml:lang="en">role code</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/onc_staff/ROLE_CD"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b74">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_BM_DEP"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/prov#generatedAtTime">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b72">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_BM_DEP"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b88">
+    <rdf:first rdf:resource="http://example.org/ontology#tumor_dx_DX_ID"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b77">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_DX_DT"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b25">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#rgmn_CYC_LEN_D"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#ae_tox_ONSET_DT">
+    <rdfs:label xml:lang="en">adverse event onset date</rdfs:label>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox/ONSET_DT"/>
+    <rdfs:comment xml:lang="en">Calendar date on which the adverse event or toxicity started.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'ae_tox.ONSET_DT' with range xsd:date.</rdfs:comment>
+    <owl:equivalentProperty rdf:resource="http://example.org/ext/adverse-event#onsetDate"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#AeTox"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <skos:altLabel xml:lang="en">ONSET DT</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b20">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#rgmn_INTENT_CD"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b82">
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_N_CAT"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tumor_dx_T_CAT">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="en">TNM classification category for the extent of the primary tumor (T).</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tumor_dx.T_CAT' with range xsd:string.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TumorDx"/>
+    <skos:altLabel xml:lang="en">T CAT</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tumor_dx/T_CAT"/>
+    <rdfs:label xml:lang="en">T category</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tumor_dx_GRD">
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tumor_dx/GRD"/>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tumor_dx.GRD' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Histopathologic differentiation grade of the tumor, encoded as an integer from 1 to 4: 1 = well differentiated, 2 = moderately differentiated, 3 = poorly differentiated, 4 = undifferentiated.</rdfs:comment>
+    <skos:altLabel xml:lang="en">GRD</skos:altLabel>
+    <rdfs:label xml:lang="en">histologic grade</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TumorDx"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ext/clinical#Patient">
+    <rdfs:label xml:lang="en">patient</rdfs:label>
+    <rdfs:comment xml:lang="en">A person receiving medical care, identified by a medical record number (MRN).</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#lab_heme_ANC">
+    <rdfs:domain rdf:resource="http://example.org/ontology#LabHeme"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/lab_heme/ANC"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'lab_heme.ANC' with range xsd:decimal.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Absolute neutrophil count measured in 10^9 cells/L. Values below 0.5 indicate grade 4 neutropenia.</rdfs:comment>
+    <skos:altLabel xml:lang="en">ANC</skos:altLabel>
+    <rdfs:label xml:lang="en">absolute neutrophil count</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b90">
+    <owl:onProperty rdf:resource="http://example.org/ontology#tx_cyc_CYC_NO"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tumor_dx_hasPT">
+    <rdfs:label xml:lang="en">diagnosed patient</rdfs:label>
+    <rdfs:range rdf:resource="http://example.org/ontology#PtMstr"/>
+    <skos:altLabel xml:lang="en">tumor dx has PT</skos:altLabel>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'tumor_dx.PT_ID' referencing 'pt_mstr.PT_ID'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Relates a tumor diagnosis to the patient who received it (foreign key to pt_mstr.PT_ID).</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TumorDx"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tumor_dx/PT_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b15">
+    <owl:onProperty rdf:resource="http://example.org/ontology#resp_asmt_ASMT_DT"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#ae_tox_AE_ID">
+    <rdfs:domain rdf:resource="http://example.org/ontology#AeTox"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox/AE_ID"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="en">Primary key uniquely identifying an adverse event toxicity record.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'ae_tox.AE_ID' with range xsd:integer.</rdfs:comment>
+    <skos:altLabel xml:lang="en">AE ID</skos:altLabel>
+    <rdfs:label xml:lang="en">adverse event identifier</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ext/clinical#medicalRecordNumber">
+    <rdfs:label xml:lang="en">medical record number</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/ext/clinical#Patient"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="en">Hospital medical record number (MRN) that identifies a patient.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#pt_mstr_PT_ID">
+    <rdfs:label xml:lang="en">patient identifier</rdfs:label>
+    <rdfs:comment xml:lang="en">Unique internal identifier for the cancer patient; primary key.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'pt_mstr.PT_ID' with range xsd:integer.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <skos:altLabel xml:lang="en">PT ID</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/pt_mstr/PT_ID"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#PtMstr"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b30">
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#lab_heme_LAB_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b55">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_PN_GR"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#ae_tox_ACT_TKN">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox/ACT_TKN"/>
+    <skos:altLabel xml:lang="en">ACT TKN</skos:altLabel>
+    <rdfs:label xml:lang="en">action taken code</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/ontology#AeTox"/>
+    <rdfs:comment xml:lang="en">Clinical action taken regarding chemotherapy dosing: NONE, DR (dose reduced), DLY (delayed), DC (discontinued).</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'ae_tox.ACT_TKN' with range xsd:string.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b28">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#lab_heme_NADIR_FLG"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b37">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#lab_heme_WBC"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#OncStaff">
+    <owl:hasKey rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b8"/>
+    <rdfs:label xml:lang="en">Oncology Staff Member</rdfs:label>
+    <rdfs:comment xml:lang="en">Class generated from source table 'onc_staff'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Clinical staff member of the oncology unit, including oncologists, haematologists, nurses, and pharmacists.</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b7"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b4"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b5"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b1"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b2"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b3"/>
+    <rdfs:subClassOf rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b6"/>
+    <skos:altLabel xml:lang="en">Onc Staff</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/onc_staff"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b44">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#pt_mstr_DOD_DT"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/license">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b26">
+    <owl:onProperty rdf:resource="http://example.org/ontology#rgmn_RGMN_CD"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#lab_heme_HGB">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#LabHeme"/>
+    <rdfs:comment xml:lang="en">Haemoglobin concentration measured in g/dL. Low values indicate anaemia.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'lab_heme.HGB' with range xsd:decimal.</rdfs:comment>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/lab_heme/HGB"/>
+    <rdfs:label xml:lang="en">haemoglobin concentration</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <skos:altLabel xml:lang="en">HGB</skos:altLabel>
+    <rdfs:subPropertyOf rdf:resource="http://example.org/ext/clinical#hemoglobinConcentration"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#onc_staff_DEPT_CD">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#OncStaff"/>
+    <skos:altLabel xml:lang="en">DEPT CD</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/onc_staff/DEPT_CD"/>
+    <rdfs:comment xml:lang="en">Code identifying the hospital clinical department or division to which the staff member belongs.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'onc_staff.DEPT_CD' with range xsd:string.</rdfs:comment>
+    <rdfs:label xml:lang="en">department code</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#resp_asmt_SLD_MM">
+    <rdfs:comment xml:lang="en">Data property generated from source column 'resp_asmt.SLD_MM' with range xsd:decimal.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Sum of the longest diameters of target tumour lesions, measured in millimetres.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/resp_asmt/SLD_MM"/>
+    <rdfs:label xml:lang="en">sum of longest diameters (mm)</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/ontology#RespAsmt"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <skos:altLabel xml:lang="en">SLD MM</skos:altLabel>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b99">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tx_cyc_PRESCR_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b21">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#rgmn_RGMN_CD"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b23">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#rgmn_RGMN_NM"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b78">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_T_CAT"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b4">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#onc_staff_ROLE_CD"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#onc_staff_STAFF_ID">
+    <rdfs:label xml:lang="en">staff identifier</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/ontology#OncStaff"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/onc_staff/STAFF_ID"/>
+    <rdfs:comment xml:lang="en">Unique integer identifier for the oncology staff member; primary key of table onc_staff.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'onc_staff.STAFF_ID' with range xsd:integer.</rdfs:comment>
+    <skos:altLabel xml:lang="en">STAFF ID</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b22">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#rgmn_CYC_LEN_D"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b42">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#pt_mstr_PT_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ext/adverse-event#onsetDate">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#ae_tox_BM_DEP">
+    <skos:altLabel xml:lang="en">BM DEP</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox/BM_DEP"/>
+    <rdfs:label xml:lang="en">bone marrow depression grade</rdfs:label>
+    <rdfs:comment xml:lang="en">Severity grade of bone marrow depression (myelosuppression), encoded according to CTCAE scale (0-5: 0=none, 1=mild, 2=moderate, 3=severe, 4=life-threatening, 5=death).</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'ae_tox.BM_DEP' with range xsd:integer.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#AeTox"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#lab_heme_hasCYC">
+    <skos:altLabel xml:lang="en">lab heme has CYC</skos:altLabel>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'lab_heme.CYC_ID' referencing 'tx_cyc.CYC_ID'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Foreign-key reference linking the blood count measurement to the associated chemotherapy cycle.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#LabHeme"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#TxCyc"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/lab_heme/CYC_ID"/>
+    <rdfs:label xml:lang="en">belongs to chemotherapy cycle</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b19">
+    <owl:onProperty rdf:resource="http://example.org/ontology#rgmn_RGMN_NM"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#resp_asmt_ASMT_DT">
+    <rdfs:comment xml:lang="en">Data property generated from source column 'resp_asmt.ASMT_DT' with range xsd:date.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Calendar date of the imaging or clinical tumour response assessment.</rdfs:comment>
+    <rdfs:label xml:lang="en">assessment date</rdfs:label>
+    <skos:altLabel xml:lang="en">ASMT DT</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/resp_asmt/ASMT_DT"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#RespAsmt"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#rgmn_RGMN_CD">
+    <rdfs:label xml:lang="en">regimen code</rdfs:label>
+    <skos:altLabel xml:lang="en">RGMN CD</skos:altLabel>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Rgmn"/>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'rgmn.RGMN_CD' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Unique chemotherapy regimen protocol code (e.g., AC-T, FOLFOX, CARBO-PAC); primary key.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/rgmn/RGMN_CD"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#ae_tox_hasCYC">
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox/CYC_ID"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#AeTox"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#TxCyc"/>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'ae_tox.CYC_ID' referencing 'tx_cyc.CYC_ID'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Relates an adverse event toxicity report to the chemotherapy cycle during which it occurred.</rdfs:comment>
+    <skos:altLabel xml:lang="en">ae tox has CYC</skos:altLabel>
+    <rdfs:label xml:lang="en">associated treatment cycle</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b67">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_ATTR_CD"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b12">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#TumorDx"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#resp_asmt_hasDX"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b65">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_FN_FLG"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#lab_heme_PLT">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="en">Platelet count measured in 10^9 cells/L.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'lab_heme.PLT' with range xsd:integer.</rdfs:comment>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/lab_heme/PLT"/>
+    <rdfs:label xml:lang="en">platelet count</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/ontology#LabHeme"/>
+    <skos:altLabel xml:lang="en">PLT</skos:altLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tx_cyc_CYC_NO">
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tx_cyc/CYC_NO"/>
+    <rdfs:label xml:lang="en">cycle number</rdfs:label>
+    <rdfs:comment xml:lang="en">Sequential cycle number within the prescribed chemotherapy regimen (e.g., 1, 2, 3).</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tx_cyc.CYC_NO' with range xsd:integer.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TxCyc"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <skos:altLabel xml:lang="en">CYC NO</skos:altLabel>
+    <skos:altLabel xml:lang="en">tx cyc CYC NO</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b70">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_AE_ID"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b46">
+    <owl:onProperty rdf:resource="http://example.org/ontology#pt_mstr_BIRTH_YR"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#pt_mstr_SEX_CD">
+    <rdfs:domain rdf:resource="http://example.org/ontology#PtMstr"/>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'pt_mstr.SEX_CD' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Administrative sex code: 1 = male, 2 = female, 9 = unknown.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://example.org/ext/clinical#administrativeSex"/>
+    <rdfs:label xml:lang="en">administrative sex code</rdfs:label>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/pt_mstr/SEX_CD"/>
+    <skos:altLabel xml:lang="en">SEX CD</skos:altLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#lab_heme_DRAW_DT">
+    <skos:altLabel xml:lang="en">DRAW DT</skos:altLabel>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'lab_heme.DRAW_DT' with range xsd:date.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Date on which the blood sample was collected.</rdfs:comment>
+    <rdfs:label xml:lang="en">blood draw date</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/ontology#LabHeme"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/lab_heme/DRAW_DT"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b14">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#resp_asmt_SLD_MM"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ext/oncology#primarySiteCode">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b31">
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#TxCyc"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#lab_heme_hasCYC"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b32">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#lab_heme_HGB"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b39">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#pt_mstr_SMK_ST"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b18">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#rgmn_INTENT_CD"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#rgmn_RGMN_NM">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="en">Full descriptive name of the chemotherapy regimen and its constituent antineoplastic agents.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'rgmn.RGMN_NM' with range xsd:string.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#Rgmn"/>
+    <skos:altLabel xml:lang="en">RGMN NM</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/rgmn/RGMN_NM"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="en">regimen name</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b98">
+    <owl:onProperty rdf:resource="http://example.org/ontology#tx_cyc_hasDX"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#TumorDx"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b27">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="http://example.org/ontology#rgmn_RGMN_CD"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b79">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_DX_ID"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tx_cyc_hasRgmn">
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tx_cyc/RGMN_CD"/>
+    <skos:altLabel xml:lang="en">tx cyc has Rgmn</skos:altLabel>
+    <rdfs:comment xml:lang="en">Foreign-key relationship linking the chemotherapy cycle to the administered chemotherapy regimen protocol (rgmn.RGMN_CD).</rdfs:comment>
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'tx_cyc.RGMN_CD' referencing 'rgmn.RGMN_CD'.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TxCyc"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#Rgmn"/>
+    <rdfs:label xml:lang="en">has chemotherapy regimen</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b58">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_SAE_FLG"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b80">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_STG_GRP"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b51">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_ACT_TKN"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tx_cyc_ADMIN_DT">
+    <rdfs:domain rdf:resource="http://example.org/ontology#TxCyc"/>
+    <rdfs:label xml:lang="en">administration date</rdfs:label>
+    <skos:altLabel xml:lang="en">tx cyc ADMIN DT</skos:altLabel>
+    <skos:altLabel xml:lang="en">ADMIN DT</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="en">Date on which the chemotherapy cycle was administered.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tx_cyc.ADMIN_DT' with range xsd:date.</rdfs:comment>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tx_cyc/ADMIN_DT"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b84">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_TOPO_CD"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b13">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#resp_asmt_RECIST_CD"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#lab_heme_NADIR_FLG">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="en">Boolean flag indicating whether this observation represents the lowest blood count (nadir) within the chemotherapy cycle.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'lab_heme.NADIR_FLG' with range xsd:boolean.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#LabHeme"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <skos:altLabel xml:lang="en">NADIR FLG</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/lab_heme/NADIR_FLG"/>
+    <rdfs:label xml:lang="en">nadir flag</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#resp_asmt_RESP_ID">
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/resp_asmt/RESP_ID"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'resp_asmt.RESP_ID' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Primary key uniquely identifying a tumour response assessment record.</rdfs:comment>
+    <skos:altLabel xml:lang="en">RESP ID</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#RespAsmt"/>
+    <rdfs:label xml:lang="en">response assessment ID</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b68">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_ACT_TKN"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b86">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_M_CAT"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#lab_heme_WBC">
+    <rdfs:comment xml:lang="en">Data property generated from source column 'lab_heme.WBC' with range xsd:decimal.</rdfs:comment>
+    <rdfs:comment xml:lang="en">White blood cell count measured in 10^9 cells/L.</rdfs:comment>
+    <skos:altLabel xml:lang="en">WBC</skos:altLabel>
+    <rdfs:label xml:lang="en">white blood cell count</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/ontology#LabHeme"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/lab_heme/WBC"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#ae_tox_NAUS_GR">
+    <rdfs:label xml:lang="en">nausea grade</rdfs:label>
+    <skos:altLabel xml:lang="en">NAUS GR</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox/NAUS_GR"/>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'ae_tox.NAUS_GR' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Severity grade of nausea, encoded according to CTCAE criteria (grades 0-3).</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#AeTox"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b62">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_hasCYC"/>
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#TxCyc"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/ns/prov#wasDerivedFrom">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#lab_heme_LAB_ID">
+    <rdfs:comment xml:lang="en">Primary key identifier for the haematology blood count record.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'lab_heme.LAB_ID' with range xsd:integer.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#LabHeme"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">laboratory result identifier</rdfs:label>
+    <skos:altLabel xml:lang="en">LAB ID</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/lab_heme/LAB_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b93">
+    <owl:onProperty rdf:resource="http://example.org/ontology#tx_cyc_hasDX"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/ontology#TumorDx"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#ae_tox_ATTR_CD">
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox/ATTR_CD"/>
+    <skos:altLabel xml:lang="en">ATTR CD</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">treatment attribution code</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'ae_tox.ATTR_CD' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Causal attribution of the adverse event to chemotherapy treatment: 1 = unrelated, 2 = unlikely, 3 = possible, 4 = probable, 5 = definite.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#AeTox"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#ae_tox_PN_GR">
+    <skos:altLabel xml:lang="en">PN GR</skos:altLabel>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'ae_tox.PN_GR' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Severity grade of peripheral sensory neuropathy, encoded according to CTCAE criteria (grades 0-4).</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#AeTox"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox/PN_GR"/>
+    <rdfs:label xml:lang="en">peripheral neuropathy grade</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b54">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_SAE_FLG"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b52">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_ONSET_DT"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b56">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_NAUS_GR"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b60">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_FN_FLG"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b87">
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_DX_ID"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b24">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#rgmn_RGMN_CD"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b41">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#pt_mstr_SEX_CD"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#pt_mstr_ECOG_PS">
+    <rdfs:comment xml:lang="en">Data property generated from source column 'pt_mstr.ECOG_PS' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">ECOG performance status at initial visit: 0 = fully active, 1 = restricted in strenuous activity, 2 = ambulatory and capable of self-care, 3 = capable of limited self-care / confined to bed/chair &gt;50% of waking hours, 4 = completely bedbound.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ontology#PtMstr"/>
+    <skos:altLabel xml:lang="en">ECOG PS</skos:altLabel>
+    <rdfs:label xml:lang="en">ECOG performance status</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/pt_mstr/ECOG_PS"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ext/clinical#hemoglobinConcentration">
+    <rdfs:label xml:lang="en">hemoglobin concentration</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:comment xml:lang="en">Haemoglobin concentration (HGB) in g/dL; low HGB indicates anaemia.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/ext/clinical#CompleteBloodCount"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#onc_staff_DEPT_CD"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b40">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#pt_mstr_PT_ID"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tumor_dx_STG_GRP">
+    <owl:equivalentProperty rdf:resource="http://example.org/ext/oncology#tnmStageGroup"/>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'tumor_dx.STG_GRP' with range xsd:string.</rdfs:comment>
+    <rdfs:comment xml:lang="en">AJCC stage grouping (e.g., I, II, III, IV) derived from the TNM categories.</rdfs:comment>
+    <skos:altLabel xml:lang="en">STG GRP</skos:altLabel>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tumor_dx/STG_GRP"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TumorDx"/>
+    <rdfs:label xml:lang="en">stage group</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b29">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#lab_heme_LAB_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b91">
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tx_cyc_CYC_ID"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b66">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_LAB_REF"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b49">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_NAUS_GR"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b95">
+    <owl:someValuesFrom rdf:resource="http://example.org/ontology#Rgmn"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tx_cyc_hasRgmn"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b6">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#onc_staff_STAFF_NM"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b75">
+    <rdf:first rdf:resource="http://example.org/ontology#ae_tox_AE_ID"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b17">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#rgmn_RGMN_CD"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b2">
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#onc_staff_STAFF_NM"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b83">
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_hasPT"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/ontology#PtMstr"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b35">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#lab_heme_DRAW_DT"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b57">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_ONSET_DT"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b48">
+    <rdf:first rdf:resource="http://example.org/ontology#pt_mstr_PT_ID"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#tx_cyc_hasDX">
+    <rdfs:comment xml:lang="en">Object property generated from foreign key 'tx_cyc.DX_ID' referencing 'tumor_dx.DX_ID'.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Foreign-key relationship linking the chemotherapy cycle to the cancer diagnosis being treated (tumor_dx.DX_ID).</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://example.org/ontology#TumorDx"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#TxCyc"/>
+    <skos:altLabel xml:lang="en">tx cyc has DX</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/tx_cyc/DX_ID"/>
+    <rdfs:label xml:lang="en">has cancer diagnosis</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b73">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_AE_ID"/>
+    <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ext/clinical#CompleteBloodCount">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">complete blood count</rdfs:label>
+    <rdfs:comment xml:lang="en">Complete blood count (CBC): a blood test measuring white cells (WBC), neutrophils (ANC), haemoglobin (HGB) and platelets (PLT).</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b53">
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_PN_GR"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b45">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#pt_mstr_ECOG_PS"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b89">
+    <owl:onProperty rdf:resource="http://example.org/ontology#tx_cyc_DLY_FLG"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b96">
+    <owl:onProperty rdf:resource="http://example.org/ontology#tx_cyc_DOSE_PCT"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b5">
+    <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#onc_staff_STAFF_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b81">
+    <owl:onProperty rdf:resource="http://example.org/ontology#tumor_dx_MORPH_CD"/>
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#ae_tox_LAB_REF">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:label xml:lang="en">laboratory result reference identifier</rdfs:label>
+    <rdfs:comment xml:lang="en">Data property generated from source column 'ae_tox.LAB_REF' with range xsd:integer.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Identifier of the hematology blood count used to grade bone marrow depression; corresponds to lab_heme.LAB_ID.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <skos:altLabel xml:lang="en">LAB REF</skos:altLabel>
+    <prov:wasDerivedFrom rdf:resource="http://example.org/ontology/provenance/ae_tox/LAB_REF"/>
+    <rdfs:domain rdf:resource="http://example.org/ontology#AeTox"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b9">
+    <owl:someValuesFrom rdf:resource="http://example.org/ontology#TumorDx"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#resp_asmt_hasDX"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b59">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_AE_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b100">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="http://example.org/ontology#tx_cyc_CYC_ID"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b61">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_LAB_REF"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b71">
+    <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_ATTR_CD"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ext/oncology#TumorResponseAssessment">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b94">
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#Rgmn"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#tx_cyc_hasRgmn"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ext/oncology#histologyCode">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#altLabel">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ext/oncology#tnmStageGroup">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <prov:generatedAtTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-11-03T17:59:43.834460+00:00</prov:generatedAtTime>
+    <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b50">
+    <owl:allValuesFrom rdf:resource="http://example.org/ontology#TxCyc"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/ontology#ae_tox_hasCYC"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n71adf11004174a459975bf6d6aa618e5b38">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="http://example.org/ontology#lab_heme_LAB_ID"/>
+  </rdf:Description>
+</rdf:RDF>

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "720627db-ac5d-4699-a845-b485f9b3a29f",
+    "code": "P10",
+    "status": "applied",
+    "choice": "Add selected disjoint axioms",
+    "selected_axioms": [
+      "P10|http://example.org/ontology#AeTox|http://example.org/ontology#LabHeme",
+      "P10|http://example.org/ontology#AeTox|http://example.org/ontology#RespAsmt",
+      "P10|http://example.org/ontology#AeTox|http://example.org/ontology#Rgmn",
+      "P10|http://example.org/ontology#AeTox|http://example.org/ontology#TumorDx",
+      "P10|http://example.org/ontology#AeTox|http://example.org/ontology#TxCyc",
+      "P10|http://example.org/ontology#LabHeme|http://example.org/ontology#RespAsmt",
+      "P10|http://example.org/ontology#LabHeme|http://example.org/ontology#Rgmn",
+      "P10|http://example.org/ontology#LabHeme|http://example.org/ontology#TumorDx",
+      "P10|http://example.org/ontology#LabHeme|http://example.org/ontology#TxCyc",
+      "P10|http://example.org/ontology#RespAsmt|http://example.org/ontology#Rgmn",
+      "P10|http://example.org/ontology#RespAsmt|http://example.org/ontology#TumorDx",
+      "P10|http://example.org/ontology#RespAsmt|http://example.org/ontology#TxCyc",
+      "P10|http://example.org/ontology#Rgmn|http://example.org/ontology#TumorDx",
+      "P10|http://example.org/ontology#Rgmn|http://example.org/ontology#TxCyc",
+      "P10|http://example.org/ontology#TumorDx|http://example.org/ontology#TxCyc"
+    ],
+    "expert_pairs": [
+      "{\"left\": \"http://example.org/ontology#PtMstr\", \"right\": \"http://example.org/ontology#TumorDx\"}",
+      "{\"left\": \"http://example.org/ontology#AeTox\", \"right\": \"http://example.org/ontology#PtMstr\"}"
+    ]
+  }
+]
