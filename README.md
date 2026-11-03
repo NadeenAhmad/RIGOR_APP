@@ -26,7 +26,8 @@ and repair an existing RDF/OWL ontology. It is designed to run **locally for a
 single user**. For the method and evaluation, see the paper linked at the end of
 this README.
 
-## [Demo Video Link](https://youtu.be/hwCA9KRW_fI?si=l7FDF7cJ23IKPuxj)
+## [Demo Video Link](https://youtu.be/REPLACE_WITH_DEMO_VIDEO_ID)
+<!-- TODO: replace the link above with the new demo video. -->
 
 ## Install
 
@@ -71,7 +72,15 @@ falls back to a plain text title.
 python rigor_app.py
 ```
 
-Then open the printed local URL. This app is intended to run **locally for a
+Then open the printed local URL. To run against a local OOPS! server instead
+of the public one (recommended for demos, see *OOPS! service endpoint*):
+
+```bash
+./oops_local/start_oops.sh
+OOPS_ENDPOINT=http://localhost:8080/OOPS/rest python rigor_app.py
+```
+
+This app is intended to run **locally for a
 single user**; it is not hardened for shared multi-user hosting (the API key
 and models are held in session memory, not isolated per user).
 
@@ -87,7 +96,10 @@ and models are held in session memory, not isolated per user).
    percentage indicator. **Stop** returns control immediately; an in-flight
    model call may finish in the background.
 5. If semantic pitfalls remain, review the focused decision cards, approve or
-   reject individual axioms, and click **Apply selected decisions**.
+   reject individual axioms, and click **Apply selected decisions**. For missing
+   disjointness (P10) and equivalence (P30) a card also has a class-pair picker:
+   choose two classes from the ontology and click **Add class pair** to add an
+   axiom the LLM did not suggest (see *Decision cards*).
 6. **Download** the final or reviewed ontology, inspect the validation report,
    expand the Turtle preview, or render the interactive graph.
 
@@ -177,6 +189,25 @@ describe the rest. You can also download the graph as a standalone HTML.
 
 
 
+## Decision cards
+
+When OOPS! reports a pitfall whose fix could change domain meaning, the app
+shows one card per finding (up to five; the rest are listed in the repair
+report). Each card has the evidence (OOPS! scope, LLM assessment, affected
+terms, proposed triples under *Review details*), the LLM-suggested axioms to
+approve individually, and the decision itself. Every accepted change is
+re-validated with HermiT and OOPS! before the reviewed ontology is written.
+
+| Variable | Default | Effect |
+|---|---|---|
+| `RIGOR_PAIR_PICKER` | `1` | Class-pair picker on P10/P30 cards. Set `0` to hide it. |
+| `RIGOR_SIMPLE_DECISIONS` | `0` | Set `1` for a compact view: only the first card, as plain text with at most 8 suggested axioms; the other findings stay unresolved. |
+
+The cards are created fresh for each result. An earlier version revealed
+pre-built hidden cards, which froze Chrome for minutes with Gradio 6.17
+(`RangeError: Set maximum size exceeded` in the console); that no longer
+happens, so the picker is on by default again.
+
 ## Oncology example: the case of `BM_DEP`
 
 `examples/oncology_cancer/` is a fictional legacy oncology database (8 tables)
@@ -194,8 +225,9 @@ what to upload and what to point at in the result.
   properties, and coverage varies by model and by what retrieval surfaces.
 - **Logical consistency** (HermiT/ROBOT) requires **Java on PATH** plus
   `HermiT.jar` and `robot.jar`. If any are missing, the stage is skipped.
-- **OOPS! pitfall detection** uses the public OOPS! service and therefore needs
-  network access; there is no OOPS API key. Deterministic repairs do not require
+- **OOPS! pitfall detection** uses the public OOPS! service by default (network
+  access, no OOPS API key) or a local one from `oops_local/`. If OOPS! is
+  unreachable, runs continue with cached OOPS! results and local checks. Deterministic repairs do not require
   an OpenRouter key, while LLM-assisted proposals do. Repairs that may change
   domain meaning always require user confirmation.
 - Without an **API key**, generation falls back to deterministic Direct Mapping.
@@ -214,7 +246,7 @@ absent; it just skips the part that needs it and logs it.
 | **Documents** | No document retrieval. Enrichment proceeds from the schema (and the seed core ontology, if provided) without extra textual context. |
 | **Seed core ontology** | The run starts from an empty core and builds entirely from the schema — this is the normal case. |
 | **Java / `HermiT.jar` / `robot.jar`** | The logical-consistency stage is **skipped** with a message; the ontology passes through unchanged. (Note: even with the jars, the consistency *repair* loop needs the API key — without a key it can report issues but not fix them.) |
-| **Network access** | **OOPS!** detection falls back to cached OOPS! results and local pitfall checks (it calls a remote service). Any LLM calls also fail, so without network the run behaves much like the no-key case: Direct Mapping, syntax validation, and offline consistency still run. |
+| **Network access** | **OOPS!** detection falls back to cached OOPS! results and local pitfall checks (or use the local OOPS! in `oops_local/`). Any LLM calls also fail, so without network the run behaves much like the no-key case: Direct Mapping, syntax validation, and offline consistency still run. The graph view works offline (vis-network ships in `assets/`). |
 
 In short: with no API key you get a valid deterministic baseline; each optional
 input enables another layer of enrichment, validation, or repair.
@@ -252,6 +284,9 @@ There are two ways to add options, and the list is de-duplicated automatically:
    ))
    ```
 
+The dropdown preselects `google/gemini-3.8-flash` (fast and low-cost); change
+`DEFAULT_UI_MODEL` in `rigor_app.py` to preselect another entry.
+
 Use the exact OpenRouter model string (`provider/model-id`). The dropdown also
 accepts custom values typed at runtime (`allow_custom_value=True`), so you can
 test an id without editing code first.
@@ -288,6 +323,8 @@ All are optional; the app works with sensible defaults.
 | `RIGOR_MODEL` | `deepseek/deepseek-chat` | Default model id. The UI overrides this per run. |
 | `RIGOR_LLM_MAX_TOKENS` | `8000` | Caps the completion tokens reserved per OpenRouter request. Prevents `402` pre-flight rejections caused by reserving a model's full output ceiling. Lower it (e.g. `4096`) to shrink the reservation further on a tight balance. |
 | `RIGOR_DEFAULT_LICENSE` | `https://creativecommons.org/licenses/by/4.0/` | License IRI added to the ontology when the OOPS! stage repairs pitfall **P41** ("no license declared"). Set it to the license that actually applies to your ontology. |
+| `RIGOR_PAIR_PICKER` | `1` | Show the class-pair picker on P10/P30 decision cards (`0` hides it). |
+| `RIGOR_SIMPLE_DECISIONS` | `0` | Compact decision view: first card only (see *Decision cards*). |
 | `RIGOR_VIZ_PALETTE` | _(default palette)_ | Set to `cb` (or `colorblind`) to render the graph with the colorblind-safe Okabe-Ito palette. The legend updates to match. |
 | `OOPS_ENDPOINT` | `https://oops.linkeddata.es/rest` | OOPS! REST service. Override to point at a self-hosted instance; `unset` to fall back to the public one. |
 
@@ -354,11 +391,17 @@ you exported it there), then relaunch.
 
 - Without an API key, generation runs in deterministic Direct-Mapping mode;
   enabled syntax checks, OOPS! detection, and deterministic fixes may still run.
+- The graph is drawn with vis-network, inlined from `assets/vis-network.min.js`,
+  so it renders without internet access (a CDN copy is used only if that file is
+  missing). Property edges show the source column next to the label, e.g.
+  *bone marrow depression grade (BM_DEP)*; properties aligned to an external
+  vocabulary are drawn as pink edges labelled with the vocabulary term; hover any
+  node or edge for its source table/column and IRI.
 - The Turtle preview is shown as plain text (Turtle has no dedicated syntax
   highlighter in the UI's code component).
 - Intermediate artifacts are written to a per-run temp folder for debugging.
-  The previous run's temp folder is cleared when a new run starts, and the whole
-  scratch area is removed when the app exits.
+  Folders older than six hours are cleared when a new run starts (never one that
+  is still in use), and the app removes its own folders when it exits.
 
 ## Contact
 

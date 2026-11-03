@@ -1,0 +1,7 @@
+# Reasoner jars are installed locally (see README), not versioned.
+*.jar
+__pycache__/
+*.pyc
+.venv/
+.gradio/
+.DS_Store
