@@ -458,12 +458,93 @@ def parse_oops_graph(text: str) -> Graph:
     raise RuntimeError("Invalid OOPS response: " + " | ".join(errors))
 
 
+def subproperty_cycle_links(graph: Graph) -> list[tuple[Any, Any]]:
+    """``rdfs:subPropertyOf`` links that lie on a cycle, including ``p rdfs:subPropertyOf p``.
+
+    OOPS!'s P12 check (equivalent properties not explicitly declared) follows
+    sub-property links without remembering the properties it has seen, so a
+    cycle makes the OOPS! server loop until it runs out of memory. It then
+    stops answering later requests too, until it is restarted. Both the
+    public image (mpovedavillalon/oops:v2) and the current source
+    (github.com/oeg-upm/OOPS) do this.
+    """
+    links = sorted(
+        {(s, o) for s, o in graph.subject_objects(RDFS.subPropertyOf) if not isinstance(o, Literal)},
+        key=lambda link: (str(link[0]), str(link[1])),
+    )
+    successors: dict[Any, list[Any]] = defaultdict(list)
+    for s, o in links:
+        successors[s].append(o)
+        successors.setdefault(o, [])
+    # Strongly connected components (iterative Tarjan): a link between two
+    # members of the same component lies on a cycle.
+    index: dict[Any, int] = {}
+    low: dict[Any, int] = {}
+    component: dict[Any, int] = {}
+    stack: list[Any] = []
+    on_stack: set[Any] = set()
+    for root in list(successors):
+        if root in index:
+            continue
+        index[root] = low[root] = len(index)
+        stack.append(root)
+        on_stack.add(root)
+        work = [(root, 0)]
+        while work:
+            node, i = work[-1]
+            children = successors[node]
+            if i < len(children):
+                work[-1] = (node, i + 1)
+                child = children[i]
+                if child not in index:
+                    index[child] = low[child] = len(index)
+                    stack.append(child)
+                    on_stack.add(child)
+                    work.append((child, 0))
+                elif child in on_stack:
+                    low[node] = min(low[node], index[child])
+                continue
+            work.pop()
+            if work:
+                parent = work[-1][0]
+                low[parent] = min(low[parent], low[node])
+            if low[node] == index[node]:
+                while True:
+                    member = stack.pop()
+                    on_stack.discard(member)
+                    component[member] = index[node]
+                    if member == node:
+                        break
+    return [(s, o) for s, o in links if s == o or component[s] == component[o]]
+
+
+def oops_safe_graph(graph: Graph) -> tuple[Graph, list[tuple[Any, Any]]]:
+    """The graph to send to OOPS!, and the sub-property cycle links left out of it.
+
+    Without such cycles this is ``graph`` itself, so the request is unchanged.
+    Otherwise it is a copy without the links on the cycles; the ontology itself
+    is not modified. A property declared a sub-property of itself is reported
+    locally as P24 instead (see ``local_findings``).
+    """
+    links = subproperty_cycle_links(graph)
+    if not links:
+        return graph, []
+    safe = clone_graph(graph)
+    for s, o in links:
+        safe.remove((s, RDFS.subPropertyOf, o))
+    return safe, links
+
+
+_oops_cycle_notes_emitted: set[tuple[tuple[str, str], ...]] = set()
+
+
 def run_oops(graph: Graph) -> Graph:
     """Scan ``graph`` with OOPS!, using the response cache when possible.
 
     Raises ``OopsUnavailable`` when the service fails and nothing is cached.
     """
     global _oops_down_until, _oops_last_error
+    graph, _ = oops_safe_graph(graph)
     request_xml = build_request_xml(graph.serialize(format="xml"))
     key = _oops_cache_key(graph)
     cached = _oops_cache_get(key)
@@ -489,6 +570,17 @@ def run_oops(graph: Graph) -> Graph:
 def run_oops_or_local(graph: Graph, emit=None) -> Graph:
     """Like ``run_oops`` but returns an empty result when OOPS! is unavailable,
     so callers continue with ``local_findings`` alone."""
+    links = subproperty_cycle_links(graph)
+    signature = tuple((str(s), str(o)) for s, o in links)
+    if emit and links and signature not in _oops_cycle_notes_emitted:
+        _oops_cycle_notes_emitted.add(signature)
+        shown = ", ".join(f"{local_name(s)} ⊑ {local_name(o)}" for s, o in links[:5])
+        more = f" and {len(links) - 5} more" if len(links) > 5 else ""
+        emit(
+            f"⚠️ OOPS! cannot analyse rdfs:subPropertyOf cycles (it never finishes), so these links "
+            f"were left out of the copy sent to OOPS!: {shown}{more}. The ontology itself is unchanged; "
+            f"a property declared a sub-property of itself is reported as P24."
+        )
     try:
         return run_oops(graph)
     except OopsUnavailable as exc:
@@ -886,6 +978,11 @@ def local_findings(graph: Graph, levels: Iterable[str]) -> list[Finding]:
         self_inverse = sorted({s for s, o in graph.subject_objects(OWL.inverseOf) if s == o and isinstance(s, URIRef)}, key=str)
         if self_inverse:
             out.append(Finding("P25", "Relationship inverse to itself", "important", affected=[str(x) for x in self_inverse], count=len(self_inverse), source="local"))
+        # OOPS! reports this as P24 too, but it never sees it: oops_safe_graph()
+        # leaves the link out, because the link makes OOPS! loop forever.
+        self_sub = sorted({s for s, o in graph.subject_objects(RDFS.subPropertyOf) if s == o and isinstance(s, URIRef)}, key=str)
+        if self_sub:
+            out.append(Finding("P24", "Using recursive definitions", "important", affected=[str(x) for x in self_sub], count=len(self_sub), source="local"))
         if not any(graph.subjects(RDF.type, OWL.Ontology)):
             out.append(Finding("P38", "No OWL ontology declaration", "important", count=1, source="local"))
         if not _has_license(graph):
@@ -2238,6 +2335,7 @@ def repair_pitfalls(
 ) -> RepairResult:
     if model:
         api_utils.set_model(model)
+    _oops_cycle_notes_emitted.clear()  # name skipped cycle links once per run
     levels = tuple(x.lower() for x in importance_levels)
     out_dir = Path(out_dir or tempfile.mkdtemp(prefix="rigor_oops_"))
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -2498,6 +2596,7 @@ def build_p24_user_candidate(
         # Direct tautological/self-definition triples.
         direct = (
             (target, RDFS.subClassOf, target),
+            (target, RDFS.subPropertyOf, target),
             (target, OWL.equivalentClass, target),
             (target, OWL.equivalentProperty, target),
             (target, OWL.inverseOf, target),
@@ -2603,6 +2702,7 @@ def apply_user_decisions(
     importance_levels: Iterable[str] = DEFAULT_IMPORTANCE_LEVELS,
     progress_cb=None,
 ) -> tuple[Graph, list[dict[str, Any]]]:
+    _oops_cycle_notes_emitted.clear()  # name skipped cycle links once per run
     items = [x if isinstance(x, ReviewItem) else ReviewItem(**x) for x in review_items]
     by_id = {x.id: x for x in items}
     outcomes: list[dict[str, Any]] = []
