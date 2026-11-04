@@ -272,6 +272,12 @@ happens, so the picker is on by default again.
   unreachable, runs continue with cached OOPS! results and local checks. Deterministic repairs do not require
   an OpenRouter key, while LLM-assisted proposals do. Repairs that may change
   domain meaning always require user confirmation.
+- OOPS! cannot analyse `rdfs:subPropertyOf` cycles: they make it run until it
+  runs out of memory, and it then stops answering until restarted. RIGOR
+  therefore leaves those links out of what it sends to OOPS! and names them in
+  the run log; the ontology itself is not changed. A property declared a
+  sub-property of itself is reported as P24 and removed by the P24 repair. A
+  loop of several properties (which makes them equivalent) is only reported.
 - Without an **API key**, generation falls back to deterministic Direct Mapping.
   Syntax checks and deterministic validation/repair stages can still run even if syntax checks are disabled.
 
@@ -410,7 +416,9 @@ The first run downloads about 140 MB. Stop it with `docker rm -f rigor-oops`.
 - After a failure, OOPS! is not retried for `OOPS_COOLDOWN_SECONDS` (300), so an
   outage costs one timeout, not one per repair candidate.
 - Detection falls back to local checks (P11, P25, P26, P34, P35, P38, P39, P41),
-  and their deterministic fixes are verified locally. User-approved decisions
+  and their deterministic fixes are verified locally. A property declared a
+  sub-property of itself is also detected locally (P24); without OOPS! its
+  removal is offered as a decision card. User-approved decisions
   are still checked by HermiT and the structural guards.
 - **Settings → Check OOPS! connection** (also printed at startup) tells you
   whether the live service is reachable.
